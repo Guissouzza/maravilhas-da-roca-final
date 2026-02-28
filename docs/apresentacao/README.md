@@ -17,8 +17,8 @@
 
 ## Slides
 
-Coloque aqui os slides da apresentação
+Coloque aqui os slides da apresentação final.
 
 ## Vídeo
 
-No caso de apresentação gravada, insira aqui o link do vídeo de apresentação.
+Insira o vídeo final sobre a apresentação da solução.
