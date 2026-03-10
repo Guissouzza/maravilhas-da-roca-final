@@ -1,24 +1,24 @@
 # Introdução
 
-A introdução deve apresentar de dois a quatro parágrafos de contextualização do trabalho. Na contextualização, você deve dizer do que se trata o trabalho, em que área ou contexto se insere. A contextualização deve ser desenvolvida de algo mais genérico para algo mais específico.
+O avanço das tecnologias digitais tem transformado a forma como empresas e consumidores se relacionam. Atualmente, a presença online tornou-se eseencial para comerciantes, permitindo ampliar o alcance de seus produtos e facilitar o acesso dos clientes às informações e serviços oferecidos.
+
+Nesse contexto, por meio de um desenvolvimento web, é possível apresentar produtos, disponibilizar informações relevantes e até mesmo realizar transações comerciais de forma prática e acessível.
+
+Dessa forma, o trabalho tem como objetivo realizar o levantamento de requisitos junto a uma comerciante do ramo de produtos naturais, a fim de compreender suas necessidades e propor o desenvolvimento de uma aplicação web que possa auxiliar em seu negócio. A partir das informações coletadas, será desenvolvido um site que funcione como uma vitrine virtual, apresentando os produtos disponíveis, fornecendo informações aos clientes e possibilitando a realização de compras online.
 
 ## Problema
-Nesse momento você deve apresentar o problema que a sua aplicação deve  resolver. No entanto, não é a hora de comentar sobre a aplicação.
 
-Descreva também o contexto em que essa aplicação será usada, se  houver: empresa, tecnologias, etc. Novamente, descreva apenas o que de  fato existir, pois ainda não é a hora de apresentar requisitos  detalhados ou projetos.
+Conforme o levantamento inicial realizado junto à comerciante, foi identificado um problema relacionado à acessibilidade entre o comércio e seus clientes. Atualmente, muitas das informações sobre os produtos disponíveis, como características e disponibilidade, dependem do contato direto com a loja, seja presencialmente ou por meio de redes sociais.
 
-Nesse momento, o grupo pode optar por fazer uso  de ferramentas como Design Thinking, que permite um olhar de ponta a ponta para o problema.
-
-> **Links Úteis**:
-> - [Objetivos, Problema de pesquisa e Justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
-> - [Matriz Certezas, Suposições e Dúvidas](https://medium.com/educa%C3%A7%C3%A3o-fora-da-caixa/matriz-certezas-suposi%C3%A7%C3%B5es-e-d%C3%BAvidas-fa2263633655)
-> - [Brainstorming](https://www.euax.com.br/2018/09/brainstorming/)
+Esse cenário pode dificultar o acesso dos clientes às informações sobre os produtos, especialmente para aqueles que desejam consultar o catálogo ou conhecer melhor os itens disponíveis antes de realizar uma compra. Além disso, a divulgação dos produtos acaba ficando limitada, o que pode reduzir o alcance a novos clientes.
 
 ## Objetivos
 
-Aqui você deve descrever os objetivos do trabalho indicando que o objetivo geral é desenvolver um software para solucionar o problema apresentado acima. 
+Objetivo geral: Desenvolver uma aplicação que melhore a acessibilidae entre comércio e cliente.
 
-Apresente também alguns (pelo menos 2) objetivos específicos dependendo de onde você vai querer concentrar a sua prática investigativa, ou como você vai aprofundar no seu trabalho.
+Objetivos específicos: 
+- Realizar o levantamento de requisitos junto à comerciante para compreender as necessidades do negócio.
+- Criar um site atrativo com informações sobre os produtos, sendo essas características e disponibilidade.
  
 > **Links Úteis**:
 > - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
