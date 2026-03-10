@@ -7,7 +7,10 @@
 
 `SEMESTRE`: 2
 
-Nosso projeto tem como foco desenvolver uma aplicação para um comércio que trabalha com produtos naturais. A ideia é trazer uma acessibilidade maior aos clientes, podendo acessar os produtos a partir desta aplicação, como uma vitrine com compras online. Conforme o levantamento de requisitos, pretendemos desenvolver uma aplicação atrativa, que traga informações dos produtos, com conexão às redes sociais do comércio, entre outras coisas.
+Nosso projeto tem como foco desenvolver uma aplicação para um comércio que trabalha com produtos naturais. A ideia é trazer maior acessibilidade aos clientes, permitindo que eles possam visualizar os produtos por meio da aplicação, funcionando como uma vitrine virtual com possibilidade de compras online.
+
+Com base no levantamento de requisitos realizado com a comerciante, pretendemos desenvolver uma aplicação atrativa que apresente informações sobre os produtos, além de integrar o acesso às redes sociais do comércio e oferecer outras funcionalidades que possam facilitar a interação com os clientes.
+
 
 ## Integrantes
 
