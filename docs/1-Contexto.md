@@ -19,32 +19,18 @@ Objetivo geral: Desenvolver uma aplicação que melhore a acessibilidae entre co
 Objetivos específicos: 
 - Realizar o levantamento de requisitos junto à comerciante para compreender as necessidades do negócio.
 - Criar um site atrativo com informações sobre os produtos, sendo essas características e disponibilidade.
- 
-> **Links Úteis**:
-> - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
 
 ## Justificativa
 
-Descreva a importância ou a motivação para trabalhar com esta aplicação que você escolheu. Indique as razões pelas quais você escolheu seus objetivos específicos ou as razões para aprofundar em certos aspectos do software.
+A escolha deste projeto surgiu a partir da oportunidade de colaborar com um comércio local. Durante o contato com a comerciante e o levantamento inicial de informações, foi possível identificar dificuldades relacionadas à divulgação dos produtos e ao acesso dos clientes às informações do estabelecimento.
 
-O grupo de trabalho pode fazer uso de questionários, entrevistas e dados estatísticos, que podem ser apresentados, com o objetivo de esclarecer detalhes do problema que será abordado pelo grupo. A citação de pesquisas quantitativas é bem aceita aqui (corretamente referenciadas).
+Dessa forma, o desenvolvimento deste trabalho se justifica pela possibilidade de contribuir para a melhoria da comunicação entre o comércio e seus clientes, ampliando a visibilidade dos produtos e facilitando o acesso às informações. Além disso, o projeto permite aplicar os conhecimentos adquiridos durante o curso, principalmente nas áreas de levantamento de requisitos e desenvolvimento de software.
 
-Citar também a ODS escolhida, e como ela se encaixa no trabalho proposto.
-
-> **Links Úteis**:
-> - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
+Este trabalho também se relaciona com os Objetivos de Desenvolvimento Sustentável (ODS), em especial o ODS 8 – Trabalho Decente e Crescimento Econômico.
 
 ## Público-Alvo
 
-Descreva quem serão as pessoas que usarão a sua aplicação indicando os diferentes perfis. O objetivo aqui não é definir quem serão os clientes ou quais serão os papéis dos usuários na aplicação. A ideia é, dentro do possível, conhecer um pouco mais sobre o perfil dos usuários: conhecimentos prévios, relação com a tecnologia, relações hierárquicas, etc.
-
-É importante apresentar separadamente a caracterização do parceiro externo do projeto, descrevendo quem ele é, suas características e contexto, e a caracterização do público atendido por esse parceiro, uma vez que a aplicação considerará esses dois públicos.
-
-> **Links Úteis**:
-> - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)
-> - [Como definir o público alvo](https://exame.com/pme/5-dicas-essenciais-para-definir-o-publico-alvo-do-seu-negocio/)
-> - [Público-alvo: o que é, tipos, como definir seu público e exemplos](https://klickpages.com.br/blog/publico-alvo-o-que-e/)
-> - [Qual a diferença entre público-alvo e persona?](https://rockcontent.com/blog/diferenca-publico-alvo-e-persona/)
+Como parceiro externo, temos a comerciante que começou essa loja de produtos naturais há 6 anos, e com o crescimento do comércio ao decorrer do tempo, notou que seria necessário um site para trazer uma acessibilidade maior aos seus clientes. Clientes esses que, em grande parte idosos, e também pessoas que frequentam academia, gostariam de uma forma mais fácil de ter contato com a loja, para saber informações de cada produto.
 
 ## Vídeo de apresentação do parceiro externo
 
