@@ -50,15 +50,22 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-001| Permitir que o ADM cadastre produtos | ALTA | 
+|RF-002| Permitir que o cliente faça uma compra online   | ALTA |
+|RF-003| Permitir que o cliente acesse um catágolo | MÉDIA |
+|RF-004| Organizar os produtos em ordem alfabética | MÉDIA |
+|RF-005| Permitir que o ADM acesse o estoque do seus produtos | ALTA |
 
 ### Requisitos não Funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
 |RNF-001| O sistema deve ser responsivo para rodar em um dispositivos móvel | MÉDIA | 
-|RNF-002| Deve processar requisições do usuário em no máximo 3s |  BAIXA | 
+|RNF-002| Interface simples, intuitiva e de fácil navegação para todos os perfils de usuários |  ALTA | 
+|RNF-003| Permitir que o site seja atrativo | ALTA |
+|RNF-004| Permitir queo site possue um alto nível de acessibilidade | ALTA | 
+|RNF-005| Processar e exibir informções com atraso máximo de 3 segundos | BAIXO |
+
 
 Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
 
@@ -82,10 +89,14 @@ O projeto está restrito pelos itens apresentados na tabela a seguir.
 |ID| Restrição                                             |
 |--|-------------------------------------------------------|
 |01| O projeto deverá ser entregue até o final do semestre |
-|02| Não pode ser desenvolvido um módulo de backend        |
+|02| O sistema deve ser desenvolvido apenas com o que foi passado em aula |
+|03| O projeto deverá ser desenvolvido apenas pelos integrantes do grupo |
+|04| O sistema deverá ser compatível com dispositivos móveis e computadores |
+|05| O sistema deverá utilizar banco de dados para armazenamento das informações | 
+|06| O projeto deverá ser documentado conforme o modelo exigido pela disciplina |
 
 Enumere as restrições à sua solução. Lembre-se de que as restrições geralmente limitam a solução candidata.
-
+para 
 > **Links Úteis**:
 > - [O que são Requisitos Funcionais e Requisitos Não Funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
 > - [O que são requisitos funcionais e requisitos não funcionais?](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
