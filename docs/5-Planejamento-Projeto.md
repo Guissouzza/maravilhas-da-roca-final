@@ -9,8 +9,8 @@
 ### Sprint 1
 - _Scrum master_: AlunaX
 - Protótipos: AlunoY
-- Testes: AlunoK
-- Documentação: AlunaZ
+- Slides: Aline Vitoria Gomes Costa e Guilherme Henrique Silva de Souza
+- Documentação: Carlos Daniel Tempo Dutra e Victor Oliveira Martins dos Reis
 
 ### Sprint 2
 - _Scrum master_: AlunaY
@@ -24,14 +24,14 @@
 
 ## Sprint 1
 
-Atualizado em: 21/04/2024
+Atualizado em: 13/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Introdução | 01/02/2024     | 07/02/2024 | ✔️    | 05/01/2005      |
-| AlunaZ        | Objetivos    | 03/02/2024     | 10/02/2024 | 📝    |                 |
-| AlunoY        | Histórias de usuário  | 01/01/2024     | 07/01/2005 | ⌛     |                 |
-| AlunoK        | Personas 1  |    01/01/2024        | 12/02/2005 | ❌    |       |
+| Victor     | Contexto/Planejamento | 09/03/2026   | 16/03/2026 | ✔️    | 13/03/2026      |
+| Carlos     | Requisitos/Restrições |  13/03/2026  | 16/03/2026 | ✔️    | 13/03/2026                |
+| Guilherme    | Slides         |       --/03/2026  | --/03/2026 | ⌛    |                 |
+| Aline        | Slides         |       --/03/2026  | --/03/2026 | ❌    |       |
 
 ## Sprint 2
 
@@ -56,5 +56,4 @@ Legenda:
 ## Links Úteis
 > - [11 Passos Essenciais para Implantar Scrum no seu Projeto](https://mindmaster.com.br/scrum-11-passos/)
 > - [Scrum em 9 minutos](https://www.youtube.com/watch?v=XfvQWnRgxG0)
-
 
