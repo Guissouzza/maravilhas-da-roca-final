@@ -64,7 +64,7 @@ As tabelas que se seguem apresentam os requisitos funcionais e não funcionais q
 |RNF-002| Interface simples, intuitiva e de fácil navegação para todos os perfils de usuários |  ALTA | 
 |RNF-003| Permitir que o site seja atrativo | ALTA |
 |RNF-004| Permitir queo site possue um alto nível de acessibilidade | ALTA | 
-|RNF-005| Processar e exibir informções com atraso máximo de 3 segundos | BAIXO |
+|RNF-005| Processar e exibir informações com atraso máximo de 3 segundos | BAIXO |
 
 
 Com base nas Histórias de Usuário, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
