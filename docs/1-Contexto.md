@@ -1,6 +1,6 @@
 # Introdução
 
-O avanço das tecnologias digitais tem transformado a forma como empresas e consumidores se relacionam. Atualmente, a presença online tornou-se eseencial para comerciantes, permitindo ampliar o alcance de seus produtos e facilitar o acesso dos clientes às informações e serviços oferecidos.
+O avanço das tecnologias digitais tem transformado a forma como empresas e consumidores se relacionam. Atualmente, a presença online tornou-se essencial para comerciantes, permitindo ampliar o alcance de seus produtos e facilitar o acesso dos clientes às informações e serviços oferecidos.
 
 Nesse contexto, por meio de um desenvolvimento web, é possível apresentar produtos, disponibilizar informações relevantes e até mesmo realizar transações comerciais de forma prática e acessível.
 
@@ -32,79 +32,7 @@ Este trabalho também se relaciona com os Objetivos de Desenvolvimento Sustentá
 
 Como parceiro externo, temos a comerciante que começou essa loja de produtos naturais há 6 anos, e com o crescimento do comércio ao decorrer do tempo, notou que seria necessário um site para trazer uma acessibilidade maior aos seus clientes. Clientes esses que, em grande parte idosos, e também pessoas que frequentam academia, gostariam de uma forma mais fácil de ter contato com a loja, para saber informações de cada produto.
 
-## Persona 1 – Cliente Idoso
 
-Nome: Maria Aparecida Souza
-Idade: 67 anos
-Profissão: Aposentada
-Localização: Belo Horizonte – MG
-
-Perfil:
-Maria Aparecida é aposentada e procura manter uma alimentação saudável para cuidar da saúde. Ela costuma comprar produtos naturais como chás, grãos e suplementos naturais. No entanto, tem dificuldade em encontrar informações sobre os produtos sem precisar ir até a loja ou perguntar nas redes sociais.
-
-Objetivos:
-
-Encontrar informações claras sobre produtos naturais.
-
-Saber para que serve cada produto e seus benefícios.
-
-Verificar se o produto está disponível antes de ir até a loja.
-
-Dores (problemas):
-
-Dificuldade em usar redes sociais para buscar informações.
-
-Falta de informações organizadas sobre os produtos.
-
-Precisa ir até a loja apenas para tirar dúvidas.
-
-Necessidades:
-
-Um site simples e fácil de navegar.
-
-Informações claras sobre cada produto.
-
-Visualização da disponibilidade dos produtos.
-
-Como o site ajuda:
-O site permitirá que Maria veja os produtos disponíveis, leia suas características e entenda seus benefícios sem precisar sair de casa.
-
-## Persona 2 – Cliente que frequenta academia
-
-Nome: Lucas Henrique Martins
-Idade: 26 anos
-Profissão: Estudante e praticante de musculação
-Localização: Belo Horizonte – MG
-
-Perfil:
-Lucas frequenta academia regularmente e busca melhorar sua alimentação para alcançar melhores resultados nos treinos. Ele costuma consumir produtos naturais como whey protein, pasta de amendoim, granola e suplementos naturais.
-
-Objetivos:
-
-Encontrar rapidamente produtos relacionados à alimentação saudável.
-
-Conhecer as características e benefícios dos produtos.
-
-Verificar se a loja possui determinado item antes de comprar.
-
-Dores (problemas):
-
-Falta de um catálogo online com os produtos.
-
-Precisa mandar mensagens para saber se um produto está disponível.
-
-Dificuldade em comparar produtos e opções.
-
-Necessidades:
-
-Catálogo online organizado.
-
-Informações nutricionais e características dos produtos.
-
-Atualização sobre disponibilidade.
-
-Como o site ajuda:
-O site permitirá que Lucas consulte rapidamente os produtos, veja informações relevantes e saiba se o item está disponível na loja.
 
 ## Vídeo de apresentação do parceiro externo
 
