@@ -26,11 +26,17 @@ A escolha deste projeto surgiu a partir da oportunidade de colaborar com um com�
 
 Dessa forma, o desenvolvimento deste trabalho se justifica pela possibilidade de contribuir para a melhoria da comunicação entre o comércio e seus clientes, ampliando a visibilidade dos produtos e facilitando o acesso às informações. Além disso, o projeto permite aplicar os conhecimentos adquiridos durante o curso, principalmente nas áreas de levantamento de requisitos e desenvolvimento de software.
 
-Este trabalho também se relaciona com os Objetivos de Desenvolvimento Sustentável (ODS), em especial o ODS 8 – Trabalho Decente e Crescimento Econômico.
+Outro aspecto relevante é a digitalização das informações do estabelecimento, permitindo que dados sobre produtos, serviços e formas de contato estejam disponíveis de maneira organizada e acessível em ambiente digital. Essa digitalização contribui para melhorar a gestão das informações do negócio, ampliar os canais de divulgação e facilitar o acesso dos clientes às informações.
+
+Este trabalho também se relaciona com os Objetivos de Desenvolvimento Sustentável (ODS), especialmente o ODS 8 – Trabalho Decente e Crescimento Econômico, que busca promover o crescimento econômico sustentável e apoiar o desenvolvimento de pequenos negócios. Ao propor uma solução digital que melhora a divulgação e o acesso às informações do comércio local.
 
 ## Público-Alvo
 
-Como parceiro externo, temos a comerciante que começou essa loja de produtos naturais há 6 anos, e com o crescimento do comércio ao decorrer do tempo, notou que seria necessário um site para trazer uma acessibilidade maior aos seus clientes. Clientes esses que, em grande parte idosos, e também pessoas que frequentam academia, gostariam de uma forma mais fácil de ter contato com a loja, para saber informações de cada produto.
+Como parceiro externo, temos a comerciante responsável por uma loja de produtos naturais que iniciou suas atividades há cerca de 6 anos. Com o crescimento do comércio ao longo do tempo, surgiu a necessidade da criação de um site para ampliar a acessibilidade das informações para seus clientes.
+
+O público consumidor é composto, em grande parte, por pessoas idosas, que buscam produtos naturais voltados para saúde e bem-estar, além de pessoas que frequentam academias, interessadas em suplementos, produtos integrais e alimentações específicas. Para esses clientes, o site permitirá uma forma mais simples e prática de acessar informações sobre os produtos, formas de contato e funcionamento da loja.
+
+Além dos clientes, os funcionários e a própria comerciante também serão usuários do sistema, utilizando a plataforma para atualizar informações, cadastrar ou editar produtos, disponibilizar descrições e manter os dados da loja organizados e atualizados. Dessa forma, o sistema também auxiliará na gestão e divulgação dos produtos, facilitando a comunicação entre o estabelecimento e seu público.
 
 
 
