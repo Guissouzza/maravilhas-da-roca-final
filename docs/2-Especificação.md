@@ -85,7 +85,7 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`  |
 |----------------------|-----------------------------------|------------------------|
-| Maria Aparecida (Cliente Idosa) | Visualizar se o produto natural está em stock no site | Não dar viagem perdida indo presencialmente até à loja à toa |
+| Maria Aparecida (Cliente Idosa) | Visualizar se o produto natural está em estoque no site | Não dar viagem perdida indo presencialmente até à loja à toa |
 | Maria Aparecida (Cliente Idosa) | Ler descrições claras com os benefícios dos produtos | Saber se o item atende às minhas necessidades de saúde |
 | Maria Aparecida (Cliente Idosa) | Acessar a um catálogo com uma navegação muito simples | Conseguir encontrar os produtos no meu telefone sem precisar de pedir ajuda nas redes sociais |
 | Lucas Henrique (Cliente Academia)| Filtrar o catálogo por categorias (ex: Suplementos) | Encontrar mais rapidamente o meu whey protein e pasta de amendoim |
