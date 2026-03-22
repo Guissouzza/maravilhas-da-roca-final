@@ -42,6 +42,4 @@ Além dos clientes, os funcionários e a própria comerciante também serão usu
 
 ## Vídeo de apresentação do parceiro externo
 
-Inclua o link ou diretamente o vídeo gravado do parceiro externo do projeto. No vídeo, o parceiro deve se apresentar, descrever brevemente a empresa ou contexto em que atua e explicar sua participação no projeto.
-
-Esse registro tem como objetivo contextualizar o cenário da aplicação e evidenciar o vínculo do grupo com o parceiro.
+Link do vídeo: https://drive.google.com/file/d/13Yf2MH4Ha387_-6ByoTY4XGeJKIxUKFo/view?usp=sharing
