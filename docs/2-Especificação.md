@@ -87,12 +87,12 @@ Com base na análise das personas forma identificadas as seguintes histórias de
 |----------------------|-----------------------------------|------------------------|
 | Maria Aparecida (Cliente Idosa) | Visualizar se o produto natural está em stock no site | Não dar viagem perdida indo presencialmente até à loja à toa |
 | Maria Aparecida (Cliente Idosa) | Ler descrições claras com os benefícios dos produtos | Saber se o item atende às minhas necessidades de saúde |
-| Maria Aparecida (Cliente Idosa) | Acessar a um catálogo com uma navegação muito simples | Conseguir encontrar os produtos no meu telemóvel sem precisar de pedir ajuda nas redes sociais |
-| Lucas Henrique (Cliente Academia)| Filtrar o catálogo por categorias (ex: Suplementos) | Encontrar mais rapidamente o meu Whey Protein e pasta de amendoim |
-| Lucas Henrique (Cliente Academia)| Consultar os ingredientes e a informação nutricional | Ter a certeza do que estou a comprar para a minha dieta de treinos |
+| Maria Aparecida (Cliente Idosa) | Acessar a um catálogo com uma navegação muito simples | Conseguir encontrar os produtos no meu telefone sem precisar de pedir ajuda nas redes sociais |
+| Lucas Henrique (Cliente Academia)| Filtrar o catálogo por categorias (ex: Suplementos) | Encontrar mais rapidamente o meu whey protein e pasta de amendoim |
+| Lucas Henrique (Cliente Academia)| Consultar os ingredientes e a informação nutricional | Ter a certeza do que estou comprando para a minha dieta de treinos |
 | Lucas Henrique (Cliente Academia)| Realizar a compra online diretamente pelo sistema | Economizar tempo na minha rotina e não precisar de ir à loja |
 | Comerciante (Administrador) | Cadastrar e editar produtos (fotos, descrições, preços) | Manter a vitrine virtual do meu negócio sempre atualizada |
-| Comerciante (Administrador) | Gerir as vendas realizadas através do site | Poder organizar a separação de pedidos e o stock da loja |
+| Comerciante (Administrador) | Gerir as vendas realizadas através do site | Poder organizar a separação de pedidos e o estoque da loja |
 
 Apresente aqui as histórias de usuário que são relevantes para o projeto de sua solução. As Histórias de Usuário consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuário por contexto, para facilitar consultas recorrentes à essa parte do documento.
 
