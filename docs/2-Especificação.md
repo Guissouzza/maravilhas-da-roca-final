@@ -42,7 +42,7 @@ Informações claras sobre cada produto.
 Visualização da disponibilidade dos produtos.
 
 Como o site ajuda:
-O site permitirá que Maria veja os produtos disponíveis, leia suas características e entenda seus benefícios sem precisar sair de casa.
+A aplicação permitirá que Maria veja os produtos disponíveis, leia suas características e entenda seus benefícios sem precisar sair de casa.
 
 ## Persona 2 – Cliente que frequenta academia
 
