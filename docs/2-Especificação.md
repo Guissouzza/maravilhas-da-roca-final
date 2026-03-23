@@ -84,28 +84,28 @@ Atualização sobre disponibilidade.
 
 ## Persona 3 – Comerciante (Administradora)
 
-[cite_start]**Nome:** Marisa Silva [cite: 13]
+**Nome:** Marisa Silva [cite: 13]
 **Idade:** 45 anos
-[cite_start]**Profissão:** Proprietária da Loja Maravilhas da Roça [cite: 13]
+**Profissão:** Proprietária da Loja Maravilhas da Roça [cite: 13]
 **Localização:** Belo Horizonte – MG
 
 **Perfil:**
-[cite_start]Marisa fundou a Maravilhas da Roça há 6 anos, transformando um pequeno comércio em um negócio que cresceu focando em produtos naturais, "zero química", itens de roça, queijos e suplementação[cite: 2]. [cite_start]Ela já possui parcerias com academias e realiza entregas locais[cite: 3]. [cite_start]Agora, busca profissionalizar sua presença digital para alcançar desde o público da saúde até clientes com doenças específicas em todo o país[cite: 6, 7, 12].
+Marisa fundou a Maravilhas da Roça há 6 anos, transformando um pequeno comércio em um negócio que cresceu focando em produtos naturais, "zero química", itens de roça, queijos e suplementação[cite: 2]. Ela já possui parcerias com academias e realiza entregas locais[cite: 3]. Agora, busca profissionalizar sua presença digital para alcançar desde o público da saúde até clientes com doenças específicas em todo o país[cite: 6, 7, 12].
 
 **Objetivos:**
-* [cite_start]Implementar uma vitrine e loja online com comunicação visual atrativa e colorida[cite: 9].
-* [cite_start]Expandir as vendas para todo o Brasil (exceto produtos perecíveis)[cite: 7].
-* [cite_start]Organizar o catálogo com informações detalhadas e filtros por ordem alfabética[cite: 11].
+* Implementar uma vitrine e loja online com comunicação visual atrativa e colorida[cite: 9].
+* Expandir as vendas para todo o Brasil (exceto produtos perecíveis)[cite: 7].
+* Organizar o catálogo com informações detalhadas e filtros por ordem alfabética[cite: 11].
 
 **Dores (problemas):**
-* [cite_start]Necessidade de centralizar todas as informações necessárias para o cliente em um só lugar[cite: 9].
-* [cite_start]Dependência de processos manuais para vendas que poderiam ser automatizadas via catálogo[cite: 11].
-* [cite_start]Desafio em manter a acessibilidade para seu mix variado de clientes (idosos, atletas e pais)[cite: 5, 6, 10].
+* Necessidade de centralizar todas as informações necessárias para o cliente em um só lugar[cite: 9].
+* Dependência de processos manuais para vendas que poderiam ser automatizadas via catálogo[cite: 11].
+* Desafio em manter a acessibilidade para seu mix variado de clientes (idosos, atletas e pais)[cite: 5, 6, 10].
 
 **Necessidades:**
-* [cite_start]Uma aplicação que una catálogo especificado e vendas online[cite: 11].
-* [cite_start]Conexão direta com as redes sociais, especialmente o Instagram @_maravilhasdaroça[cite: 9, 13].
-* [cite_start]Praticidade na gestão de pedidos e atualização da vitrine virtual[cite: 9].
+* Uma aplicação que una catálogo especificado e vendas online[cite: 11].
+* Conexão direta com as redes sociais, especialmente o Instagram @_maravilhasdaroça[cite: 9, 13].
+* Praticidade na gestão de pedidos e atualização da vitrine virtual[cite: 9].
 
 **Como o site ajuda:**
 A aplicação permitirá que Marisa gerencie seu negócio de forma profissional e escalável. O sistema de filtros e a riqueza de detalhes no catálogo garantirão que o cliente encontre o suplemento ou produto natural ideal com autonomia, facilitando a expansão da loja para o cenário nacional.
