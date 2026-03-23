@@ -44,6 +44,8 @@ Visualização da disponibilidade dos produtos.
 Como o site ajuda:
 A aplicação permitirá que Maria veja os produtos disponíveis, leia suas características e entenda seus benefícios sem precisar sair de casa.
 
+![Persona 1](images/Persona%201.png)
+
 ## Persona 2 – Cliente que frequenta academia
 
 Nome: Lucas Henrique Martins
@@ -78,6 +80,7 @@ Informações nutricionais e características dos produtos.
 
 Atualização sobre disponibilidade.
 
+![Persona 2](images/Persona%202.png)
 
 ## Histórias de Usuários
 
