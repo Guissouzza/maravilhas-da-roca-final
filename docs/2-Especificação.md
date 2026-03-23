@@ -110,7 +110,7 @@ Marisa fundou a Maravilhas da Roça há 6 anos, transformando um pequeno comérc
 **Como o site ajuda:**
 A aplicação permitirá que Marisa gerencie seu negócio de forma profissional e escalável. O sistema de filtros e a riqueza de detalhes no catálogo garantirão que o cliente encontre o suplemento ou produto natural ideal com autonomia, facilitando a expansão da loja para o cenário nacional.
 
-![Persona 1](images/Persona%201.png)
+![Persona 3](images/Persona%203.png)
 
 ## Histórias de Usuários
 
