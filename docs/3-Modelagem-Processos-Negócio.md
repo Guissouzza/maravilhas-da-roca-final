@@ -11,7 +11,7 @@ Já este modelo, representa a atualidade da descoberta e verificação de produt
 
 ### 3.2. Análise dos processos
 
-####Processo de descoberta e verificação
+#### Processo de descoberta e verificação
 Este processo reflete como o cliente tenta interagir com a loja antes de se deslocar fisicamente. Atualmente, ele é caracterizado por uma dependência da ida à loja ou de canais de comunicação síncronos (como o WhatsApp). Os principais problemas encontrados nesse processo são os seguintes:
 
 Gargalo no Atendimento (Comerciante): Como a comerciante precisa pausar suas atividades físicas na loja para responder mensagens de estoque e preço, cria-se um gargalo. A capacidade de resposta é limitada pela disponibilidade humana, o que gera atrasos significativos para o cliente.
@@ -25,7 +25,7 @@ Dependência de Horário Comercial: A descoberta só acontece de fato quando a c
 Analisando todos os problemas, gargalos e ineficiência, os impactos gerados são a experiência do usuário é prejudicada pela incerteza. E para o público idoso, o esforço de se deslocar e não encontrar o produto é um fator de grande insatisfação. Para o negócio, significa perda de oportunidades de venda por falta de uma vitrine 24/7.
 
 
-####Processo de compra presencial
+#### Processo de compra presencial
 O processo de compra presencial, embora funcional, apresenta pontos de retrabalho e lentidão que poderiam ser mitigados com informações prévias.
 
 Retrabalho Informativo: Toda vez que um cliente entra na loja, a comerciante precisa repetir as características e benefícios dos produtos (especialmente para o público de academia e idosos que buscam suplementação). Não há uma fonte de consulta prévia, transformando cada venda em um processo consultivo longo e repetitivo.
