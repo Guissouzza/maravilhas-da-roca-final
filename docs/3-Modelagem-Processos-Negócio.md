@@ -44,8 +44,46 @@ Por fim, os problemas notados se pautam em baixa escalabilidade. A comerciante s
 
 ### 3.3. Descrição geral da proposta (Modelagem TO BE)
 
-Tendo identificado os gargalos dos modelos AS IS, apresentem uma descrição da proposta de solução, buscando maior eficiência com a introdução da tecnologia. Abordem também os limites dessa solução e o seu alinhamento com as estratégias e objetivos do contexto de negócio escolhido. 
+#### Melhorias
+A introdução da tecnologia visa mitigar os gargalos de comunicação e retrabalho. Com o site, a comerciante deixa de ser uma "ponte de dados" para ser uma facilitadora da entrega. As principais melhorias incluem:
 
-Colem aqui os modelos da solução proposta (modelo TO BE) elaborados com o apoio da ferramenta baseada em BPMN utilizada na disciplina.
+Autonomia do Cliente: O catálogo online permite consultas 24/7 de preços, características e disponibilidade.
 
-Cada processo identificado deve ter seu modelo TO-BE específico. Descrevam as oportunidades de melhoria de cada processo da solução proposta.
+Descompressão do Atendimento: Redução drástica de mensagens repetitivas no WhatsApp, permitindo que a comerciante foque na gestão e no atendimento presencial de qualidade.
+
+Assertividade no Deslocamento: O cliente só se desloca à loja com a certeza da existência do produto, otimizando o fluxo de pessoas no estabelecimento físico.
+
+
+#### Limites da Solução
+
+Estoque em Tempo Real: A precisão da disponibilidade depende da atualização manual ou integração simples por parte da comerciante (limite operacional).
+
+Inclusão Digital: Embora facilite para muitos, parte do público idoso ainda pode preferir o contato direto, exigindo que o canal antigo (WhatsApp/Telefone) coexista com o novo.
+Tendo identificado os gargalos dos modelos AS IS, apresentem uma descrição da proposta de solução, buscando maior eficiência com a introdução da tecnologia. Abordem também os limites dessa solução e o seu alinhamento com as estratégias e objetivos do contexto de negócio escolhido.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### Processo de compra
+
+![Processo compra TO BE](images/ProcessoCompraTOBE.png)
+
+O processo de compra presencial torna-se mais ágil, pois o cliente já chega à loja com a decisão tomada ou com o pedido pré-selecionado na vitrine. Com isso, temos as seguintes melhorias:
+
+Redução do Ciclo de Venda: O tempo gasto em "Explicar o produto" é minimizado, pois o cliente já consumiu as informações técnicas no site.
+
+Organização do Atendimento: A comerciante pode se organizar melhor para as retiradas, diminuindo filas e o tempo de espera no balcão.
+
+Foco na Experiência: Com a parte burocrática de "preço e estoque" resolvida, o atendimento presencial pode focar na fidelização e no relacionamento humano, ponto crucial para o público idoso.
+
+
+### Processo de descoberta e verificação
+
+![Processo descoberta e verificação TO BE](images/DescobertaVerificaçãoTOBE.png)
+
+Neste novo modelo, o fluxo de comunicação via redes sociais é substituído prioritariamente pela consulta ao site. Tendo isso, as melhorias esperadas são:
+
+Eliminação do Tempo de Espera: O cliente não precisa mais aguardar a resposta da comerciante para saber se um item está em estoque.
+
+Qualificação da Visita: O processo termina com um cliente muito mais propenso à compra, pois ele já validou suas necessidades digitalmente.
+
+Disponibilidade Integral: A descoberta do comércio local acontece a qualquer momento, independente do horário de abertura da loja física.
+
