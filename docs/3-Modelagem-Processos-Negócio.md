@@ -1,20 +1,43 @@
 ## 3. Modelagem dos Processos de Negócio
 
-
-> **Links Úteis**:
-> - [Modelagem de Processos AS-IS x TO-BE](https://dheka.com.br/modelagem-as-is-to-be/)
-> - [20 Dicas Práticas de Modelagem de Processos](https://dheka.com.br/20-dicas-praticas-de-modelagem-de-processos/)
-
 ### 3.1. Modelagem da situação atual (Modelagem AS IS)
 
-_Apresente uma descrição textual de como os sistemas atuais resolvem o problema que se propõe a resolver.  Caso sua proposta seja inovadora e não existam processos claramente definidos, **apresente como as tarefas que o seu sistema pretende implementar são executadas atualmente**, mesmo que não se utilize tecnologia computacional._
+O modelo de processo a seguir representa a atualidade da compra presencial:
+![Processo compra presencial](images/ProcessoCompraPresencial.png)
 
-Com o tema do projeto definido, escolham alguns processos neste contexto de negócios. Para ilustrar potenciais ganhos com a automatização, imaginem processos manuais, ineficientes e/ou com muitas idas e vindas, gerando, assim, retrabalho.
-Colem aqui os modelos dos processos atuais (modelo AS-IS), elaborados com o apoio da ferramenta baseada em BPMN utilizada na disciplina.
+Já este modelo, representa a atualidade da descoberta e verificação de produtos da loja:
+![Processo descoberta e verificação](images/DescobertaVerificação.png)
+
 
 ### 3.2. Análise dos processos
 
-Analise a situação atual (AS-IS) e identifique, descrevendo de forma fundamentada, os problemas existentes no processo, como gargalos, retrabalho, atrasos, falhas de comunicação e ineficiências, explicando seus impactos.
+####Processo de descoberta e verificação
+Este processo reflete como o cliente tenta interagir com a loja antes de se deslocar fisicamente. Atualmente, ele é caracterizado por uma dependência da ida à loja ou de canais de comunicação síncronos (como o WhatsApp). Os principais problemas encontrados nesse processo são os seguintes:
+
+Gargalo no Atendimento (Comerciante): Como a comerciante precisa pausar suas atividades físicas na loja para responder mensagens de estoque e preço, cria-se um gargalo. A capacidade de resposta é limitada pela disponibilidade humana, o que gera atrasos significativos para o cliente.
+
+Falha de Comunicação e Assimetria de Informação: O cliente não possui autonomia para consultar o catálogo. Se a comerciante estiver ocupada e não responder a tempo, o cliente pode assumir que o produto não existe ou desistir da compra.
+
+Ineficiência por Deslocamento Desnecessário: No cenário onde o cliente decide ir à loja, existe o risco real de o produto não estar disponível. Isso gera frustração e perda de tempo para o cliente, impactando negativamente a fidelização.
+
+Dependência de Horário Comercial: A descoberta só acontece de fato quando a comerciante está ativa nos canais digitais. Fora do horário comercial, o processo fica estagnado.
+
+Analisando todos os problemas, gargalos e ineficiência, os impactos gerados são a experiência do usuário é prejudicada pela incerteza. E para o público idoso, o esforço de se deslocar e não encontrar o produto é um fator de grande insatisfação. Para o negócio, significa perda de oportunidades de venda por falta de uma vitrine 24/7.
+
+
+####Processo de compra presencial
+O processo de compra presencial, embora funcional, apresenta pontos de retrabalho e lentidão que poderiam ser mitigados com informações prévias.
+
+Retrabalho Informativo: Toda vez que um cliente entra na loja, a comerciante precisa repetir as características e benefícios dos produtos (especialmente para o público de academia e idosos que buscam suplementação). Não há uma fonte de consulta prévia, transformando cada venda em um processo consultivo longo e repetitivo.
+
+Lentidão no Atendimento (Seleção e Soma): O fluxo de "Verificar disponibilidade", "Buscar nas prateleiras" e "Calcular valor" é feito de forma sequencial e manual enquanto o cliente espera. Em momentos de maior movimento, isso gera filas e desconforto.
+
+Falta de Registro de Dados de Interesse: No processo atual, se um cliente entra, pergunta e não compra (conforme o gateway "Deseja comprar? -> Não"), essa informação é perdida. Não há rastro do que os clientes estão buscando mas não encontrando.
+
+Processo Síncrono e Limitado: O fechamento da venda depende exclusivamente da presença física e da interação imediata. Não há como o cliente "adiantar" a escolha ou o pedido.
+
+Por fim, os problemas notados se pautam em baixa escalabilidade. A comerciante só consegue atender um número limitado de pessoas por hora devido à natureza manual da seleção e explicação dos produtos. Além disso, a falta de autonomia do cliente gera um tempo de permanência em loja maior do que o necessário apenas para a transação financeira.
+
 
 ### 3.3. Descrição geral da proposta (Modelagem TO BE)
 
