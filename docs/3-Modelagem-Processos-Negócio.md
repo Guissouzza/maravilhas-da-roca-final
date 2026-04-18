@@ -9,6 +9,7 @@ Já este modelo, representa a atualidade da descoberta e verificação de produt
 ![Processo descoberta e verificação](images/DescobertaVerificação.png)
 
 
+
 ### 3.2. Análise dos processos
 
 #### Processo de descoberta e verificação
@@ -24,6 +25,7 @@ Dependência de Horário Comercial: A descoberta só acontece de fato quando a c
 
 Analisando todos os problemas, gargalos e ineficiência, os impactos gerados são a experiência do usuário é prejudicada pela incerteza. E para o público idoso, o esforço de se deslocar e não encontrar o produto é um fator de grande insatisfação. Para o negócio, significa perda de oportunidades de venda por falta de uma vitrine 24/7.
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #### Processo de compra presencial
 O processo de compra presencial, embora funcional, apresenta pontos de retrabalho e lentidão que poderiam ser mitigados com informações prévias.
@@ -37,6 +39,7 @@ Falta de Registro de Dados de Interesse: No processo atual, se um cliente entra,
 Processo Síncrono e Limitado: O fechamento da venda depende exclusivamente da presença física e da interação imediata. Não há como o cliente "adiantar" a escolha ou o pedido.
 
 Por fim, os problemas notados se pautam em baixa escalabilidade. A comerciante só consegue atender um número limitado de pessoas por hora devido à natureza manual da seleção e explicação dos produtos. Além disso, a falta de autonomia do cliente gera um tempo de permanência em loja maior do que o necessário apenas para a transação financeira.
+
 
 
 ### 3.3. Descrição geral da proposta (Modelagem TO BE)
