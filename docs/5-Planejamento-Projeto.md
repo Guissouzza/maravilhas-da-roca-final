@@ -7,14 +7,14 @@
 > Apresente a divisão de papéis entre os membros do grupo em cada sprint. O desejável é que, em cada sprint, o aluno assuma papéis diferentes na disciplina. Siga o modelo do exemplo abaixo:
 
 ### Sprint 1
-- _Scrum master_: AlunaX
-- Protótipos: AlunoY
+- _Scrum master_: Guilherme Henrique
+- Protótipos: Aline Vitória
 - Slides: Aline Vitoria Gomes Costa e Guilherme Henrique Silva de Souza
 - Documentação: Carlos Daniel Tempo Dutra e Victor Oliveira Martins dos Reis
 
 ### Sprint 2
-- _Scrum master_: AlunaY
-- Desenvolvedor _front-end_: AlunoX
+- _Scrum master_: Guilherme
+- Desenvolvedor _front-end_: Aine Vitória, João Victor
 - Desenvolvedor _back-end_: AlunoK
 - Testes: AlunaZ
 
@@ -30,8 +30,8 @@ Atualizado em: 13/03/2026
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
 | Victor     | Contexto/Planejamento | 09/03/2026   | 16/03/2026 | ✔️    | 13/03/2026      |
 | Carlos     | Requisitos/Restrições |  13/03/2026  | 16/03/2026 | ✔️    | 13/03/2026                |
-| Guilherme    | Slides         |       --/03/2026  | --/03/2026 | ⌛    |                 |
-| Aline        | Slides         |       --/03/2026  | --/03/2026 | ❌    |       |
+| Guilherme    | Slides         |       --/03/2026  | --/03/2026 | ✔️    |                 |
+| Aline        | Slides         |       --/03/2026  | --/03/2026 | ✔️    |       |
 
 ## Sprint 2
 
