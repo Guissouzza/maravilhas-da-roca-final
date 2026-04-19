@@ -39,10 +39,10 @@ Atualizado em: 21/04/2024
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Aline         | Preenchimento Github        | 01/02/2024     | 19/04/2026 | ✔️    |19/04/2026       |
-| Guilherme     | Preenchimento Github    | 19/04/2026    | 19/04/2026 | ✔️   |         19/04/2026          |
-| Aline         | Slide  | 19/04/2026     | 19/04/2026 |  ✔️ |       16/03/2026     | 19/04/2026  
-| Guilherme     | Modelo AS IS / Modelo To Be  |  19/04/2026    |19/04/2026 | ✔️    |  19/04/2026       |
+| Aline         | Preenchimento Github         | 01/02/2024     | 19/04/2026 | ✔️    |19/04/2026       |
+| Guilherme     | Preenchimento Github         | 19/04/2026     | 19/04/2026 | ✔️    |         19/04/202   |
+| Aline         | Slide                        | 19/04/2026     | 19/04/2026 |  ✔️   |    19/04/2026        | 
+| Guilherme     | Modelo AS IS / Modelo To Be  |  19/04/2026    |19/04/2026  | ✔️    |  19/04/2026       |
 
 
 Legenda:
