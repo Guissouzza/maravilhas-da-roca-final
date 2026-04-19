@@ -39,10 +39,10 @@ Atualizado em: 21/04/2024
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Home-Page        | 01/02/2024     | 07/03/2024 | ✔️    | 05/01/2005      |
-| AlunaZ        | CSS Unificado    | 03/02/2024     | 10/03/2024 | 📝    |                 |
-| AlunoY        | Página de login  | 01/02/2024     | 07/03/2024 | ⌛     |                 |
-| AlunoK        | Script de login  |  01/01/2024    | 12/03/2024 | ❌    |       |
+| Aline         | Preenchimento Github        | 01/02/2024     | 07/03/2024 | ✔️    |19/04/2026       |
+| Guilherme     | Preenchimento Github    | 19/04/2026    | 10/03/2024 | ✔️   |         19/04/2026          |
+| Aline         | Slide  | 19/04/2026     | 19/04/2026 | ⌛     |    ✔️             |19/04/2026  
+| Guilherme     | Modelo AS IS / Modelo To Be  |  19/04/2026    | 12/03/2024 | ✔️    |  19/04/2026       |
 
 
 Legenda:
