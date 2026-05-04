@@ -20,6 +20,7 @@ Com base no levantamento de requisitos realizado com a comerciante, pretendemos 
 * João Victor Felix Barbosa
 * Victor Oliveira Martins dos Reis
 * Vitor Ribeiro Lacerda
+* Bruno Marinho da Silva
 
 ## Orientador
 
