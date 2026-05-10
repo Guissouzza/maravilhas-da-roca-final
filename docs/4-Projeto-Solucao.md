@@ -51,8 +51,9 @@ _Apresente o modelo de dados por meio de um modelo relacional que contemple todo
 
 #### 4.4.1 Modelo ER
 
-O Modelo ER representa (através de um diagrama como as entidades) se relacionam entre si na aplicação em que estamos desenvolvendo para a empresa Maravilhas da Roça:
-![Modelo entidade relacionamento](img/MER..png)
+O Modelo ER representa (através de um diagrama como as entidades) se relacionam entre si na aplicação em que estamos desenvolvendo para a empresa Maravilhas da Roça.
+
+![Modelo entidade relacionamento](images/MER..png)
 
 
 #### 4.4.2 Esquema Relacional
