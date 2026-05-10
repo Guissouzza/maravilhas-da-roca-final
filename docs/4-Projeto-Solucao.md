@@ -31,12 +31,16 @@ Função: Exibição de todos os produtos cadastrados no banco de dados. Buscand
 Função: Apresentar descrição técnica, benefícios e disponibilidade em tempo real.
 
 #### Carrinho de Compras e Finalização de Pedido:
-![Carrinho de compras](images/.png)
+![Carrinho de compras](images/Prototipocarrinho.png)
 Função: Revisão dos itens selecionados.
 
 #### Pagamento e Confirmação:
 ![Pagamento](images/Prototipopagamento.png)
-Função: Interface para análise de pagamentso e geração de instruções para retirada ou entrega.
+Função: Interface para análise de pagamentos.
+
+#### Reserva:
+![Reserva](images/protótiporetidaloja.png.png)
+Função: Interface para instruções para retirada ou entrega.
 
 #### Área de Pedidos (Cliente):
 ![Pedidos](images/.png)
