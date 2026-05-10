@@ -42,6 +42,10 @@ Função: Interface para análise de pagamentso e geração de instruções para
 ![Pedidos](images/.png)
 Função: Histórico para o usuário acompanhar suas reservas e status de prontidão
 
+#### Favoritos:
+![Favoritos](images/telafavorito.png)
+Função: Página de armazenamento de produtos favoritos.
+
 #### Painel Administrativo (Gestão):
 ![Adição, edição e exclusão de produtos](images/.png)
 Cadastro, Edição e Exclusão de Itens: Interface intuitiva para a comerciante manter o estoque atualizado.
