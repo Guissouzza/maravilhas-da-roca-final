@@ -35,7 +35,7 @@ Função: Apresentar descrição técnica, benefícios e disponibilidade em temp
 Função: Revisão dos itens selecionados.
 
 #### Pagamento e Confirmação:
-![Pagamento](images/prototipopagamento.png)
+![Pagamento](images/Prototipopagamento.png)
 Função: Interface para análise de pagamentso e geração de instruções para retirada ou entrega.
 
 #### Área de Pedidos (Cliente):
