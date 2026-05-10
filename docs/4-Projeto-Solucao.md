@@ -53,7 +53,7 @@ Função: Histórico para o usuário acompanhar suas reservas e status de pronti
 Função: Página de armazenamento de produtos favoritos.
 
 #### Painel Administrativo (Gestão):
-![Adição, edição e exclusão de produtos](images/.png)
+![Cadastro](images/cadastro_produtos.png)
 Cadastro, Edição e Exclusão de Itens: Interface intuitiva para a comerciante manter o estoque atualizado.
 
 ![Gerenciamento vendas/financeiro](images/Prototipogerenciamentovendas-financeiro.png)
@@ -65,9 +65,6 @@ Gerenciamento Financeiro e Cadastrar Compra: Dashboards simples para controle de
 ![Cadastro](images/Prototipocadastro.png)
 Função: Identificação do usuário para garantir a segurança das reservas e personalização do atendimento.
 
-#### Cadastro de Produtos:
-![Cadastro](images/cadastro_produtos.png)
-Função: Permitir o registro rápido e organizado de novos produtos.
 
 
 
