@@ -62,18 +62,13 @@ Gerenciamento Financeiro e Cadastrar Compra: Dashboards simples para controle de
 ![Cadastro](images/Prototipocadastro.png)
 Função: Identificação do usuário para garantir a segurança das reservas e personalização do atendimento.
 
-
-
+#### Cadastro de Produtos:
+![Cadastro](images/cadastro_produtos.png)
+Função: Permitir o registro rápido e organizado de novos produtos.
 
 
 ## 4.3. Diagrama de Classes
-
-O diagrama de classes ilustra graficamente como será a estrutura do software, e como cada uma das classes da sua estrutura estarão interligadas. Essas classes servem de modelo para materializar os objetos que executarão na memória.
-
-As referências abaixo irão auxiliá-lo na geração do artefato “Diagrama de Classes”.
-
-> - [Diagramas de Classes - Documentação da IBM](https://www.ibm.com/docs/pt-br/rational-soft-arch/9.6.1?topic=diagrams-class)
-> - [O que é um diagrama de classe UML? | Lucidchart](https://www.lucidchart.com/pages/pt/o-que-e-diagrama-de-classe-uml)
+> - [Diagramas de Classes](images/diagrama_classes.png)
 
 ### 4.4. Modelo de dados
 
