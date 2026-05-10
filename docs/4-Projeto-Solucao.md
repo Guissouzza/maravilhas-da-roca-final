@@ -23,15 +23,15 @@ A partir das atividades de usuário identificadas na seção anterior, elabore o
 ![Exemplo de Wireframe](images/wireframe-example.png)
 
 ![Home](images/.png)
-![Página de produto](images/Prototipo pagina produto.png)
+![Página de produto](images/Prototipopaginaproduto.png)
 ![Carrinho de compras](images/.png)
 ![Pagamento](images/.png)
 ![Pedidos](images/.png)
 ![Adição, edição e exclusão de produtos](images/.png)
-![Login](images/Prototipo login.png)
-![Cadastro](images/Prototipo cadastro.png)
-![Cadastro venda](images/Prototipo cadastro venda.png)
-![Gerenciamento vendas/financeiro](images/Prototipo gerenciamento vendas-financeiro.png)
+![Login](images/Prototipologin.png)
+![Cadastro](images/Prototipocadastro.png)
+![Cadastro venda](images/Prototipocadastrovenda.png)
+![Gerenciamento vendas/financeiro](images/Prototipogerenciamentovendas-financeiro.png)
 
 
 ## 4.3. Diagrama de Classes
