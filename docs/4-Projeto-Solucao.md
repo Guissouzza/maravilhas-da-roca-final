@@ -20,7 +20,6 @@
 Visão geral da interação do usuário pelas telas do sistema e protótipo interativo das telas com as funcionalidades que fazem parte do sistema (wireframes).
 Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada de forma a atender os requisitos funcionais, não funcionais e histórias de usuário abordados nas <a href="02-Especificação do Projeto.md"> Especificação do Projeto</a>.
 A partir das atividades de usuário identificadas na seção anterior, elabore o protótipo de tela de cada uma delas.
-![Exemplo de Wireframe](images/wireframe-example.png)
 
 #### Home (Vitrine Dinâmica):
 ![Home](images/.png)
@@ -39,7 +38,7 @@ Função: Revisão dos itens selecionados.
 Função: Interface para análise de pagamentos.
 
 #### Reserva:
-![Reserva](images/protótiporetidaloja.png.png)
+![Reserva](images/protótiporetidaloja.png)
 Função: Interface para instruções para retirada ou entrega.
 
 #### Área de Pedidos (Cliente):
