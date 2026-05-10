@@ -3,18 +3,21 @@
 <span style="color:red">Pré-requisitos: <a href="03-Modelagem do Processo de Negocio.md"> Modelagem do Processo de Negocio</a></span>
 
 ## 4.1. Arquitetura da solução
+A solução utiliza uma arquitetura Web Multi-Camadas, separando a interface do utilizador, a lógica de processamento e o armazenamento de dados para garantir escalabilidade e facilidade de manutenção.
 
+[Arquitetura da solução](images/Arquitetura.drawio.png)
 
-......  COLOQUE AQUI O SEU TEXTO E O DIAGRAMA DE ARQUITETURA .......
+### Módulos e Tecnologias
+Front-end (Interface): Desenvolvido com HTML5, CSS3 e JavaScript, focado em acessibilidade para o público idoso e agilidade para o público fitness. Inclui a vitrine virtual e o painel administrativo (CRUD).
 
- Inclua um diagrama da solução e descreva os módulos e as tecnologias
- que fazem parte da solução. Discorra sobre o diagrama.
+Back-end (Lógica): Atua como uma API que gere o processamento de pedidos, validação de stock e integração com WhatsApp para notificações de prontidão.
+
+Dados (Persistência): Utiliza um SGBD Relacional (SQL) para armazenar informações de clientes, produtos, stock e histórico financeiro com total integridade.
+
+### Descrição do Diagrama
+O diagrama ilustra o fluxo de dados entre os utilizadores e o sistema. O Cliente e a Comerciante interagem com a interface web, que comunica com a API para realizar operações no Banco de Dados. Este modelo resolve a falha de comunicação do processo anterior, garantindo que o stock visível no site seja o real e que a gestão financeira da loja seja automatizada e centralizada.
+
  
- **Exemplo do diagrama de Arquitetura**:
- 
- ![Exemplo de Arquitetura](./images/arquitetura-exemplo.png)
- 
-
 ### 4.2. Protótipos de telas
 
 Visão geral da interação do usuário pelas telas do sistema e protótipo interativo das telas com as funcionalidades que fazem parte do sistema (wireframes).
