@@ -22,27 +22,27 @@ Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada
 A partir das atividades de usuário identificadas na seção anterior, elabore o protótipo de tela de cada uma delas.
 ![Exemplo de Wireframe](images/wireframe-example.png)
 
-####Home (Vitrine Dinâmica):
+#### Home (Vitrine Dinâmica):
 ![Home](images/.png)
 Função: Exibição de todos os produtos cadastrados no banco de dados. Buscando atender aos requisitos de acessibilidade e busca rápida.
 
-####Página de Produto (Detalhes):
+#### Página de Produto (Detalhes):
 ![Página de produto](images/Prototipopaginaproduto.png)
 Função: Apresentar descrição técnica, benefícios e disponibilidade em tempo real.
 
-####Carrinho de Compras e Finalização de Pedido:
+#### Carrinho de Compras e Finalização de Pedido:
 ![Carrinho de compras](images/.png)
 Função: Revisão dos itens selecionados.
 
-####Pagamento e Confirmação:
+#### Pagamento e Confirmação:
 ![Pagamento](images/.png)
 Função: Interface para análise de pagamentso e geração de instruções para retirada ou entrega.
 
-####Área de Pedidos (Cliente):
+#### Área de Pedidos (Cliente):
 ![Pedidos](images/.png)
 Função: Histórico para o usuário acompanhar suas reservas e status de prontidão
 
-####Painel Administrativo (Gestão):
+#### Painel Administrativo (Gestão):
 ![Adição, edição e exclusão de produtos](images/.png)
 Cadastro, Edição e Exclusão de Itens: Interface intuitiva para a comerciante manter o estoque atualizado.
 
@@ -50,7 +50,7 @@ Cadastro, Edição e Exclusão de Itens: Interface intuitiva para a comerciante 
 ![Cadastro venda](images/Prototipocadastrovenda.png)
 Gerenciamento Financeiro e Cadastrar Compra: Dashboards simples para controle de faturamento e registro de vendas, eliminando a dependência de anotações em papel.
 
-####Cadastro e Login:
+#### Cadastro e Login:
 ![Login](images/Prototipologin.png)
 ![Cadastro](images/Prototipocadastro.png)
 Função: Identificação do usuário para garantir a segurança das reservas e personalização do atendimento.
