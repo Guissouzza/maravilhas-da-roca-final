@@ -17,9 +17,9 @@ Dados (Persistência): Utiliza um SGBD Relacional (SQL) para armazenar informaç
 ### Descrição do Diagrama
 O diagrama ilustra o fluxo de dados entre os utilizadores e o sistema. O Cliente e a Comerciante interagem com a interface web, que comunica com a API para realizar operações no Banco de Dados. Este modelo resolve a falha de comunicação do processo anterior, garantindo que o stock visível no site seja o real e que a gestão financeira da loja seja automatizada e centralizada.
 
+
  
 ### 4.2. Protótipos de telas
-
 Visão geral da interação do usuário pelas telas do sistema e protótipo interativo das telas com as funcionalidades que fazem parte do sistema (wireframes).
 Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada de forma a atender os requisitos funcionais, não funcionais e histórias de usuário abordados nas <a href="02-Especificação do Projeto.md"> Especificação do Projeto</a>.
 A partir das atividades de usuário identificadas na seção anterior, elabore o protótipo de tela de cada uma delas.
@@ -70,8 +70,11 @@ Função: Identificação do usuário para garantir a segurança das reservas e 
 Função: Permitir o registro rápido e organizado de novos produtos.
 
 
+
 ## 4.3. Diagrama de Classes
 ![Diagramas de Classes](images/diagrama_classes.png)
+
+
 
 ### 4.4. Modelo de dados
 
@@ -135,6 +138,8 @@ FOREIGN KEY (ProCodigo) REFERENCES Produto(ProCodigo)
 );
 
 </code>
+
+
 
 ### 4.5. Tecnologias
 
