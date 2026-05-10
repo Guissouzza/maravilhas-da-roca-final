@@ -68,7 +68,7 @@ Função: Permitir o registro rápido e organizado de novos produtos.
 
 
 ## 4.3. Diagrama de Classes
-> - [Diagramas de Classes](images/diagrama_classes.png)
+![Diagramas de Classes](images/diagrama_classes.png)
 
 ### 4.4. Modelo de dados
 
