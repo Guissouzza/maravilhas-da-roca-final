@@ -25,7 +25,7 @@ Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada
 A partir das atividades de usuário identificadas na seção anterior, elabore o protótipo de tela de cada uma delas.
 
 #### Home (Vitrine Dinâmica):
-![Home](images/.png)
+![Home](images/Prototipohome-page.png)
 Função: Exibição de todos os produtos cadastrados no banco de dados. Buscando atender aos requisitos de acessibilidade e busca rápida.
 
 #### Página de Produto (Detalhes):
