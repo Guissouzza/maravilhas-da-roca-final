@@ -140,15 +140,58 @@ FOREIGN KEY (ProCodigo) REFERENCES Produto(ProCodigo)
 
 ### 4.5. Tecnologias
 
-_Descreva qual(is) tecnologias você vai usar para resolver o seu problema, ou seja, implementar a sua solução. Liste todas as tecnologias envolvidas, linguagens a serem utilizadas, serviços web, frameworks, bibliotecas, IDEs de desenvolvimento, e ferramentas._
+Para a implementação da solução Maravilhas da Roça, optamos por uma stack tecnológica moderna focada em performance, segurança de dados e facilidade de manutenção. A escolha do ecossistema JavaScript/TypeScript permite uma integração fluida entre o front-end e o back-end.
 
-Apresente também uma figura explicando como as tecnologias estão relacionadas ou como uma interação do usuário com o sistema vai ser conduzida, por onde ela passa até retornar uma resposta ao usuário.
+#### Tecnologias Envolvidas:
+
+##### Linguagens de Programação:
+
+TypeScript: Utilizado em todo o projeto para adicionar tipagem estática ao JavaScript, reduzindo erros em tempo de desenvolvimento e melhorando a documentação do código.
+
+Front-end (Interface):
+
+Vue.js (Versão 3): Framework progressivo para a criação de interfaces reativas e modulares.
+
+Vite: Ferramenta de build que proporciona um ambiente de desenvolvimento ultra-rápido.
+
+Tailwind CSS: Framework utilitário para estilização, garantindo um design responsivo, padronizado e acessível (focado no público idoso e fitness).
+
+Back-end (Servidor):
+
+Node.js & Express.js: Framework minimalista e rápido para a criação da API REST que gerencia as regras de negócio e a comunicação com o banco de dados.
+
+Zod: Biblioteca de declaração e validação de esquemas, utilizada para garantir que os dados recebidos pela API estejam no formato correto antes de serem processados.
+
+##### Banco de Dados (SGBD):
+
+MySQL: Sistema de gerenciamento de banco de dados relacional escolhido pela sua robustez e confiabilidade na gestão de estoques e registros de vendas.
+
+##### Ferramentas e IDEs:
+
+Visual Studio Code (VS Code): Ambiente de desenvolvimento principal.
+
+Git & GitHub: Para controle de versionamento e colaboração da equipe.
+
+Figma: Para o design dos protótipos de interface (Wireframes).
+
+Draw.io: Para a modelagem de diagramas (Arquitetura, Classes e DER).
+
+Serviços de Deploy:
+
+Vercel: Hospedagem da interface (Front-end).
+
+Render: Hospedagem do servidor e API (Back-end).
 
 
-| **Dimensão**   | **Tecnologia**  |
-| ---            | ---             |
-| SGBD           | MySQL           |
-| Front end      | HTML+CSS+JS     |
-| Back end       | Java SpringBoot |
-| Deploy         | Github Pages    |
+#### Fluxo de Interação do Usuário
+A interação do usuário com o sistema segue o modelo Client-Server. Abaixo, descrevemos o ciclo de uma requisição (ex: realizar uma reserva):
 
+Interface (Vue.js + Tailwind): O usuário seleciona um produto e clica em "Reservar". O Front-end valida localmente os campos básicos.
+
+Validação de Saída (Zod + TS): Antes de enviar, o TypeScript garante a estrutura do objeto. O sistema faz uma requisição HTTP (JSON) para o servidor.
+
+Processamento (Express.js): O servidor recebe a requisição. A biblioteca Zod valida se os dados (ID do produto, quantidade, cliente) são verídicos e seguros.
+
+Persistência (MySQL): O Express executa uma query ao banco de dados para verificar o estoque real e registrar a reserva.
+
+Resposta: O banco confirma a operação, o Express envia um status de sucesso (200 OK) para o front-end, que atualiza a tela do usuário confirmando a reserva.
