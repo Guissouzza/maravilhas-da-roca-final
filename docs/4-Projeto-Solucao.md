@@ -99,11 +99,23 @@ O Esquema Relacional corresponde à representação dos dados em tabelas juntame
 
 <code>
 
+-- Criação da tabela Usuario
+CREATE TABLE Usuario (
+UsuCodigo INTEGER PRIMARY KEY, 
+UsuNome VARCHAR(100), 
+UsuLogin VARCHAR(50) UNIQUE,
+UsuSenha VARCHAR(255),
+UsuEmail VARCHAR(100),
+UsuTipo VARCHAR(20)
+);
+
 -- Criação da tabela Cliente
 CREATE TABLE Cliente (
 CliCodigo INTEGER PRIMARY KEY,
 CliNome VARCHAR(100),
-CliTelefone VARCHAR(20)
+CliTelefone VARCHAR(20),
+UsuCodigo INTEGER,
+FOREIGN KEY (UsuCodigo) REFERENCES Usuario(UsuCodigo)
 );
 
 -- Criação da tabela Produto
