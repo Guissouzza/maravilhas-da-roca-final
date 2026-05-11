@@ -45,7 +45,7 @@ Função: Interface para análise de pagamentos.
 Função: Interface para instruções para retirada ou entrega.
 
 #### Área de Pedidos (Cliente):
-![Pedidos](images/.png)
+![Pedidos](images/pedidos.png)
 Função: Histórico para o usuário acompanhar suas reservas e status de prontidão
 
 #### Favoritos:
