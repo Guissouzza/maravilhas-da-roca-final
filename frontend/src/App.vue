@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white">
-    
+
     <h1 class="text-4xl font-bold text-green-400 mb-6">
       Hello World Vue 🚀
     </h1>
