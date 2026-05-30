@@ -1,26 +1,15 @@
 <template>
-  <div class="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white">
+  <div class="min-h-screen bg-roca-bg">
+    <Header />
     
-    <h1 class="text-4xl font-bold text-green-400 mb-6">
-      Hello World Vue 🚀
-    </h1>
-
-    <p class="text-gray-300 mb-4">
-      Tailwind funcionando corretamente
-    </p>
-
-    <button
-      class="px-6 py-2 bg-green-500 hover:bg-green-600 rounded-lg transition"
-      @click="count++"
-    >
-      Clique aqui: {{ count }}
-    </button>
-
+    <main>
+      <Favoritos />
+    </main>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-const count = ref(0);
+// Importa os dois componentes corretamente
+import Header from './components/Header.vue'
+import Favoritos from './components/favoritos.vue'
 </script>
