@@ -63,3 +63,16 @@ router.delete('/:favCodigo', async (req, res) => {
 });
 
 module.exports = router;
+
+router.delete('/:usuCodigo/:proCodigo', async (req, res) => {
+  try {
+    const { usuCodigo, proCodigo } = req.params;
+    const sql = 'DELETE FROM Favoritos WHERE UsuCodigo = ? AND ProCodigo = ?';
+    
+    await conexao.query(sql, [usuCodigo, proCodigo]);
+    res.status(200).json({ mensagem: 'Produto removido dos favoritos com sucesso!' });
+  } catch (erro) {
+    console.error('Erro ao remover favorito:', erro);
+    res.status(500).json({ erro: 'Erro ao remover dos favoritos.' });
+  }
+});
