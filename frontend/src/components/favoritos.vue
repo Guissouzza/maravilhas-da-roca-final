@@ -54,7 +54,7 @@ const carregando = ref(true);
 
 const buscarFavoritos = async () => {
   try {
-    const resposta = await fetch('https://favoritos-maravilhas-da-roca.onrender.com');
+    const resposta = await fetch('https://favoritos-maravilhas-da-roca.onrender.com/api/favoritos/1');
     if (resposta.ok) {
       favoritos.value = await resposta.json();
     }
@@ -73,7 +73,7 @@ const removerFavorito = async (proCodigo) => {
   if (!confirm('Deseja mesmo remover dos favoritos?')) return;
 
   try {
-    const resposta = await fetch(`http://localhost:3000/api/favoritos/1/${proCodigo}`, {
+    const resposta = await fetch(`https://favoritos-maravilhas-da-roca.onrender.com/api/favoritos/1/${proCodigo}`, {
       method: 'DELETE',
     });
 

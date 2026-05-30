@@ -8,7 +8,6 @@ const FavoritoSchema = z.object({
   ProCodigo: z.number({ required_error: "O código do produto é obrigatório." })
 });
 
-// 1. ADICIONAR AOS FAVORITOS (CREATE)
 router.post('/', async (req, res) => {
   try {
     const { UsuCodigo, ProCodigo } = FavoritoSchema.parse(req.body);
@@ -27,7 +26,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// 2. LISTAR FAVORITOS DE UM USUÁRIO (READ)
 router.get('/:usuCodigo', async (req, res) => {
   try {
     const { usuCodigo } = req.params;
@@ -47,7 +45,6 @@ router.get('/:usuCodigo', async (req, res) => {
   }
 });
 
-// 3. REMOVER DOS FAVORITOS (DELETE)
 router.delete('/:favCodigo', async (req, res) => {
   try {
     const { favCodigo } = req.params;
@@ -62,17 +59,17 @@ router.delete('/:favCodigo', async (req, res) => {
   }
 });
 
-module.exports = router;
-
 router.delete('/:usuCodigo/:proCodigo', async (req, res) => {
   try {
     const { usuCodigo, proCodigo } = req.params;
     const sql = 'DELETE FROM Favoritos WHERE UsuCodigo = ? AND ProCodigo = ?';
     
-    await conexao.query(sql, [usuCodigo, proCodigo]);
+    await db.execute(sql, [usuCodigo, proCodigo]);
     res.status(200).json({ mensagem: 'Produto removido dos favoritos com sucesso!' });
   } catch (erro) {
     console.error('Erro ao remover favorito:', erro);
     res.status(500).json({ erro: 'Erro ao remover dos favoritos.' });
   }
 });
+
+module.exports = router;
