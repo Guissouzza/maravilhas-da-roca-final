@@ -3,9 +3,10 @@
     <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
       
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 bg-white rounded-full border border-[#EADFCB] flex items-center justify-center shadow-sm">
-          <span class="text-2xl">🧺</span>
+        <div class="w-14 h-14 rounded-full border-2 border-[#EADFCB] shadow-sm overflow-hidden flex-shrink-0 bg-white">
+          <img src="../assets/logo.jpeg" alt="Logo Maravilhas da Roça" class="w-full h-full object-cover" />
         </div>
+        
         <div class="flex flex-col">
           <h1 class="text-2xl font-serif font-bold text-roca-dark leading-tight">Maravilhas da Roça</h1>
           <span class="text-[10px] text-roca-medium font-bold tracking-[0.2em] uppercase">Sabor Ancestral</span>
@@ -24,9 +25,10 @@
       </div>
 
       <nav class="flex items-center gap-8 text-roca-dark font-medium text-sm">
-        <a href="#" class="hover:text-roca-medium transition-colors">Início</a>
-        <a href="#" class="border-b-2 border-roca-dark pb-1 font-bold">Catálogo</a>
-        <a href="#" class="hover:text-roca-medium transition-colors">Sobre Nós</a>
+        <router-link to="/" class="hover:text-roca-medium transition-colors" active-class="border-b-2 border-roca-dark pb-1 font-bold">Início</router-link>
+        <router-link to="/catalogo" class="hover:text-roca-medium transition-colors" active-class="border-b-2 border-roca-dark pb-1 font-bold">Catálogo</router-link>
+        <router-link to="/favoritos" class="hover:text-roca-medium transition-colors" active-class="border-b-2 border-roca-dark pb-1 font-bold">Favoritos</router-link>
+        <router-link to="/sobre" class="hover:text-roca-medium transition-colors" active-class="border-b-2 border-roca-dark pb-1 font-bold">Sobre Nós</router-link>
       </nav>
 
     </div>
