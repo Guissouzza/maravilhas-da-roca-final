@@ -1,63 +1,44 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=23039038&assignment_repo_type=AssignmentRepo)
-# Maravilhas da Roça
+## 🎯 Objetivo da Tela Desenvolvida
+O artefato principal desta entrega é a Tela de Favoritos. Seu objetivo é permitir que o cliente gerencie de forma centralizada os produtos do catálogo que ele marcou como de seu interesse, visualizando preços e nomes em tempo real, além de possibilitar a exclusão rápida de itens.
 
-`CURSO`: Análise e Desenvolvimento de Sistemas 
+## ✨ Principais Funcionalidades
+* **Listagem Dinâmica (GET):** Consome a API para buscar os produtos favoritados do usuário direto no banco de dados da Aiven, exibindo os cards na tela e tratando visualmente duplicidades.
+* **Validação Antiduplicidade (POST):** O back-end conta com uma trava de segurança utilizando Zod e checagem SQL no banco. Caso o usuário tente favoritar o mesmo produto mais de uma vez, a rota bloqueia a inserção para manter o banco limpo.
+* **Remoção em Tempo Real (DELETE):** Ao clicar no ícone da lixeira em um produto, a interface faz uma requisição DELETE que elimina o registro do banco de dados em nuvem e atualiza a listagem na tela instantaneamente.
 
-`DISCIPLINA`: Trabalho Interdisciplinar: Aplicações para Processos de Negócios
+---
 
-`SEMESTRE`: 2
+## ⚙️ Passo a Passo para Executar o Back-end
 
-Nosso projeto tem como foco desenvolver uma aplicação para um comércio que trabalha com produtos naturais. A ideia é trazer maior acessibilidade aos clientes, permitindo que eles possam visualizar os produtos por meio da aplicação, funcionando como uma vitrine virtual com possibilidade de compras online.
+1. Abra o terminal do seu computador e navegue até a pasta do back-end:
 
-Com base no levantamento de requisitos realizado com a comerciante, pretendemos desenvolver uma aplicação atrativa que apresente informações sobre os produtos, além de integrar o acesso às redes sociais do comércio e oferecer outras funcionalidades que possam facilitar a interação com os clientes.
+2. Instale todas as dependências necessárias do projeto: npm install
 
-
-## Integrantes
-
-* Aline Vitoria Gomes Costa
-* Carlos Daniel Tempo Dutra
-* Guilherme Henrique Silva de Souza
-* João Victor Felix Barbosa
-* Victor Oliveira Martins dos Reis
-* Vitor Ribeiro Lacerda
-* Bruno Marinho da Silva
-
-## Orientador
-
-* Caroline Rhaian da Silva Jandre
-
-## Instruções de utilização
-
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
-
-# Documentação
-
-<ol>
-<li><a href="docs/1-Contexto.md"> Documentação de Contexto</a></li>
-<li><a href="docs/2-Especificação.md"> Especificação do Projeto</a></li>
-<li><a href="docs/3-Modelagem-Processos-Negócio.md"> Modelagem dos Processos de Negocio</a></li>
-<li><a href="docs/4-Projeto-Solucao.md"> Projeto da solução</a></li>
-<li><a href="docs/5-Gerenciamento-Projeto.md"> Gerenciamento do Projeto</a></li>
-<li><a href="docs/6-Interface-Sistema.md"> Interface do Sistema</a></li>
-<li><a href="docs/7-Conclusão.md"> Conclusão</a></li>
-<li><a href="docs/8-Referências.md"> Referências</a></li>
-</ol>
-
-# Código
-
-<li><a href="src/README.md"> Código Fonte</a></li>
-
-# Apresentação
-
-<li><a href="presentation/README.md"> Apresentação da solução</a></li>
+3. Crie um arquivo chamado .env na raiz da pasta backend e configure a variável de ambiente exatamente assim (dados também disponíveis em /docs/acesso_banco.md): DATABASE_URL="mysql://avnadmin:AVNS_GtdwwX4JkP091UlI9CF@mysql-3f89e61-sga-0a01.l.aivencloud.com:17075/defaultdb"
+PORT=3000
 
 
-## Histórico de versões
+4. Inicie o servidor localmente: npm start
 
-* 0.1.1
-    * CHANGE: Atualização das documentações. Código permaneceu inalterado.
-* 0.1.0
-    * Implementação da funcionalidade X pertencente ao processo P.
-* 0.0.1
-    * Trabalhando na modelagem do processo de negócio.
 
+## 🎨 Passo a Passo para Executar o Front-end
+
+1. Abra um novo terminal e navegue até a pasta do front-end
+
+2. Instale as dependências do ecossistema Vue e Tailwind: npm install
+
+
+
+3. Inicie o servidor de desenvolvimento local: npm run dev
+
+
+4. Acesse o link fornecido no terminal no seu navegador para interagir com a interface.
+
+
+## 🚀 Como Utilizar o Sistema (Fluxo de Teste para o Avaliador)
+
+Para validar a integração completa (Front-end ➔ Back-end ➔ Banco em Nuvem) exigida na rubrica, siga este fluxo:
+
+1. **Injetar Dados de Teste:** Disponibilizamos um script automatizado para popular o banco. No terminal da pasta backend, execute: node inserir-dados.js
+
+Isso criará o usuário de testes e os produtos (Queijo, Doce de Leite, Mel, etc.) diretamente no banco da Aiven.

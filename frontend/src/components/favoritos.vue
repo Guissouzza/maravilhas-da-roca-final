@@ -56,7 +56,10 @@ const buscarFavoritos = async () => {
   try {
     const resposta = await fetch('https://favoritos-maravilhas-da-roca.onrender.com/api/favoritos/1');
     if (resposta.ok) {
-      favoritos.value = await resposta.json();
+      const dados = await resposta.json();
+      favoritos.value = dados.filter((item, index, self) =>
+        index === self.findIndex((t) => t.ProCodigo === item.ProCodigo)
+      );
     }
   } catch (erro) {
     console.error('Erro:', erro);

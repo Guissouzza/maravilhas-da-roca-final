@@ -11,8 +11,15 @@ const FavoritoSchema = z.object({
 router.post('/', async (req, res) => {
   try {
     const { UsuCodigo, ProCodigo } = FavoritoSchema.parse(req.body);
-    const dataHoje = new Date().toISOString().split('T')[0];
 
+    const checkQuery = 'SELECT * FROM Favoritos WHERE UsuCodigo = ? AND ProCodigo = ?';
+    const [existing] = await db.execute(checkQuery, [UsuCodigo, ProCodigo]);
+
+    if (existing.length > 0) {
+      return res.status(400).json({ error: "Este produto já está nos favoritos." });
+    }
+
+    const dataHoje = new Date().toISOString().split('T')[0];
     const query = 'INSERT INTO Favoritos (UsuCodigo, ProCodigo, DataAdicao) VALUES (?, ?, ?)';
     const [result] = await db.execute(query, [UsuCodigo, ProCodigo, dataHoje]);
 
