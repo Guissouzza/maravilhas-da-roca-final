@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   host: 'mysql-1e69ce51-alinevitoriagomescosta28-d72e.l.aivencloud.com',
   port: 25080,
   user: 'avnadmin',
-  password: 'AVNS_9H1AkzNq7uQc7SFIQQx',
+  password: process.env.DB_PASSWORD,
   database: 'defaultdb',
   // Essa linha abaixo resolve o problema do SSL que travou a extensão!
   ssl: { rejectUnauthorized: false } 
