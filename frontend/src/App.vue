@@ -1,13 +1,7 @@
 <template>
   <div class="min-h-screen bg-stone-50 text-stone-800 antialiased font-sans">
-    
-    <header class="bg-amber-800 text-white shadow-md sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-center">
-        <span class="text-2xl font-black font-serif tracking-wide text-amber-50">
-          Maravilhas da Roça
-        </span>
-      </div>
-    </header>
+
+  <cabecalho />
 
     <div class="bg-amber-50 border-b border-stone-200 py-3 shadow-inner">
       <div class="max-w-7xl mx-auto px-4 flex gap-4 justify-center items-center">
@@ -104,6 +98,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import Cabecalho from './components/cabecalho.vue'
 
 const produto = ref(null);
 const loading = ref(true);
