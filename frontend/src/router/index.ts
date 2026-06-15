@@ -8,6 +8,8 @@ import DescricaoProduto from '../views/DescricaoProduto.vue'
 import Favoritos from '../views/Favoritos.vue'
 import ReservaProduto from '../views/ReservaProduto.vue'
 import SobreNos from '../views/SobreNos.vue'
+import Login from '../views/Login.vue'
+import Cadastro from '../views/CadastroUsuario.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -60,6 +62,18 @@ const router = createRouter({
       path: '/sobre',
       name: 'sobre',
       component: SobreNos,
+    },
+
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    },
+
+    {
+      path: '/cadastro',
+      name: 'cadastro',
+      component: Cadastro,
     },
 
   ],

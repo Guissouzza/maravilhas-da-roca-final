@@ -4,17 +4,17 @@
     <!-- HERO / TÍTULO -->
     <section class="max-w-6xl mx-auto px-4 pt-16 pb-10 text-center">
 
-  <h1 class="text-4xl sm:text-6xl md:text-7xl font-serif font-black text-[#362212] leading-[1.05]">
-    <span class="underline decoration-[#A0522D]/30 decoration-wavy">
-      Meus Favoritos
-    </span>
-  </h1>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-serif font-black text-[#362212] leading-[1.05]">
+        <span class="underline decoration-[#A0522D]/30 decoration-wavy">
+          Meus Favoritos
+        </span>
+      </h1>
 
-  <p class="text-[#7A5C43] mt-6 text-base sm:text-xl font-light max-w-2xl mx-auto">
-    Seus produtos mais queridos da roça reunidos em um só lugar.
-  </p>
+      <p class="text-[#7A5C43] mt-6 text-base sm:text-xl font-light max-w-2xl mx-auto">
+        Seus produtos mais queridos da roça reunidos em um só lugar.
+      </p>
 
-</section>
+    </section>
 
     <main class="max-w-7xl mx-auto px-4 pb-20">
 
