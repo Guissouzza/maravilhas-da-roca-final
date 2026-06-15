@@ -6,6 +6,7 @@ import express from 'express';
 import cors from 'cors';
 import productRoutes from './src/routes/productRoutes';
 import userRoutes from './src/routes/userRoutes';
+import favoritosRoutes from './src/routes/favoritosRoutes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
