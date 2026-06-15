@@ -1,0 +1,30 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "cors": "^2.8.6",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7",
+    "vue": "^3.4.21",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^4.3.0",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.22.3",
+    "typescript": "^5.4.2",
+    "vite": "^5.2.0"
+  },
+  "scripts": {
+  "dev": "vite",
+  "build": "vite build frontend", 
+  "start": "tsx backend/server.ts"
+}
+  
+}
