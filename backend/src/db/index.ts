@@ -1,21 +1,27 @@
 import mysql, { Pool } from 'mysql2/promise'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 let pool: Pool
 
 export const initPool = () => {
   if (!pool) {
-    const url = new URL(process.env.DATABASE_URL!)
-
     pool = mysql.createPool({
-      host: url.hostname,
-      port: Number(url.port) || 3306,
-      user: url.username,
-      password: url.password,
-      database: url.pathname.replace('/', ''),
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT) || 3306,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0
     })
   }
 
   return pool
 }
 
+// cria o pool imediatamente
 export default initPool()
