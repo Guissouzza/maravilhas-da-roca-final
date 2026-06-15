@@ -1,5 +1,4 @@
 import express, { Router } from 'express'
-
 import {
   getAllUsers,
   createUser,
@@ -8,10 +7,8 @@ import {
   deleteUser,
   loginUser
 } from '../controllers/userController'
-
 import authMiddleware from '../middlewares/authMiddleware'
 import adminMiddleware from '../middlewares/adminMiddleware'
-
 const userRoutes: Router = express.Router()
 
 userRoutes.post('/login', loginUser)

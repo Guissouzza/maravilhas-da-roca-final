@@ -6,7 +6,7 @@ import { z } from 'zod'
 export const createUserSchema = z.object({
   nome: z.string().min(1, 'Nome é obrigatório'),
   idade: z.number().int().positive('Idade deve ser um número positivo'),
-  email: z.string().email('Email inválido'),
+  email: z.email('Email inválido'),
   senha: z.string().min(6, 'Senha deve ter no mínimo 6 caracteres')
 })
 
@@ -16,7 +16,7 @@ export const createUserSchema = z.object({
 export const updateUserSchema = z.object({
   nome: z.string().min(1).optional(),
   idade: z.number().int().positive().optional(),
-  email: z.string().email().optional(),
+  email: z.email().optional(),
   senha: z.string().min(6).optional()
 })
 
@@ -24,6 +24,6 @@ export const updateUserSchema = z.object({
 // LOGIN USER
 // ===============================
 export const loginUserSchema = z.object({
-  email: z.string().email('Email inválido'),
+  email: z.email('Email inválido'),
   senha: z.string().min(6, 'Senha deve ter no mínimo 6 caracteres')
 })
