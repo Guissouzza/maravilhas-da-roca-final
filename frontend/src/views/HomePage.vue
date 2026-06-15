@@ -119,56 +119,6 @@ const produtos = [
     </div>
   </section>
 
-  <!-- CATÁLOGO PREMIUM REAL -->
-  <section class="py-32 bg-white">
-
-    <div class="max-w-7xl mx-auto px-8">
-
-      <h2 class="text-center text-6xl font-black font-serif mb-24">
-        Catálogo
-      </h2>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
-
-        <div
-          v-for="produto in produtos"
-          :key="produto.nome"
-          class="group relative bg-[#F7F1E8] rounded-[3rem] overflow-hidden border border-[#EED9C4]/40 shadow-[0_20px_60px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_90px_rgba(0,0,0,0.15)] transition-all duration-700 hover:-translate-y-4"
-        >
-
-          <!-- imagem -->
-          <div class="relative overflow-hidden h-80">
-            <img
-              :src="produto.imagem"
-              class="w-full h-full object-cover scale-110 group-hover:scale-125 transition duration-[1200ms]"
-            />
-
-            <div class="absolute inset-0 bg-gradient-to-t from-[#1A120D]/40 to-transparent"></div>
-          </div>
-
-          <!-- conteúdo -->
-          <div class="p-10">
-
-            <h3 class="text-2xl font-black font-serif group-hover:text-[#C49A55] transition">
-              {{ produto.nome }}
-            </h3>
-
-            <p class="mt-4 text-[#C49A55] text-xl font-bold tracking-wide">
-              {{ produto.preco }}
-            </p>
-
-            <button class="mt-10 w-full bg-[#2E1F16] hover:bg-[#C49A55] text-white py-4 rounded-full font-bold tracking-widest transition-all">
-              Adicionar ao Cesto
-            </button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
 
   <!-- SOBRE CINEMATOGRÁFICO -->
   <section class="py-40">
