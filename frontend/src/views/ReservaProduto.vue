@@ -111,39 +111,7 @@ onMounted(() => {
   <div class="min-h-screen bg-gray-50 flex flex-col justify-between w-full">
 
     <!-- HEADER -->
-<div class="w-full p-6 bg-white border-b-2 border-gray-200 flex items-center relative shadow-sm">
-
-  <!-- SETA -->
-  <button
-    class="z-10 text-[#3E2723] hover:bg-gray-100 p-2 rounded-full transition-all"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="3"
-      stroke="currentColor"
-      class="w-7 h-7"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-      />
-    </svg>
-  </button>
-
-  <!-- TÍTULO -->
-  <div class="absolute inset-0 flex items-center justify-center">
-    <h1 class="text-[#3E2723] font-bold tracking-widest uppercase text-xl">
-      Maravilhas da
-      <span class="text-[#C5A880]">
-        Roça
-      </span>
-    </h1>
-  </div>
-
-</div>
+    <cabecalho />
     <!-- LISTA -->
     <div class="w-full flex flex-col pb-44">
 
@@ -169,29 +137,29 @@ onMounted(() => {
     </div>
 
     <!-- FOOTER -->
-<div class="fixed bottom-0 left-0 w-full bg-white p-6 border-t border-gray-200 flex justify-between items-center">
+    <div class="fixed bottom-0 left-0 w-full bg-white p-6 border-t border-gray-200 flex justify-between items-center">
 
-  <div>
-    <p class="text-2xl font-bold text-[#3E2723]">
-      Produtos
-    </p>
+      <div>
+        <p class="text-2xl font-bold text-[#3E2723]">
+          Produtos
+        </p>
 
-    <p class="text-sm text-gray-400">
-      Valor total:
+        <p class="text-sm text-gray-400">
+          Valor total:
 
-      <span class="font-bold text-[#C5A880] text-lg">
-        {{ valorTotalGeral }}
-      </span>
-    </p>
-  </div>
+          <span class="font-bold text-[#C5A880] text-lg">
+            {{ valorTotalGeral }}
+          </span>
+        </p>
+      </div>
 
-  <button
-    class="bg-[#C5A880] hover:bg-[#b89b70] text-white px-8 py-3 rounded-full font-bold transition-all"
-  >
-    Comprar
-  </button>
+      <button
+        class="bg-[#C5A880] hover:bg-[#b89b70] text-white px-8 py-3 rounded-full font-bold transition-all"
+      >
+        Comprar
+      </button>
+
+    </div>
 
 </div>
-
-  </div>
 </template>

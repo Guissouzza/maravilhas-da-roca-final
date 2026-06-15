@@ -1,19 +1,21 @@
-import mysql from 'mysql2/promise';
+import mysql, { Pool } from 'mysql2/promise'
 
-let pool: mysql.Pool;
+let pool: Pool
 
-export function getPool() {
+export const initPool = () => {
   if (!pool) {
-    const url = new URL(process.env.DATABASE_URL!);
+    const url = new URL(process.env.DATABASE_URL!)
 
     pool = mysql.createPool({
       host: url.hostname,
-      port: Number(url.port),
+      port: Number(url.port) || 3306,
       user: url.username,
       password: url.password,
       database: url.pathname.replace('/', ''),
-    });
+    })
   }
 
-  return pool;
+  return pool
 }
+
+export default initPool()
