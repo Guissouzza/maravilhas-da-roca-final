@@ -1,15 +1,17 @@
 <template>
   <div class="min-h-screen bg-roca-bg">
-    <Header />
+    <Cabecalho />
     
     <main>
       <Favoritos />
     </main>
+    <Footer />
   </div>
 </template>
 
 <script setup>
 // Importa os dois componentes corretamente
-import Header from './components/Header.vue'
-import Favoritos from './components/favoritos.vue'
+import Favoritos from '../components/favoritos.vue'
+import Cabecalho from '../components/cabecalho.vue'
+import Footer from '../components/footer.vue'
 </script>

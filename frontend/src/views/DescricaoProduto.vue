@@ -98,7 +98,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import Cabecalho from './components/cabecalho.vue'
+import Cabecalho from '../components/cabecalho.vue';
 
 const produto = ref(null);
 const loading = ref(true);
@@ -134,3 +134,4 @@ const adicionarAoCarrinho = () => {
 onMounted(() => {
   carregarProdutoDaNuvem();
 });
+</script>

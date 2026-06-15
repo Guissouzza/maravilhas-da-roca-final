@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 // @ts-ignore
 import CartItem from './CartItem.vue'
+import Cabecalho from '../components/cabecalho.vue'
 
 const produtos = ref([])
 

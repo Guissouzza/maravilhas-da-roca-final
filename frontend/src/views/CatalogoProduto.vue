@@ -3,41 +3,7 @@
   <div class="min-h-screen bg-gradient-to-br from-[#FAF6EE] via-[#FDFBF7] to-[#F3EAD9] text-[#4A3728] antialiased selection:bg-[#EED9C4]">
     
     <!-- HEADER PREMIUM COM MENU DE NAVEGAÇÃO -->
-    <header class="sticky top-0 z-50 backdrop-blur-2xl bg-[#FDFBF7]/80 border-b border-[#EED9C4]/40 px-4 py-4 shadow-[0_4px_30px_rgba(92,61,36,0.03)]">
-      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        
-        <!-- LOGO E MARCA (ESTÁTICA) -->
-        <div class="flex items-center gap-4 shrink-0">
-          <div class="w-16 h-16 flex items-center justify-center overflow-hidden bg-white/50 rounded-2xl p-1 shadow-sm border border-[#EED9C4]/20">
-            <img src="/images/logo_sem_fundo.png" alt="Logo" class="w-full h-full object-contain" />
-          </div>
-          <div class="flex flex-col">
-            <span class="text-2xl font-serif font-black tracking-tight leading-none bg-gradient-to-r from-[#362212] to-[#6E472A] bg-clip-text text-transparent">
-              Maravilhas da <span class="from-[#A0522D] to-[#D2691E] bg-clip-text text-transparent">Roça</span>
-            </span>
-            <span class="text-[10px] tracking-[0.15em] uppercase font-bold text-[#A0522D]/70 mt-1">Sabor Ancestral</span>
-          </div>
-        </div>
-        
-        <!-- BARRA DE BUSCA EM TEMPO REAL -->
-        <div class="flex items-center flex-grow max-w-md relative">
-          <input 
-            v-model="searchQuery" 
-            type="text" 
-            placeholder="Buscar queijo, mel, doce..." 
-            class="w-full bg-[#FAF6EE] border border-[#EED9C4] rounded-2xl px-5 py-2.5 pl-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#A0522D]/30 focus:border-[#A0522D] transition-all"
-          />
-          <span class="absolute left-4">🔍</span>
-        </div>
-
-        <!-- MENU INDICANDO CATÁLOGO SELECIONADO -->
-        <nav class="hidden sm:flex items-center gap-6 text-sm font-bold tracking-wide text-[#7A5C43]">
-          <a href="#" class="hover:text-[#A0522D] transition-colors">Início</a>
-          <a href="#" class="text-[#A0522D] border-b-2 border-[#A0522D] pb-1 font-black">Catálogo</a>
-          <a href="#" class="hover:text-[#A0522D] transition-colors">Sobre Nós</a>
-        </nav>
-      </div>
-    </header>
+    <cabecalho />
 
     <!-- HERO SECTION RESPONSIVA -->
     <section class="max-w-6xl mx-auto px-4 pt-16 pb-12 text-center">
@@ -136,23 +102,14 @@
       </div>
     </main>
 
-    <!-- RODAPÉ -->
-    <footer class="bg-[#2C1A0D] text-[#EED9C4]/40 text-xs py-12 text-center px-4">
-      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div class="flex flex-col text-center sm:text-left">
-          <p class="font-bold text-[#EED9C4]/70 text-sm">Maravilhas da Roça LTDA</p>
-          <p class="mt-1 font-light">&copy; 2026 Todos os direitos reservados. Produtos com selo de origem artesanal.</p>
-        </div>
-        <p class="font-light tracking-wide flex items-center gap-1 justify-center bg-white/5 px-4 py-2 rounded-xl border border-white/5">
-          Feito com orgulho pelas tradições rústicas de Minas Gerais <span class="text-[#A0522D] animate-pulse">🤎</span>
-        </p>
-      </div>
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue"
+import Cabecalho from '../components/cabecalho.vue'
+import Footer from '../components/footer.vue'
 
 interface Product {
   id: number
