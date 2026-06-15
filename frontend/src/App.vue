@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <template>
   <!-- CONTAINER PRINCIPAL COM GRADIENTE SUAVE -->
   <div class="min-h-screen bg-gradient-to-br from-[#FAF6EE] via-[#FDFBF7] to-[#F3EAD9] text-[#4A3728] antialiased selection:bg-[#EED9C4]">
@@ -194,3 +195,5 @@ onMounted(async () => {
   }
 })
 </script>
+=======
+>>>>>>> Stashed changes
