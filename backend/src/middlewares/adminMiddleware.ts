@@ -1,7 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 function adminMiddleware(req: Request, res: Response, next: NextFunction) {
   if (!req.user) {
@@ -14,7 +11,7 @@ function adminMiddleware(req: Request, res: Response, next: NextFunction) {
     })
   }
 
-  next()
+  return next()
 }
 
 export default adminMiddleware

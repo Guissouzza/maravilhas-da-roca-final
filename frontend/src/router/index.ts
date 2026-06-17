@@ -75,11 +75,21 @@ const router = createRouter({
       name: 'cadastro',
       component: Cadastro,
     },
-
   ],
 })
 
+// 🔐 BLOQUEIO GLOBAL (TODAS AS ROTAS EXCETO LOGIN/CADASTRO)
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+
+  const publicPages = ['/login', '/cadastro']
+  const isPublic = publicPages.includes(to.path)
+
+  if (!isPublic && !token) {
+    next('/login')
+  } else {
+    next()
+  }
+})
+
 export default router
-
-
-

@@ -1,13 +1,8 @@
 import { Router } from 'express'
-import authMiddleware from '../middlewares/authMiddleware'
+import { login } from '../controllers/authController'
 
 const router = Router()
 
-// 🔐 valida token e retorna usuário logado
-router.get('/me', authMiddleware, (req, res) => {
-  return res.json({
-    user: req.user
-  })
-})
+router.post('/login', login)
 
 export default router
