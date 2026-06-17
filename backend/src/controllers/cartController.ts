@@ -10,8 +10,7 @@ import {
 // ➕ adicionar item
 export const addToCart = async (req: Request, res: Response) => {
   try {
-    console.log("REQ USER:", req.user)
-    console.log("BODY:", req.body)
+
     const userId = req.user.id
     const { product_id, quantity } = req.body
 

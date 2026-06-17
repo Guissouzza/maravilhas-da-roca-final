@@ -21,86 +21,87 @@
       </p>
     </section>
 
-    <!-- FILTROS -->
-    <div class="max-w-7xl mx-auto px-4 mb-12">
-      <div class="flex flex-wrap items-center justify-center gap-3 bg-white/40 border border-[#EED9C4]/30 p-2 rounded-[2rem] max-w-2xl mx-auto shadow-sm backdrop-blur-md">
-
-        <button
-          v-for="cat in categories"
-          :key="cat"
-          @click="activeCategory = cat"
-          :class="[
-            'px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300',
-            activeCategory === cat
-              ? 'bg-[#422A17] text-white shadow-md'
-              : 'text-[#7A5C43] hover:bg-[#EED9C4]/30'
-          ]"
-        >
-          {{ cat }}
-        </button>
-
-      </div>
-    </div>
-
     <!-- MAIN -->
     <main class="max-w-7xl mx-auto px-4 pb-20">
 
       <!-- LOADING -->
       <div v-if="loading" class="flex flex-col justify-center items-center py-40 space-y-4">
         <div class="w-16 h-16 border-4 border-[#EED9C4]/30 border-t-[#A0522D] rounded-full animate-spin"></div>
-        <p class="text-[#7A5C43] text-xs font-black uppercase tracking-widest animate-pulse pt-4">
-          Colhendo iguarias no banco de dados...
-        </p>
       </div>
 
       <!-- PRODUCTS -->
-      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12">
+      <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 
         <div
           v-for="product in filteredProducts"
           :key="product.id"
-          class="relative group bg-white rounded-[2.5rem] border border-[#EED9C4]/20 shadow-[0_12px_45px_rgba(92,61,36,0.02)] hover:shadow-[0_24px_60px_rgba(92,61,36,0.12)] transition-all duration-500 flex flex-col justify-between overflow-hidden hover:-translate-y-2.5"
+          class="relative group bg-white rounded-[2.2rem] border border-[#EED9C4]/20 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
         >
 
-          <!-- BOTÃO CARRINHO -->
-          <button
-            @click="addProductToCart(product)"
-            class="absolute top-4 right-4 z-20 w-11 h-11 rounded-full bg-white/95 border border-[#EED9C4]/40 shadow-lg flex items-center justify-center"
-          >
-            🛒
-          </button>
+          <!-- AÇÕES -->
+          <div class="absolute top-4 right-4 flex gap-2 z-20">
+
+            <!-- ❤️ FAVORITO (CORRIGIDO) -->
+            <button
+              @click="toggleFavorite(product)"
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-white/95 border border-[#EED9C4] hover:border-red-400 transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                :class="isFavorite(product.id) ? 'text-red-500 fill-red-500' : 'text-[#422A17]'"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </button>
+
+            <!-- CARRINHO -->
+            <button
+              @click="addProductToCart(product)"
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-white/95 border border-[#EED9C4] hover:border-[#A0522D] transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   class="w-5 h-5 text-[#422A17]"
+                   fill="none"
+                   viewBox="0 0 24 24"
+                   stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9m-6-9v9"/>
+              </svg>
+            </button>
+
+          </div>
 
           <!-- IMAGEM -->
-          <div class="relative overflow-hidden aspect-[4/3] rounded-[2.2rem] m-3.5 bg-[#FAF6EE] border border-[#EED9C4]/15 shadow-inner">
+          <div class="aspect-[4/3] bg-[#FAF6EE] overflow-hidden">
             <img
               :src="product.image ? `/images/${product.image}` : '/images/default.png'"
-              :alt="product.name"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
             />
           </div>
 
-          <!-- CONTEÚDO -->
-          <div class="p-6 pt-3 flex flex-col flex-grow justify-between">
+          <!-- INFO -->
+          <div class="p-5">
 
-            <div>
-              <h2 class="text-xl font-serif font-black text-[#362212]">
-                {{ product.name }}
-              </h2>
+            <h2 class="font-serif font-black text-[#362212] text-lg">
+              {{ product.name }}
+            </h2>
 
-              <p class="text-[#7A5C43] text-sm mt-2">
-                {{ product.description }}
-              </p>
-            </div>
+            <p class="text-sm text-[#7A5C43] mt-2 line-clamp-2">
+              {{ product.description }}
+            </p>
 
-            <!-- PREÇO -->
-            <div class="flex items-center justify-between pt-4 border-t border-[#FAF6EE] mt-auto">
+            <div class="flex justify-between items-center mt-4">
 
-              <span class="text-2xl font-black text-[#362212]">
+              <span class="text-lg font-black text-[#362212]">
                 R$ {{ Number(product.price || 0).toFixed(2) }}
               </span>
 
-              <button class="bg-[#422A17] text-white px-5 py-2 rounded-xl text-xs font-bold">
-                Ver Detalhes
+              <button class="text-xs font-bold bg-[#422A17] text-white px-4 py-2 rounded-xl hover:bg-[#A0522D] transition">
+                Ver
               </button>
 
             </div>
@@ -114,7 +115,6 @@
     </main>
 
     <Footer />
-
   </div>
 </template>
 
@@ -123,6 +123,7 @@ import { ref, onMounted, computed } from "vue"
 import Cabecalho from "../components/cabecalho.vue"
 import Footer from "../components/footer.vue"
 import { addToCart } from "../services/cartService"
+import { addToFavorites, removeFromFavorites, getFavorites } from "../services/favoritesService"
 
 interface Product {
   id: number
@@ -134,63 +135,67 @@ interface Product {
 
 const products = ref<Product[]>([])
 const loading = ref(true)
-const searchQuery = ref("")
-const activeCategory = ref("Todos")
 
-const categories = ["Todos", "Queijos", "Doces & Geléias", "Bebidas"]
+// 🔥 CORRETO: guarda registros completos
+const favorites = ref<any[]>([])
 
+// 🛒 CART
 const addProductToCart = async (product: any) => {
   try {
     await addToCart(product.id, 1)
-
-    // 🔥 DISPARA ATUALIZAÇÃO GLOBAL
     window.dispatchEvent(new Event("cart-updated"))
-
   } catch (error) {
     console.error(error)
-    alert("Erro ao adicionar ao carrinho")
   }
 }
 
-const filteredProducts = computed(() => {
-  const search = searchQuery.value.toLowerCase()
+// ❤️ CHECK FAVORITO (NOVO)
+const isFavorite = (productId: number) => {
+  return favorites.value.some((f: any) => f.ProCodigo === productId)
+}
 
-  return products.value.filter(product => {
-    const name = (product.name ?? "").toLowerCase()
-    const desc = (product.description ?? "").toLowerCase()
+// ❤️ LOAD FAVORITOS (CORRIGIDO)
+const loadFavorites = async () => {
+  try {
+    const response = await getFavorites()
+    favorites.value = response.data || []
+  } catch (error) {
+    console.error(error)
+    favorites.value = []
+  }
+}
 
-    const matchesSearch =
-      name.includes(search) || desc.includes(search)
+// ❤️ TOGGLE FAVORITO (CORRIGIDO)
+const toggleFavorite = async (product: Product) => {
+  try {
+    const fav = favorites.value.find((f: any) => f.ProCodigo === product.id)
 
-    if (activeCategory.value === "Todos") return matchesSearch
+    if (fav) {
+      await removeFromFavorites(fav.FavCodigo)
 
-    if (activeCategory.value === "Queijos")
-      return matchesSearch && name.includes("queijo")
+      favorites.value = favorites.value.filter(
+        (f: any) => f.FavCodigo !== fav.FavCodigo
+      )
+    } else {
+      await addToFavorites(product.id)
 
-    if (activeCategory.value === "Doces & Geléias")
-      return matchesSearch &&
-        (name.includes("doce") ||
-         name.includes("geleia") ||
-         name.includes("compota"))
+      await loadFavorites()
+    }
 
-    if (activeCategory.value === "Bebidas")
-      return matchesSearch &&
-        (name.includes("cachaça") ||
-         name.includes("leite"))
+    window.dispatchEvent(new Event("favorites-updated"))
 
-    return matchesSearch
-  })
-})
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const filteredProducts = computed(() => products.value)
 
 onMounted(async () => {
-  try {
-    const response = await fetch("http://localhost:3000/products")
-    const data = await response.json()
-    products.value = data
-  } catch (error) {
-    console.error("Erro ao buscar produtos:", error)
-  } finally {
-    loading.value = false
-  }
+  const res = await fetch("http://localhost:3000/products")
+  products.value = await res.json()
+  loading.value = false
+
+  await loadFavorites()
 })
 </script>

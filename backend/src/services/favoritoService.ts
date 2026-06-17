@@ -1,21 +1,11 @@
 import pool from '../db/index'
 
 export const FavoritoService = {
+
   async addFavorito(UsuCodigo: number, ProCodigo: number) {
-    const [existing]: any = await pool.execute(
-      'SELECT * FROM Favoritos WHERE UsuCodigo = ? AND ProCodigo = ?',
-      [UsuCodigo, ProCodigo]
-    )
-
-    if (existing.length > 0) {
-      throw new Error('Este produto já está nos favoritos.')
-    }
-
-    const dataHoje = new Date().toISOString().split('T')[0]
-
     const [result]: any = await pool.execute(
-      'INSERT INTO Favoritos (UsuCodigo, ProCodigo, DataAdicao) VALUES (?, ?, ?)',
-      [UsuCodigo, ProCodigo, dataHoje]
+      'INSERT INTO Favorito (UsuCodigo, ProCodigo) VALUES (?, ?)',
+      [UsuCodigo, ProCodigo]
     )
 
     return result.insertId
@@ -24,8 +14,12 @@ export const FavoritoService = {
   async getFavoritosByUser(UsuCodigo: number) {
     const [rows] = await pool.execute(
       `
-      SELECT f.FavCodigo, f.DataAdicao, p.ProCodigo, p.ProNome, p.ProPreco 
-      FROM Favoritos f
+      SELECT 
+        f.FavCodigo,
+        p.ProCodigo,
+        p.ProNome,
+        p.ProPreco
+      FROM Favorito f
       JOIN Produto p ON f.ProCodigo = p.ProCodigo
       WHERE f.UsuCodigo = ?
       `,
@@ -37,14 +31,14 @@ export const FavoritoService = {
 
   async deleteById(favCodigo: number) {
     await pool.execute(
-      'DELETE FROM Favoritos WHERE FavCodigo = ?',
+      'DELETE FROM Favorito WHERE FavCodigo = ?',
       [favCodigo]
     )
   },
 
   async deleteByUserAndProduct(usuCodigo: number, proCodigo: number) {
     await pool.execute(
-      'DELETE FROM Favoritos WHERE UsuCodigo = ? AND ProCodigo = ?',
+      'DELETE FROM Favorito WHERE UsuCodigo = ? AND ProCodigo = ?',
       [usuCodigo, proCodigo]
     )
   }

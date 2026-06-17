@@ -2,16 +2,21 @@
 import { ref, onMounted, onBeforeUnmount } from "vue"
 import { useRouter } from "vue-router"
 import { getCart } from "../services/cartService"
+import { getFavorites } from "../services/favoritesService"
 
 const router = useRouter()
 
 const searchQuery = ref("")
 const isUserOpen = ref(false)
+
 const cartCount = ref(0)
+const favoritesCount = ref(0)
 
 const userEmail = ref<string | null>(null)
 
-// 🔥 carrega carrinho
+/* =========================
+   🛒 CARRINHO
+========================= */
 const loadCart = async () => {
   try {
     const response = await getCart()
@@ -28,7 +33,22 @@ const loadCart = async () => {
   }
 }
 
-// 🔐 pega usuário do token
+/* =========================
+   ❤️ FAVORITOS (BACKEND)
+========================= */
+const loadFavorites = async () => {
+  try {
+    const response = await getFavorites()
+    favoritesCount.value = response.data.length || 0
+  } catch (error) {
+    console.error("Erro ao carregar favoritos:", error)
+    favoritesCount.value = 0
+  }
+}
+
+/* =========================
+   🔐 USER
+========================= */
 const loadUser = () => {
   const token = localStorage.getItem("token")
   if (!token) return
@@ -41,30 +61,45 @@ const loadUser = () => {
   }
 }
 
-// 🚪 logout
+/* =========================
+   🚪 LOGOUT
+========================= */
 const logout = () => {
   localStorage.removeItem("token")
   router.push("/login")
 }
 
-// 🔥 evento global
+/* =========================
+   🔥 EVENTS
+========================= */
 const handleCartUpdate = () => {
   loadCart()
 }
 
+const handleFavoritesUpdate = () => {
+  loadFavorites()
+}
+
+/* =========================
+   MOUNT
+========================= */
 onMounted(() => {
   loadCart()
+  loadFavorites()
   loadUser()
+
   window.addEventListener("cart-updated", handleCartUpdate)
+  window.addEventListener("favorites-updated", handleFavoritesUpdate)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener("cart-updated", handleCartUpdate)
+  window.removeEventListener("favorites-updated", handleFavoritesUpdate)
 })
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 backdrop-blur-2xl bg-[#FDFBF7]/80 border-b border-[#EED9C4]/40 px-4 py-4 shadow-[0_4px_30px_rgba(92,61,36,0.03)]">
+  <header class="sticky top-0 z-50 backdrop-blur-2xl bg-[#FDFBF7]/80 border-b border-[#EED9C4]/40 px-4 py-4">
 
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
@@ -90,7 +125,7 @@ onBeforeUnmount(() => {
           v-model="searchQuery"
           type="text"
           placeholder="Buscar produtos..."
-          class="w-full bg-[#FAF6EE] border border-[#EED9C4] rounded-2xl px-5 py-2.5 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-[#A0522D]/30"
+          class="w-full bg-[#FAF6EE] border border-[#EED9C4] rounded-2xl px-5 py-2.5 pl-10 text-sm"
         />
         <span class="absolute left-3 top-2.5 text-gray-400">🔍</span>
       </div>
@@ -99,17 +134,37 @@ onBeforeUnmount(() => {
       <nav class="hidden sm:flex gap-6 text-sm font-bold text-[#7A5C43]">
         <RouterLink to="/">Início</RouterLink>
         <RouterLink to="/catalogo">Catálogo</RouterLink>
-        <RouterLink to="/favoritos">Favoritos</RouterLink>
         <RouterLink to="/sobre">Sobre</RouterLink>
       </nav>
 
       <!-- AÇÕES -->
       <div class="flex items-center gap-5">
 
-        <!-- CARRINHO -->
+        <!-- ❤️ FAVORITOS -->
+        <RouterLink to="/favoritos" class="relative group">
+
+          <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#FAF6EE] border border-[#EED9C4]">
+            <svg xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 text-[#422A17]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </div>
+
+          <!-- badge SEMPRE visível -->
+          <span class="absolute -top-2 -right-2 bg-[#A0522D] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow">
+            {{ favoritesCount }}
+          </span>
+
+        </RouterLink>
+
+        <!-- 🛒 CARRINHO -->
         <RouterLink to="/carrinho" class="relative group">
 
-          <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#FAF6EE] border border-[#EED9C4] group-hover:border-[#A0522D] transition">
+          <div class="w-10 h-10 flex items-center justify-center rounded-full bg-[#FAF6EE] border border-[#EED9C4]">
             <svg xmlns="http://www.w3.org/2000/svg"
               class="w-5 h-5 text-[#422A17]"
               fill="none"
@@ -120,38 +175,30 @@ onBeforeUnmount(() => {
             </svg>
           </div>
 
-          <span
-            v-if="cartCount > 0"
-            class="absolute -top-2 -right-2 bg-[#A0522D] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow"
-          >
+          <span v-if="cartCount > 0"
+            class="absolute -top-2 -right-2 bg-[#A0522D] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow">
             {{ cartCount }}
           </span>
 
         </RouterLink>
 
-        <!-- USUÁRIO -->
+        <!-- USER -->
         <div class="relative">
-
-          <button
-            @click="isUserOpen = !isUserOpen"
-            class="w-10 h-10 flex items-center justify-center rounded-full bg-[#FAF6EE] border border-[#EED9C4]"
-          >
+          <button @click="isUserOpen = !isUserOpen"
+            class="w-10 h-10 flex items-center justify-center rounded-full bg-[#FAF6EE] border border-[#EED9C4]">
             👤
           </button>
 
           <div v-if="isUserOpen"
-               class="absolute right-0 mt-2 w-52 bg-white border border-[#EED9C4] rounded-xl shadow-lg z-50">
+            class="absolute right-0 mt-2 w-52 bg-white border border-[#EED9C4] rounded-xl shadow-lg z-50">
 
-            <!-- 🔥 ADICIONADO AQUI -->
-            <div class="px-4 py-3 border-b border-[#EED9C4] text-xs text-[#7A5C43]">
+            <div class="px-4 py-3 border-b text-xs text-[#7A5C43]">
               <p class="font-bold text-[#362212]">Logado como:</p>
               <p class="truncate">{{ userEmail || "Usuário" }}</p>
             </div>
 
-            <button
-              @click="logout"
-              class="w-full text-left px-4 py-2 text-sm hover:bg-[#FAF6EE] text-red-600 font-bold"
-            >
+            <button @click="logout"
+              class="w-full text-left px-4 py-2 text-sm text-red-600 font-bold">
               Sair
             </button>
 

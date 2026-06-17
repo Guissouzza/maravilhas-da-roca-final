@@ -13,7 +13,8 @@ const FavoritoSchema = z.object({
 // ===============================
 export const addFavorito = async (req: Request, res: Response) => {
   try {
-    const { UsuCodigo, ProCodigo } = FavoritoSchema.parse(req.body)
+    const UsuCodigo = (req as any).user.id
+    const { ProCodigo } = req.body
 
     const id = await FavoritoService.addFavorito(UsuCodigo, ProCodigo)
 
@@ -29,11 +30,12 @@ export const addFavorito = async (req: Request, res: Response) => {
 }
 
 // ===============================
-// GET
+// GET (🔧 ALTERADO AQUI)
 // ===============================
 export const getFavoritos = async (req: Request, res: Response) => {
   try {
-    const usuCodigo = Number(req.params.usuCodigo)
+    // 🔥 AGORA VEM DO AUTH MIDDLEWARE
+    const usuCodigo = (req as any).user.id
 
     const data = await FavoritoService.getFavoritosByUser(usuCodigo)
 
