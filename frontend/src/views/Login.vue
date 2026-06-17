@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import api from "../services/axios";
+import api from "../services/api";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
