@@ -1,14 +1,5 @@
 import db from '../db/index'
 
-// 🧾 TIPOS
-interface CartItem {
-  ProCodigo: number
-  ProNome: string
-  ProPreco: number
-  ProImagem: string
-  CarItemQuantidade: number
-}
-
 // ➕ adicionar item
 export const addItemService = async (
   userId: number,
@@ -16,7 +7,7 @@ export const addItemService = async (
   quantity: number
 ) => {
   const [cart]: any = await db.query(
-    'SELECT * FROM Carrinho WHERE CarUsuarioId = ?',
+    'SELECT * FROM Carrinho WHERE UsuCodigo = ?',
     [userId]
   )
 
@@ -24,7 +15,7 @@ export const addItemService = async (
 
   if (!cart.length) {
     const [result]: any = await db.query(
-      'INSERT INTO Carrinho (CarUsuarioId) VALUES (?)',
+      'INSERT INTO Carrinho (UsuCodigo) VALUES (?)',
       [userId]
     )
 
@@ -41,13 +32,13 @@ export const addItemService = async (
   if (item.length) {
     await db.query(
       `UPDATE CarrinhoItem 
-       SET CarItemQuantidade = CarItemQuantidade + ?
+       SET Quantidade = Quantidade + ?
        WHERE CarCodigo = ? AND ProCodigo = ?`,
       [quantity, cartId, productId]
     )
   } else {
     await db.query(
-      `INSERT INTO CarrinhoItem (CarCodigo, ProCodigo, CarItemQuantidade)
+      `INSERT INTO CarrinhoItem (CarCodigo, ProCodigo, Quantidade)
        VALUES (?, ?, ?)`,
       [cartId, productId, quantity]
     )
@@ -59,7 +50,7 @@ export const addItemService = async (
 // 📦 pegar carrinho
 export const getCartService = async (userId: number) => {
   const [cart]: any = await db.query(
-    'SELECT * FROM Carrinho WHERE CarUsuarioId = ?',
+    'SELECT * FROM Carrinho WHERE UsuCodigo = ?',
     [userId]
   )
 
@@ -72,7 +63,7 @@ export const getCartService = async (userId: number) => {
   const [items]: any = await db.query(
     `SELECT 
       ci.ProCodigo,
-      ci.CarItemQuantidade,
+      ci.Quantidade,
       p.ProNome,
       p.ProPreco,
       p.ProImagem
@@ -82,15 +73,12 @@ export const getCartService = async (userId: number) => {
     [cartId]
   )
 
-  const total = (items as CartItem[]).reduce(
-    (sum, item) => sum + item.ProPreco * item.CarItemQuantidade,
+  const total = items.reduce(
+    (sum: number, item: any) => sum + item.ProPreco * item.Quantidade,
     0
   )
 
-  return {
-    items,
-    total
-  }
+  return { items, total }
 }
 
 // 🔁 atualizar item
@@ -100,7 +88,7 @@ export const updateItemService = async (
   quantity: number
 ) => {
   const [cart]: any = await db.query(
-    'SELECT * FROM Carrinho WHERE CarUsuarioId = ?',
+    'SELECT * FROM Carrinho WHERE UsuCodigo = ?',
     [userId]
   )
 
@@ -108,7 +96,7 @@ export const updateItemService = async (
 
   await db.query(
     `UPDATE CarrinhoItem 
-     SET CarItemQuantidade = ?
+     SET Quantidade = ?
      WHERE CarCodigo = ? AND ProCodigo = ?`,
     [quantity, cart[0].CarCodigo, productId]
   )
@@ -122,7 +110,7 @@ export const removeItemService = async (
   productId: number
 ) => {
   const [cart]: any = await db.query(
-    'SELECT * FROM Carrinho WHERE CarUsuarioId = ?',
+    'SELECT * FROM Carrinho WHERE UsuCodigo = ?',
     [userId]
   )
 
