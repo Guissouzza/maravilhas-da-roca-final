@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router } from 'express'
 import {
   getAllProducts,
   getProductById,
@@ -6,19 +6,25 @@ import {
   updateProduct,
   deleteProduct
 } from '../controllers/productController'
+
 import authMiddleware from '../middlewares/authMiddleware'
 import adminMiddleware from '../middlewares/adminMiddleware'
-const router = Router();
 
-// Vincula a rota GET /products à função do seu controller
-router.get('/products', getAllProducts)
+const router = Router()
 
-router.get('/products/:id', getProductById)
+// 📦 LISTAR TODOS OS PRODUTOS
+router.get('/', getAllProducts)
 
-router.post('/products', authMiddleware, adminMiddleware, createProduct)
+// 📦 BUSCAR PRODUTO POR ID
+router.get('/:id', getProductById)
 
-router.put('/products/:id', authMiddleware, adminMiddleware, updateProduct)
+// 🔐 CRIAR PRODUTO (ADMIN)
+router.post('/', authMiddleware, adminMiddleware, createProduct)
 
-router.delete('/products/:id', authMiddleware, adminMiddleware, deleteProduct)
+// 🔐 ATUALIZAR PRODUTO (ADMIN)
+router.put('/:id', authMiddleware, adminMiddleware, updateProduct)
 
-export default router;
+// 🔐 DELETAR PRODUTO (ADMIN)
+router.delete('/:id', authMiddleware, adminMiddleware, deleteProduct)
+
+export default router

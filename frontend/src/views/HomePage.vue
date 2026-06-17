@@ -10,23 +10,6 @@ const categorias = [
   'Temperos',
 ]
 
-const produtos = [
-  {
-    nome: 'Queijo Artesanal Curado',
-    preco: 'R$ 29,90',
-    imagem: 'https://images.unsplash.com/photo-1552767059-ce182ead6c1b'
-  },
-  {
-    nome: 'Doce de Leite da Fazenda',
-    preco: 'R$ 18,90',
-    imagem: 'https://images.unsplash.com/photo-1551024601-bec78aea704b'
-  },
-  {
-    nome: 'Cachaça Premium Envelhecida',
-    preco: 'R$ 49,90',
-    imagem: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b'
-  },
-]
 </script>
 
 <template>

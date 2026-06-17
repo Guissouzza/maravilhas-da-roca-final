@@ -19,24 +19,28 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/catalogo',
       name: 'catalogo',
       component: CatalogoProduto,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/cadastro-produtos',
       name: 'cadastro-produtos',
       component: CadastroProdutos,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/carrinho',
       name: 'carrinho',
       component: CartItem,
+      meta: { requiresAuth: true }
     },
 
     {
@@ -44,42 +48,55 @@ const router = createRouter({
       name: 'descricao-produto',
       component: DescricaoProduto,
       props: true,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/favoritos',
       name: 'favoritos',
       component: Favoritos,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/reserva',
       name: 'reserva',
       component: ReservaProduto,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/sobre',
       name: 'sobre',
       component: SobreNos,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/login',
       name: 'login',
-      component: Login,
+      component: Login
     },
 
     {
       path: '/cadastro',
       name: 'cadastro',
-      component: Cadastro,
+      component: Cadastro
     },
-
   ],
 })
 
+/**
+ * 🔐 PROTEÇÃO GLOBAL DE ROTAS
+ */
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+
+  if (to.meta.requiresAuth && !token) {
+    return next({ name: 'login' })
+  }
+
+  next()
+})
+
 export default router
-
-
-
