@@ -9,6 +9,8 @@ const searchQuery = ref("")
 const isUserOpen = ref(false)
 const cartCount = ref(0)
 
+const userEmail = ref<string | null>(null)
+
 // 🔥 carrega carrinho
 const loadCart = async () => {
   try {
@@ -26,6 +28,19 @@ const loadCart = async () => {
   }
 }
 
+// 🔐 pega usuário do token
+const loadUser = () => {
+  const token = localStorage.getItem("token")
+  if (!token) return
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]))
+    userEmail.value = payload.email
+  } catch {
+    userEmail.value = null
+  }
+}
+
 // 🚪 logout
 const logout = () => {
   localStorage.removeItem("token")
@@ -39,6 +54,7 @@ const handleCartUpdate = () => {
 
 onMounted(() => {
   loadCart()
+  loadUser()
   window.addEventListener("cart-updated", handleCartUpdate)
 })
 
@@ -104,7 +120,6 @@ onBeforeUnmount(() => {
             </svg>
           </div>
 
-          <!-- CONTADOR -->
           <span
             v-if="cartCount > 0"
             class="absolute -top-2 -right-2 bg-[#A0522D] text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full shadow"
@@ -125,7 +140,13 @@ onBeforeUnmount(() => {
           </button>
 
           <div v-if="isUserOpen"
-               class="absolute right-0 mt-2 w-40 bg-white border border-[#EED9C4] rounded-xl shadow-lg z-50">
+               class="absolute right-0 mt-2 w-52 bg-white border border-[#EED9C4] rounded-xl shadow-lg z-50">
+
+            <!-- 🔥 ADICIONADO AQUI -->
+            <div class="px-4 py-3 border-b border-[#EED9C4] text-xs text-[#7A5C43]">
+              <p class="font-bold text-[#362212]">Logado como:</p>
+              <p class="truncate">{{ userEmail || "Usuário" }}</p>
+            </div>
 
             <button
               @click="logout"
