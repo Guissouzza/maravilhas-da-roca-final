@@ -7,13 +7,16 @@ import cors from 'cors';
 import productRoutes from './src/routes/productRoutes';
 import userRoutes from './src/routes/userRoutes';
 import favoritosRoutes from './src/routes/favoritosRoutes';
+import cartRoutes from './src/routes/cartRoutes'
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 app.use(cors());
 app.use(express.json());
 app.use(productRoutes);
+app.use('/cart', cartRoutes)
 // Usando as rotas de usuário
 app.use('/usuarios', userRoutes);
 

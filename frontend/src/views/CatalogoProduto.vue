@@ -175,20 +175,39 @@ const filteredProducts = computed(() => {
 
 const addToCart = async (product: Product) => {
   try {
-    await fetch("http://localhost:3000/cart/items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        product_id: product.id,
-        quantity: 1,
-      }),
-    })
+    const token = localStorage.getItem("token")
 
-    console.log("Adicionado ao carrinho:", product.name)
+    if (!token) {
+      alert("Faça login primeiro")
+      return
+    }
+
+    const response = await fetch(
+      "http://localhost:3000/cart/add",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          product_id: product.id,
+          quantity: 1,
+        }),
+      }
+    )
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.message)
+    }
+
+    alert(`${product.name} adicionado ao carrinho`)
+
   } catch (error) {
-    console.error("Erro ao adicionar ao carrinho:", error)
+    console.error(error)
+    alert("Erro ao adicionar produto")
   }
 }
 
@@ -196,7 +215,15 @@ onMounted(async () => {
   try {
     const response = await fetch("http://localhost:3000/products")
     const data = await response.json()
-    products.value = data
+
+    products.value = data.map((item: any) => ({
+      id: item.ProCodigo,
+      name: item.ProNome,
+      description: item.ProDescricao,
+      price: Number(item.ProPreco),
+      image: item.ProImagem,
+    }))
+
   } catch (error) {
     console.error("Erro ao buscar produtos:", error)
   } finally {
