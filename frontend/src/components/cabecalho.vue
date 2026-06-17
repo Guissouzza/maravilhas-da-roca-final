@@ -1,8 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue"
+import { useRouter } from "vue-router"
+import { isLoggedIn, logout, getUser } from "../services/auth"
 
-const searchQuery = ref("");
-const isUserOpen = ref(false);
+const router = useRouter()
+
+const searchQuery = ref("")
+const isUserOpen = ref(false)
+
+const user = computed(() => getUser())
+
+const handleLogout = () => {
+  logout()
+  isUserOpen.value = false
+  router.push("/login")
+}
 </script>
 
 <template>
@@ -10,6 +22,7 @@ const isUserOpen = ref(false);
     class="sticky top-0 z-50 backdrop-blur-2xl bg-[#FDFBF7]/80 border-b border-[#EED9C4]/40 px-4 py-4 shadow-[0_4px_30px_rgba(92,61,36,0.03)]"
   >
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+
       <!-- LOGO -->
       <div class="flex items-center gap-4 shrink-0">
         <div
@@ -28,9 +41,7 @@ const isUserOpen = ref(false);
               class="text-2xl font-serif font-black tracking-tight leading-none bg-gradient-to-r from-[#362212] to-[#6E472A] bg-clip-text text-transparent"
             >
               Maravilhas da
-              <span
-                class="from-[#A0522D] to-[#D2691E] bg-clip-text text-transparent"
-              >
+              <span class="from-[#A0522D] to-[#D2691E] bg-clip-text text-transparent">
                 Roça
               </span>
             </span>
@@ -59,84 +70,85 @@ const isUserOpen = ref(false);
       <nav
         class="hidden sm:flex items-center gap-6 text-sm font-bold tracking-wide text-[#7A5C43]"
       >
-        <RouterLink to="/" class="hover:text-[#A0522D] transition-colors"
-          >Início</RouterLink
-        >
-        <RouterLink
-          to="/catalogo"
-          class="hover:text-[#A0522D] transition-colors"
-          >Catálogo</RouterLink
-        >
-        <RouterLink
-          to="/favoritos"
-          class="hover:text-[#A0522D] transition-colors"
-          >Favoritos</RouterLink
-        >
-        <RouterLink to="/sobre" class="hover:text-[#A0522D] transition-colors"
-          >Sobre nós</RouterLink
-        >
+        <RouterLink to="/">Início</RouterLink>
+        <RouterLink to="/catalogo">Catálogo</RouterLink>
+        <RouterLink to="/favoritos">Favoritos</RouterLink>
+        <RouterLink to="/sobre">Sobre nós</RouterLink>
       </nav>
 
       <!-- AÇÕES -->
       <div class="flex items-center gap-5 text-[#7A5C43]">
+
         <!-- CARRINHO -->
-        <RouterLink
-          to="/carrinho"
-          class="hover:text-[#A0522D] transition-colors"
-          title="Carrinho"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-6 h-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9m-6-9v9"
-            />
-          </svg>
+        <RouterLink to="/carrinho" title="Carrinho">
+          🛒
         </RouterLink>
 
-        <!-- USUÁRIO (CÍRCULO) -->
+        <!-- USUÁRIO -->
         <div class="relative">
+
           <button
             @click="isUserOpen = !isUserOpen"
             class="w-10 h-10 flex items-center justify-center rounded-full border border-[#EED9C4] bg-[#FAF6EE] hover:border-[#A0522D] hover:text-[#A0522D] transition-colors shadow-sm"
             title="Usuário"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5.121 17.804A10.97 10.97 0 0112 15c2.21 0 4.253.655 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
+            <!-- 👇 ÍCONE NOVO (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-5 h-5"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5.121 17.804A10.97 10.97 0 0112 15c2.21 0 4.253.655 5.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
           </button>
 
           <!-- DROPDOWN -->
           <div
             v-if="isUserOpen"
-            class="absolute right-0 mt-2 w-36 bg-white border border-[#EED9C4] rounded-xl shadow-lg z-50"
+            class="absolute right-0 mt-2 w-44 bg-white border border-[#EED9C4] rounded-xl shadow-lg z-50"
           >
-            <button
-              class="w-full text-left px-4 py-2 text-sm hover:bg-[#FAF6EE]"
-            >
-              Sair
-            </button>
+
+            <div v-if="isLoggedIn()">
+
+              <div class="px-4 py-2 text-xs text-gray-500 border-b">
+                {{ user?.email }}
+              </div>
+
+              <button
+                @click="handleLogout"
+                class="w-full text-left px-4 py-2 text-sm hover:bg-[#FAF6EE]"
+              >
+                Sair
+              </button>
+
+            </div>
+
+            <div v-else>
+              <RouterLink
+                to="/login"
+                class="block px-4 py-2 text-sm hover:bg-[#FAF6EE]"
+                @click="isUserOpen = false"
+              >
+                Login
+              </RouterLink>
+
+              <RouterLink
+                to="/cadastro"
+                class="block px-4 py-2 text-sm hover:bg-[#FAF6EE]"
+                @click="isUserOpen = false"
+              >
+                Cadastro
+              </RouterLink>
+            </div>
+
           </div>
+
         </div>
       </div>
+
     </div>
   </header>
 </template>
