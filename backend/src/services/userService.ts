@@ -1,19 +1,13 @@
 import pool from '../db/index'
 import bcrypt from 'bcrypt'
 
-// ===============================
-// TYPES
-// ===============================
 interface UpdateUserFields {
-  nome?: string
-  idade?: number
-  email?: string
-  senha?: string
+  UsuNome?: string
+  UsuEmail?: string
+  UsuSenha?: string
+  UsuRole?: string
 }
 
-// ===============================
-// GET ALL USERS
-// ===============================
 const getAllUsers = async (page: number = 1, limit: number = 20) => {
   page = Math.max(Number(page), 1)
   limit = Math.min(Number(limit), 100)
@@ -21,12 +15,12 @@ const getAllUsers = async (page: number = 1, limit: number = 20) => {
   const offset = (page - 1) * limit
 
   const [users] = await pool.execute(
-    'SELECT * FROM usuarios LIMIT ? OFFSET ?',
+    'SELECT UsuCodigo, UsuNome, UsuEmail, UsuRole FROM Usuario LIMIT ? OFFSET ?',
     [limit, offset]
   )
 
   const [totalResult]: any = await pool.execute(
-    'SELECT COUNT(*) as total FROM usuarios'
+    'SELECT COUNT(*) as total FROM Usuario'
   )
 
   const total = totalResult[0].total
@@ -40,29 +34,28 @@ const getAllUsers = async (page: number = 1, limit: number = 20) => {
   }
 }
 
-// ===============================
-// GET USER BY ID
-// ===============================
 const getUserById = async (id: number) => {
   const [rows]: any = await pool.execute(
-    'SELECT * FROM usuarios WHERE id = ?',
+    `SELECT
+      UsuCodigo,
+      UsuNome,
+      UsuEmail,
+      UsuRole
+     FROM Usuario
+     WHERE UsuCodigo = ?`,
     [id]
   )
 
   return rows[0]
 }
 
-// ===============================
-// CREATE USER
-// ===============================
 const createUser = async (
   nome: string,
-  idade: number,
   email: string,
   senha: string
 ) => {
   const [existingUsers]: any = await pool.execute(
-    'SELECT id FROM usuarios WHERE email = ?',
+    'SELECT UsuCodigo FROM Usuario WHERE UsuEmail = ?',
     [email]
   )
 
@@ -75,17 +68,19 @@ const createUser = async (
   const hashedPassword = await bcrypt.hash(senha, 10)
 
   const [result]: any = await pool.execute(
-    'INSERT INTO usuarios (nome, idade, email, senha) VALUES (?, ?, ?, ?)',
-    [nome, idade, email, hashedPassword]
+    `INSERT INTO Usuario
+      (UsuNome, UsuEmail, UsuSenha)
+     VALUES (?, ?, ?)`,
+    [nome, email, hashedPassword]
   )
 
   return result.insertId
 }
 
-// ===============================
-// UPDATE USER
-// ===============================
-const updateUser = async (id: number, updateFields: UpdateUserFields) => {
+const updateUser = async (
+  id: number,
+  updateFields: UpdateUserFields
+) => {
   const keys = Object.keys(updateFields)
 
   if (keys.length === 0) return 0
@@ -96,31 +91,37 @@ const updateUser = async (id: number, updateFields: UpdateUserFields) => {
   values.push(id)
 
   const [result]: any = await pool.execute(
-    `UPDATE usuarios SET ${setString} WHERE id = ?`,
+    `UPDATE Usuario
+     SET ${setString}
+     WHERE UsuCodigo = ?`,
     values
   )
 
   return result.affectedRows
 }
 
-// ===============================
-// DELETE USER
-// ===============================
 const deleteUser = async (id: number) => {
   const [result]: any = await pool.execute(
-    'DELETE FROM usuarios WHERE id = ?',
+    'DELETE FROM Usuario WHERE UsuCodigo = ?',
     [id]
   )
 
   return result.affectedRows
 }
 
-// ===============================
-// LOGIN USER
-// ===============================
-const loginUser = async (email: string, senha: string) => {
+const loginUser = async (
+  email: string,
+  senha: string
+) => {
   const [rows]: any = await pool.execute(
-    'SELECT id, nome, email, senha, role FROM usuarios WHERE email = ?',
+    `SELECT
+      UsuCodigo,
+      UsuNome,
+      UsuEmail,
+      UsuSenha,
+      UsuRole
+     FROM Usuario
+     WHERE UsuEmail = ?`,
     [email]
   )
 
@@ -132,7 +133,10 @@ const loginUser = async (email: string, senha: string) => {
 
   const user = rows[0]
 
-  const isMatch = await bcrypt.compare(senha, user.senha)
+  const isMatch = await bcrypt.compare(
+    senha,
+    user.UsuSenha
+  )
 
   if (!isMatch) {
     const error: any = new Error('Email ou senha incorretos')
@@ -141,15 +145,12 @@ const loginUser = async (email: string, senha: string) => {
   }
 
   return {
-    id: user.id,
-    role: user.role,
-    email: user.email
+    id: user.UsuCodigo,
+    email: user.UsuEmail,
+    role: user.UsuRole
   }
 }
 
-// ===============================
-// EXPORTS (ES MODULE STYLE)
-// ===============================
 export default {
   getAllUsers,
   getUserById,

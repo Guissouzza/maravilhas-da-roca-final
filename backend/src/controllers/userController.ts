@@ -21,16 +21,22 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
     return res.json(users)
   } catch {
-    return res.status(500).json({ message: 'Erro ao buscar usuários' })
+    return res.status(500).json({
+      message: 'Erro ao buscar usuários'
+    })
   }
 }
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { nome, idade, email, senha } =
+    const { nome, email, senha } =
       createUserSchema.parse(req.body)
 
-    const id = await userService.createUser(nome, idade, email, senha)
+    const id = await userService.createUser(
+      nome,
+      email,
+      senha
+    )
 
     return res.status(201).json({
       message: 'Usuário criado!',
@@ -38,14 +44,23 @@ export const createUser = async (req: Request, res: Response) => {
     })
   } catch (err: any) {
     if (err instanceof ZodError) {
-      return res.status(400).json({ errors: err.issues })
+      return res.status(400).json({
+        errors: err.issues
+      })
     }
 
-    if (err.code === 'EMAIL_EXISTS' || err.code === 'ER_DUP_ENTRY') {
-      return res.status(409).json({ message: 'Email já está em uso' })
+    if (
+      err.code === 'EMAIL_EXISTS' ||
+      err.code === 'ER_DUP_ENTRY'
+    ) {
+      return res.status(409).json({
+        message: 'Email já está em uso'
+      })
     }
 
-    return res.status(500).json({ message: 'Erro interno do servidor.' })
+    return res.status(500).json({
+      message: 'Erro interno do servidor.'
+    })
   }
 }
 
@@ -53,13 +68,17 @@ export const getUserById = async (req: Request, res: Response) => {
   const { id } = req.params
 
   if (!req.user || req.user.id !== Number(id)) {
-    return res.status(403).json({ message: 'Acesso negado' })
+    return res.status(403).json({
+      message: 'Acesso negado'
+    })
   }
 
   const user = await userService.getUserById(Number(id))
 
   if (!user) {
-    return res.status(404).json({ message: 'Usuário não encontrado' })
+    return res.status(404).json({
+      message: 'Usuário não encontrado'
+    })
   }
 
   return res.json(user)
@@ -72,22 +91,41 @@ export const updateUser = async (req: Request, res: Response) => {
     const data = updateUserSchema.parse(req.body)
 
     if (!req.user || req.user.id !== Number(id)) {
-      return res.status(403).json({ message: 'Acesso negado' })
+      return res.status(403).json({
+        message: 'Acesso negado'
+      })
     }
 
-    const updated = await userService.updateUser(Number(id), data)
+    const updateData = {
+      ...(data.nome && { UsuNome: data.nome }),
+      ...(data.email && { UsuEmail: data.email }),
+      ...(data.senha && { UsuSenha: data.senha })
+    }
+
+    const updated = await userService.updateUser(
+      Number(id),
+      updateData
+    )
 
     if (!updated) {
-      return res.status(404).json({ message: 'Usuário não encontrado' })
+      return res.status(404).json({
+        message: 'Usuário não encontrado'
+      })
     }
 
-    return res.json({ message: 'Usuário atualizado com sucesso!' })
+    return res.json({
+      message: 'Usuário atualizado com sucesso!'
+    })
   } catch (err) {
     if (err instanceof ZodError) {
-      return res.status(400).json({ errors: err.issues })
+      return res.status(400).json({
+        errors: err.issues
+      })
     }
 
-    return res.status(500).json({ message: 'Erro interno do servidor' })
+    return res.status(500).json({
+      message: 'Erro interno do servidor'
+    })
   }
 }
 
@@ -96,18 +134,28 @@ export const deleteUser = async (req: Request, res: Response) => {
 
   try {
     if (!req.user || req.user.id !== Number(id)) {
-      return res.status(403).json({ message: 'Acesso negado' })
+      return res.status(403).json({
+        message: 'Acesso negado'
+      })
     }
 
-    const deleted = await userService.deleteUser(Number(id))
+    const deleted = await userService.deleteUser(
+      Number(id)
+    )
 
     if (!deleted) {
-      return res.status(404).json({ message: 'Usuário não encontrado' })
+      return res.status(404).json({
+        message: 'Usuário não encontrado'
+      })
     }
 
-    return res.json({ message: 'Usuário deletado com sucesso!' })
+    return res.json({
+      message: 'Usuário deletado com sucesso!'
+    })
   } catch {
-    return res.status(500).json({ message: 'Erro interno do servidor' })
+    return res.status(500).json({
+      message: 'Erro interno do servidor'
+    })
   }
 }
 
@@ -116,7 +164,10 @@ export const loginUser = async (req: Request, res: Response) => {
     const { email, senha } =
       loginUserSchema.parse(req.body)
 
-    const user = await userService.loginUser(email, senha)
+    const user = await userService.loginUser(
+      email,
+      senha
+    )
 
     const token = jwt.sign(
       {
@@ -125,7 +176,9 @@ export const loginUser = async (req: Request, res: Response) => {
         role: user.role
       },
       process.env.JWT_SECRET as string,
-      { expiresIn: '1h' }
+      {
+        expiresIn: '1h'
+      }
     )
 
     return res.json({
@@ -134,13 +187,19 @@ export const loginUser = async (req: Request, res: Response) => {
     })
   } catch (err: any) {
     if (err instanceof ZodError) {
-      return res.status(400).json({ errors: err.issues })
+      return res.status(400).json({
+        errors: err.issues
+      })
     }
 
     if (err.code === 'INVALID_CREDENTIALS') {
-      return res.status(401).json({ message: err.message })
+      return res.status(401).json({
+        message: err.message
+      })
     }
 
-    return res.status(500).json({ message: 'Erro interno do servidor' })
+    return res.status(500).json({
+      message: 'Erro interno do servidor'
+    })
   }
 }
