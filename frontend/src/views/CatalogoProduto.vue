@@ -2,8 +2,6 @@
   <div
     class="min-h-screen bg-gradient-to-br from-[#FAF6EE] via-[#FDFBF7] to-[#F3EAD9] text-[#4A3728] antialiased selection:bg-[#EED9C4]"
   >
-
-    <!-- HERO -->
     <section class="max-w-6xl mx-auto px-4 pt-16 pb-12 text-center">
       <div
         class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EED9C4]/50 border border-[#D9B48F]/40 text-xs font-black uppercase tracking-widest text-[#A0522D] mb-6 shadow-sm"
@@ -28,9 +26,7 @@
       </p>
     </section>
 
-    <!-- MAIN -->
     <main class="max-w-7xl mx-auto px-4 pb-20">
-      <!-- LOADING -->
       <div
         v-if="loading"
         class="flex flex-col justify-center items-center py-40 space-y-4"
@@ -40,7 +36,6 @@
         ></div>
       </div>
 
-      <!-- PRODUCTS -->
       <div
         v-else
         class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -50,21 +45,19 @@
           :key="product.id"
           class="relative group bg-white rounded-[2.2rem] border border-[#EED9C4]/20 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
         >
-          <!-- AÇÕES -->
           <div class="absolute top-4 right-4 flex gap-2 z-20">
-            <!-- ❤️ FAVORITO (CORRIGIDO) -->
             <button
               @click="toggleFavorite(product)"
-              class="w-10 h-10 flex items-center justify-center rounded-full bg-white/95 border border-[#EED9C4] hover:border-red-400 transition"
+              :disabled="isProcessing(product.id)"
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-white/95 border border-[#EED9C4] hover:border-red-400 transition disabled:opacity-70 disabled:cursor-not-allowed"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-5 h-5"
-                :class="
-                  isFavorite(product.id)
-                    ? 'text-red-500 fill-red-500'
-                    : 'text-[#422A17]'
-                "
+                class="w-5 h-5 transition-transform duration-100"
+                :class="[
+                  isFavorite(product.id) ? 'text-red-500 fill-red-500 scale-110' : 'text-[#422A17]',
+                  isProcessing(product.id) ? 'opacity-50' : ''
+                ]"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
@@ -77,7 +70,6 @@
               </svg>
             </button>
 
-            <!-- CARRINHO -->
             <button
               @click="addProductToCart(product)"
               class="w-10 h-10 flex items-center justify-center rounded-full bg-white/95 border border-[#EED9C4] hover:border-[#A0522D] transition"
@@ -99,7 +91,6 @@
             </button>
           </div>
 
-          <!-- IMAGEM -->
           <div class="aspect-[4/3] bg-[#FAF6EE] overflow-hidden">
             <img
               :src="
@@ -111,7 +102,6 @@
             />
           </div>
 
-          <!-- INFO -->
           <div class="p-5">
             <h2 class="font-serif font-black text-[#362212] text-lg">
               {{ product.name }}
@@ -143,8 +133,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import Cabecalho from "../components/cabecalho.vue";
 import Footer from "../components/footer.vue";
+import { useShopStore } from "../stores/shop";
 import { addToCart } from "../services/cartService";
 import {
   addToFavorites,
@@ -160,68 +150,98 @@ interface Product {
   image: string;
 }
 
+interface Favorite {
+  FavCodigo: number;
+  ProCodigo: number;
+}
+
+const shop = useShopStore();
+
 const products = ref<Product[]>([]);
 const loading = ref(true);
+const favorites = ref<Favorite[]>([]);
 
-// 🔥 CORRETO: guarda registros completos
-const favorites = ref<any[]>([]);
+const processingProducts = ref<Set<number>>(new Set());
 
-// 🛒 CART
-const addProductToCart = async (product: any) => {
-  try {
-    await addToCart(product.id, 1);
-    window.dispatchEvent(new Event("cart-updated"));
-  } catch (error) {
-    console.error(error);
-  }
-};
+const filteredProducts = computed(() => products.value);
 
-// ❤️ CHECK FAVORITO (NOVO)
-const isFavorite = (productId: number) => {
-  return favorites.value.some((f: any) => f.ProCodigo === productId);
-};
-
-// ❤️ LOAD FAVORITOS (CORRIGIDO)
 const loadFavorites = async () => {
   try {
     const response = await getFavorites();
     favorites.value = response.data || [];
-  } catch (error) {
-    console.error(error);
+    shop.setFavorites(favorites.value.length);
+  } catch {
     favorites.value = [];
+    shop.setFavorites(0);
   }
 };
 
-// ❤️ TOGGLE FAVORITO (CORRIGIDO)
-const toggleFavorite = async (product: Product) => {
+const isFavorite = (id: number) =>
+  favorites.value.some((f) => f.ProCodigo === id);
+
+const isProcessing = (id: number) => processingProducts.value.has(id);
+
+const addProductToCart = async (product: Product) => {
+  shop.addCart(1);
   try {
-    const fav = favorites.value.find((f: any) => f.ProCodigo === product.id);
-
-    if (fav) {
-      await removeFromFavorites(fav.FavCodigo);
-
-      favorites.value = favorites.value.filter(
-        (f: any) => f.FavCodigo !== fav.FavCodigo,
-      );
-    } else {
-      await addToFavorites(product.id);
-
-      await loadFavorites();
-    }
-
-    window.dispatchEvent(new Event("favorites-updated"));
+    await addToCart(product.id, 1);
   } catch (error) {
     console.error(error);
+    shop.addCart(-1);
   }
 };
 
-const filteredProducts = computed(() => products.value);
+const toggleFavorite = async (product: Product) => {
+  if (isProcessing(product.id)) return;
+
+  processingProducts.value.add(product.id);
+
+  const existingIndex = favorites.value.findIndex(
+    (f) => f.ProCodigo === product.id
+  );
+
+  if (existingIndex !== -1) {
+    const backupFavorite = favorites.value[existingIndex];
+    favorites.value.splice(existingIndex, 1);
+    shop.removeFavorite();
+
+    try {
+      await removeFromFavorites(backupFavorite.FavCodigo);
+    } catch (error) {
+      console.error(error);
+      favorites.value.push(backupFavorite);
+      shop.addFavorite();
+    } finally {
+      processingProducts.value.delete(product.id);
+    }
+  } else {
+    const tempId = Date.now();
+    favorites.value.push({ FavCodigo: tempId, ProCodigo: product.id });
+    shop.addFavorite();
+
+    try {
+      await addToFavorites(product.id);
+      const response = await getFavorites();
+      favorites.value = response.data || [];
+    } catch (error) {
+      console.error(error);
+      favorites.value = favorites.value.filter(
+        (f) => f.FavCodigo !== tempId
+      );
+      shop.removeFavorite();
+    } finally {
+      processingProducts.value.delete(product.id);
+    }
+  }
+};
 
 onMounted(async () => {
-  const res = await fetch("http://localhost:3000/products");
-  products.value = await res.json();
-  loading.value = false;
-
-  await loadFavorites();
+  try {
+    const res = await fetch("http://localhost:3000/products");
+    products.value = await res.json();
+    await loadFavorites();
+  } finally {
+    loading.value = false;
+  }
 });
 </script>
