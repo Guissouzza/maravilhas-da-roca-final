@@ -31,6 +31,9 @@ const router = createRouter({
       path: '/cadastro-produtos',
       name: 'cadastro-produtos',
       component: CadastroProdutos,
+      meta: {
+        hideHeader: true,
+      },
     },
 
     {
@@ -64,21 +67,34 @@ const router = createRouter({
       component: SobreNos,
     },
 
+    // 🔥 SEM HEADER
     {
       path: '/login',
       name: 'login',
       component: Login,
+
+      meta: {
+        hideHeader: true,
+      },
     },
 
+    // 🔥 SEM HEADER
     {
       path: '/cadastro',
       name: 'cadastro',
       component: Cadastro,
+
+      meta: {
+        hideHeader: true,
+      },
     },
   ],
 })
 
-// 🔐 BLOQUEIO GLOBAL (TODAS AS ROTAS EXCETO LOGIN/CADASTRO)
+/* =========================
+   🔐 BLOQUEIO GLOBAL
+========================= */
+
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
 
@@ -87,9 +103,10 @@ router.beforeEach((to, from, next) => {
 
   if (!isPublic && !token) {
     next('/login')
-  } else {
-    next()
+    return
   }
+
+  next()
 })
 
 export default router

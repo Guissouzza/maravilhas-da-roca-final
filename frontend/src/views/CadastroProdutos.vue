@@ -1,14 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#FDFBF7] text-[#3E2723] font-sans">
 
-    <header class="border-b border-[#E5DCCB] bg-white/50 backdrop-blur-sm px-8 py-5 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="text-2xl">🌿</span>
-        <span class="text-xl font-serif font-bold tracking-tight text-[#2B1810]">Maravilhas da Roça</span>
-      </div>
-      <span class="text-xs text-[#A1887F] uppercase tracking-widest font-medium">Gestão de Produtos</span>
-    </header>
-
     <main class="max-w-5xl mx-auto px-6 py-10">
 
       <div class="mb-10 text-center md:text-left">
