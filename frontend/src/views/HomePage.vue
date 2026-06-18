@@ -8,25 +8,22 @@ const categorias = [
   {
     nome: "Farinhas Artesanais",
     sub: "Moídas em pedra, puras e sem conservantes",
-    numero: "01",
     img: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=600&q=75",
   },
   {
     nome: "Café de Altitude",
     sub: "Grãos selecionados por especialistas da roça",
-    numero: "02",
     img: "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=600&q=75",
   },
   {
     nome: "Rapadura Pura",
     sub: "O doce tradicional na sua forma mais nobre",
-    numero: "03",
+    
     img: "https://images.unsplash.com/photo-1615484477778-ca3b77940c25?auto=format&fit=crop&w=600&q=75",
   },
   {
     nome: "Grãos Selecionados",
     sub: "Colheita manual e secagem natural ao sol",
-    numero: "04",
     img: "https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=600&q=75",
   },
 ];
