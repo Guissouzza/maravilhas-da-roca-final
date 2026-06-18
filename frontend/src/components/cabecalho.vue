@@ -26,17 +26,29 @@ const loadUser = () => {
 
 const logout = () => {
   localStorage.removeItem("token");
-  shop.clearStore(); // 👈 CORRIGIDO: Limpa os contadores globais da memória ao deslogar
+
+  // garante limpeza total do estado global
+  shop.clearStore();
+
+  // evita UI bug de dropdown aberto
   isUserOpen.value = false;
+
   router.push("/login");
 };
 
 onMounted(async () => {
   loadUser();
-  await Promise.all([
-    shop.loadCart(),
-    shop.loadFavorites()
-  ]).catch(err => console.error("Erro no carregamento do Header:", err));
+
+  if (!userEmail.value) return;
+
+  try {
+    await Promise.all([
+      shop.loadCart(),
+      shop.loadFavorites(),
+    ]);
+  } catch (err) {
+    console.error("Erro no carregamento dos dados do Header:", err);
+  }
 });
 </script>
 

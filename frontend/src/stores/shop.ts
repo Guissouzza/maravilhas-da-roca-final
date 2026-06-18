@@ -30,6 +30,10 @@ export const useShopStore = defineStore("shop", {
       this.cartCount += amount;
     },
 
+    setCartCount(count: number) {
+      this.cartCount = count;
+    },
+
     clearStore() {
       this.cartCount = 0;
       this.favorites = [];
@@ -38,65 +42,62 @@ export const useShopStore = defineStore("shop", {
     },
 
     async toggleFavorite(productId: number) {
-      // Impede múltiplos cliques concorrentes no mesmo produto
-      if (this.togglingFavorites.includes(productId)) return;
-      this.togglingFavorites.push(productId);
+      const id = Number(productId);
 
-      // Normaliza a busca para garantir compatibilidade com qualquer retorno de API
-      const index = this.favorites.findIndex(
-        (f) => Number(f.ProCodigo || (f as any).proCodigo) === Number(productId)
-      );
-
-      // 1. REGRA DE REMOÇÃO
-      if (index !== -1) {
-        const removed = this.favorites[index];
-        this.favorites.splice(index, 1); // Remove imediatamente da tela (Otimista)
-
-        try {
-          // Garante que pega o ID do favorito de forma resiliente
-          const idParaRemover = removed.FavCodigo || (removed as any).favCodigo;
-          await removeFromFavorites(idParaRemover);
-        } catch (error) {
-          console.error("Erro ao remover dos favoritos:", error);
-          // Se falhar no servidor, devolve para a tela (Rollback)
-          this.favorites.splice(index, 0, removed);
-        } finally {
-          this.togglingFavorites = this.togglingFavorites.filter((id) => id !== productId);
-        }
-        return;
-      }
-
-      // 2. REGRA DE ADIÇÃO
-      const timestampId = Date.now();
-      const temp: Favorite = {
-        FavCodigo: timestampId,
-        ProCodigo: productId,
-      };
-
-      this.favorites.push(temp); // Adiciona imediatamente na tela (Otimista)
+      if (this.togglingFavorites.includes(id)) return;
+      this.togglingFavorites.push(id);
 
       try {
-        const response = await addToFavorites(productId);
-        
-        // Extrai o código retornado independente se está dentro de .data ou direto na response
-        const rawData = response?.data || response;
-        const realFavCodigo = rawData?.FavCodigo || rawData?.favCodigo || rawData?.id;
+        const index = this.favorites.findIndex(
+          (f) => Number(f.ProCodigo) === id,
+        );
 
-        if (realFavCodigo) {
-          // Atualiza o ID temporário para o ID real do banco de dados
+        // =========================
+        // REMOVE
+        // =========================
+        if (index !== -1) {
+          const removed = this.favorites[index];
+          this.favorites.splice(index, 1);
+
+          const favId = Number(removed.FavCodigo);
+
+          await removeFromFavorites(favId);
+          return;
+        }
+
+        // =========================
+        // ADD (optimistic)
+        // =========================
+        const temp: Favorite = {
+          FavCodigo: Date.now(),
+          ProCodigo: id,
+        };
+
+        this.favorites.push(temp);
+
+        const response = await addToFavorites(id);
+
+        const raw = response?.data || response;
+        const realId = Number(raw?.FavCodigo || raw?.favCodigo || raw?.id);
+
+        if (realId) {
           const item = this.favorites.find(
-            (f) => Number(f.ProCodigo) === Number(productId) && f.FavCodigo === timestampId
+            (f) => Number(f.ProCodigo) === id && f.FavCodigo === temp.FavCodigo,
           );
+
           if (item) {
-            item.FavCodigo = Number(realFavCodigo);
+            item.FavCodigo = realId;
           }
         }
       } catch (error) {
-        console.error("Erro ao adicionar aos favoritos:", error);
-        // Se a API der erro, desfaz a inserção em tela
-        this.favorites = this.favorites.filter((f) => f.FavCodigo !== timestampId);
+        console.error("Erro ao alternar favorito:", error);
+
+        // rollback seguro (CORRIGIDO)
+        this.favorites = this.favorites.filter(
+          (f) => Number(f.ProCodigo) !== id,
+        );
       } finally {
-        this.togglingFavorites = this.togglingFavorites.filter((id) => id !== productId);
+        this.togglingFavorites = this.togglingFavorites.filter((x) => x !== id);
       }
     },
 
@@ -107,8 +108,9 @@ export const useShopStore = defineStore("shop", {
       try {
         const response = await getCart();
         this.cartCount = (response?.data?.items || []).reduce(
-          (total: number, item: any) => total + Number(item.Quantidade || item.quantidade || 0),
-          0
+          (total: number, item: any) =>
+            total + Number(item.Quantidade || item.quantidade || 0),
+          0,
         );
       } catch (error) {
         console.error("Erro ao carregar carrinho:", error);
@@ -125,7 +127,7 @@ export const useShopStore = defineStore("shop", {
       try {
         const response = await getFavorites();
         const rawList = response?.data || response || [];
-        
+
         // Normaliza as propriedades vindas do back-end para o padrão camelCase/PascalCase esperado
         this.favorites = rawList.map((item: any) => ({
           FavCodigo: Number(item.FavCodigo || item.favCodigo || item.id),
