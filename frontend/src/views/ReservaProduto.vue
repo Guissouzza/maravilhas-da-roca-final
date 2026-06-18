@@ -110,8 +110,6 @@ onMounted(() => {
 <template>
   <div class="min-h-screen bg-gray-50 flex flex-col justify-between w-full">
 
-    <!-- HEADER -->
-    <cabecalho />
     <!-- LISTA -->
     <div class="w-full flex flex-col pb-44">
 

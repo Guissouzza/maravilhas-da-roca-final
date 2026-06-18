@@ -1,8 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col bg-stone-50 text-stone-800 antialiased font-sans">
 
-    <Cabecalho />
-
     <!-- TUDO QUE NÃO É FOOTER VIRA MAIN -->
     <main class="flex-1">
 

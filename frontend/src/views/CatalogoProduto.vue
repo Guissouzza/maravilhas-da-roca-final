@@ -2,7 +2,6 @@
   <div
     class="min-h-screen bg-gradient-to-br from-[#FAF6EE] via-[#FDFBF7] to-[#F3EAD9] text-[#4A3728] antialiased selection:bg-[#EED9C4]"
   >
-    <Cabecalho />
 
     <!-- HERO -->
     <section class="max-w-6xl mx-auto px-4 pt-16 pb-12 text-center">

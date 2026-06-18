@@ -78,7 +78,6 @@ onMounted(() => {
   <div
     class="min-h-screen bg-[#FAF6F0] text-[#1E1A16] font-sans antialiased overflow-x-hidden selection:bg-[#C49A55]/20"
   >
-    <Cabecalho />
 
     <section
       class="relative h-screen flex items-center justify-center overflow-hidden"
