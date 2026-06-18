@@ -10,6 +10,7 @@ import ReservaProduto from '../views/ReservaProduto.vue'
 import SobreNos from '../views/SobreNos.vue'
 import Login from '../views/Login.vue'
 import Cadastro from '../views/CadastroUsuario.vue'
+import Estoque from '../views/Estoque.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,6 +20,16 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage,
+    },
+
+    {
+      path: '/estoque',
+      name: 'estoque',
+      component: Estoque,
+      
+      meta: {
+        hideHeader: true,
+      }
     },
 
     {
