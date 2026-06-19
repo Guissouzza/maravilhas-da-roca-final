@@ -217,11 +217,12 @@ onMounted(() => {
                 class="text-xs sm:text-lg font-black text-[#362212] whitespace-nowrap"
                 >R$ {{ Number(product.price || 0).toFixed(2) }}</span
               >
-              <button
+              <router-link
+                :to="{ name: 'descricao-produto', params: { id: product.id } }"
                 class="text-[10px] sm:text-xs font-semibold py-1 sm:py-2 px-2 sm:px-4 rounded-full text-[#422A17] hover:text-[#A0522D] hover:bg-[#EED9C4]/40 transition text-left sm:text-center shrink-0 origin-left"
               >
                 Ver detalhes →
-              </button>
+              </router-link>
             </div>
           </div>
         </div>
