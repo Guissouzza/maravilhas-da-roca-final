@@ -26,38 +26,22 @@ export const getById = async (id: number) => {
 // ===============================
 // CREATE
 // ===============================
-export const create = async (
-  name: string,
-  description: string,
-  price: number,
-  image: string
-) => {
+export const create = async (name: string, description: string, price: number, image: string, category: string) => {
   const [result]: any = await pool.execute(
-    `INSERT INTO Produto (ProNome, ProDesc, ProPreco, ProImagem)
-     VALUES (?, ?, ?, ?)`,
-    [name, description, price, image]
+    `INSERT INTO Produto (ProNome, ProDesc, ProPreco, ProImagem, ProCategoria) VALUES (?, ?, ?, ?, ?)`,
+    [name, description, price, image, category]
   )
-
   return result.insertId
 }
 
 // ===============================
 // UPDATE
 // ===============================
-export const update = async (
-  id: number,
-  name: string,
-  description: string,
-  price: number,
-  image: string
-) => {
+export const update = async (id: number, name: string, description: string, price: number, image: string, category: string) => {
   const [result]: any = await pool.execute(
-    `UPDATE Produto
-     SET ProNome = ?, ProDesc = ?, ProPreco = ?, ProImagem = ?
-     WHERE ProCodigo = ?`,
-    [name, description, price, image, id]
+    `UPDATE Produto SET ProNome = ?, ProDesc = ?, ProPreco = ?, ProImagem = ?, ProCategoria = ? WHERE ProCodigo = ?`,
+    [name, description, price, image, category, id]
   )
-
   return result.affectedRows
 }
 

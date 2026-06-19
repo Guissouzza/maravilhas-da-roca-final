@@ -18,6 +18,7 @@ export const useShopStore = defineStore("shop", {
     searchQuery: "",
     isLoadingCart: false,
     isLoadingFavorites: false,
+    selectedCategory: "Todas",
     togglingFavorites: [] as number[],
   }),
 
@@ -38,6 +39,7 @@ export const useShopStore = defineStore("shop", {
       this.cartCount = 0;
       this.favorites = [];
       this.searchQuery = "";
+      this.selectedCategory = "Todas";
       this.togglingFavorites = [];
     },
 

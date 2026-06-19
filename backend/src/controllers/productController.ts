@@ -1,9 +1,6 @@
 import { Request, Response } from 'express'
 import * as productService from '../services/productService'
 
-// ===============================
-// GET ALL PRODUCTS
-// ===============================
 export const getAllProducts = async (
   req: Request,
   res: Response
@@ -16,7 +13,8 @@ export const getAllProducts = async (
       name: prod.ProNome,
       description: prod.ProDesc,
       price: Number(prod.ProPreco),
-      image: prod.ProImagem
+      image: prod.ProImagem,
+      category: prod.ProCategoria
     }))
 
     return res.json(formatted)
@@ -25,16 +23,12 @@ export const getAllProducts = async (
   }
 }
 
-// ===============================
-// GET BY ID
-// ===============================
 export const getProductById = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
   try {
     const id = Number(req.params.id)
-
     const prod = await productService.getById(id)
 
     if (!prod) {
@@ -46,29 +40,24 @@ export const getProductById = async (
       name: prod.ProNome,
       description: prod.ProDesc,
       price: Number(prod.ProPreco),
-      image: prod.ProImagem
+      image: prod.ProImagem,
+      category: prod.ProCategoria
     })
   } catch (error) {
     return res.status(500).json({ error: 'Erro interno' })
   }
 }
 
-// ===============================
-// CREATE
-// ===============================
 export const createProduct = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
   try {
-    const { name, description, price, image } = req.body
-
-    const id = await productService.create(
-      name,
-      description,
-      price,
-      image
-    )
+    // Adicionado 'category' vindo do corpo da requisição
+    const { name, description, price, image, category = '' } = req.body
+    
+    // Agora enviamos todos os 5 argumentos que o seu service espera
+    const id = await productService.create(name, description, price, image, category)
 
     return res.status(201).json({
       message: 'Produto criado com sucesso!',
@@ -79,24 +68,17 @@ export const createProduct = async (
   }
 }
 
-// ===============================
-// UPDATE
-// ===============================
 export const updateProduct = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
   try {
     const id = Number(req.params.id)
-    const { name, description, price, image } = req.body
+    // Adicionado 'category' vindo do corpo da requisição
+    const { name, description, price, image, category = '' } = req.body
 
-    const affected = await productService.update(
-      id,
-      name,
-      description,
-      price,
-      image
-    )
+    // Agora enviamos todos os 6 argumentos que o seu service espera
+    const affected = await productService.update(id, name, description, price, image, category)
 
     if (affected === 0) {
       return res.status(404).json({ error: 'Produto não encontrado' })
@@ -108,16 +90,12 @@ export const updateProduct = async (
   }
 }
 
-// ===============================
-// DELETE
-// ===============================
 export const deleteProduct = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
   try {
     const id = Number(req.params.id)
-
     const affected = await productService.remove(id)
 
     if (affected === 0) {

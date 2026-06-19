@@ -5,22 +5,47 @@ import { useShopStore } from "../stores/shop";
 import { addToCart } from "../services/cartService";
 
 interface Product {
-  id: number | string; // Segurança caso o ID venha como texto da API
+  id: number | string;
   name: string;
   description: string;
   price: number;
   image: string;
+  // Ajustado para bater com o padrão do seu JSON (mude para 'ProCategoria' se no JSON vier maiúsculo)
+  category?: string; 
+  procategoria?: string; 
+  ProCategoria?: string;
 }
 
 const shop = useShopStore();
 const products = ref<Product[]>([]);
 const loading = ref(true);
 
-// CORRIGIDO: Proteção contra espaços vazios na busca
+// 1. CORRIGIDO: Pega a propriedade de categoria não importa como ela venha do back-end
+const categories = computed(() => {
+  const unique = new Set(
+    products.value.map((p) => p.category || p.procategoria || p.ProCategoria).filter(Boolean)
+  );
+  return ["Todas", ...Array.from(unique)];
+});
+
+// 2. CORRIGIDO: Filtros aplicando as chaves corretas que funcionam no seu template (name)
 const filteredProducts = computed(() => {
+  let list = products.value;
+
+  // Filtro por Categoria vindo do Pinia
+  if (shop.selectedCategory !== "Todas") {
+    list = list.filter((p) => {
+      const pCat = p.category || p.procategoria || p.ProCategoria;
+      return pCat === shop.selectedCategory;
+    });
+  }
+
+  // Filtro por Busca por Texto vindo do Pinia
   const query = shop.searchQuery.trim().toLowerCase();
-  if (!query) return products.value;
-  return products.value.filter((p) => p.name.toLowerCase().includes(query));
+  if (!query) return list;
+
+  // Corrigido de p.ProNome para p.name para não quebrar a aplicação
+  return list.filter((p) => p.name?.toLowerCase().includes(query));
 });
 
 const addProductToCart = async (product: Product) => {
@@ -94,6 +119,28 @@ onMounted(async () => {
         Descubra pequenos lotes artesanais de queijos premiados, doces de tacho
         e relíquias mineiras autênticas.
       </p>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-6 mb-16 select-none">
+      <div
+        class="flex items-center justify-start sm:justify-center gap-3 overflow-x-auto py-2 scrollbar-none snap-x"
+      >
+        <button
+          v-for="category in categories"
+          :key="category"
+          @click="shop.selectedCategory = category"
+          class="snap-center shrink-0 px-6 py-2.5 rounded-full text-xs uppercase tracking-[0.2em] transition-all duration-300 ease-out active:scale-95"
+          :class="[
+            shop.selectedCategory === category
+              ? 'bg-[#362212] text-[#FAF6EE] shadow-sm font-bold scale-100'
+              : 'text-[#7A5C43]/70 bg-transparent font-semibold hover:text-[#362212] hover:bg-[#EED9C4]/20',
+          ]"
+        >
+          {{ category }}
+        </button>
+      </div>
+
+      <div class="w-12 h-[1px] bg-[#A0522D]/20 mx-auto mt-6"></div>
     </section>
 
     <main class="max-w-7xl mx-auto px-4 pb-20">
