@@ -53,72 +53,117 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 backdrop-blur-2xl bg-[#FDFBF7]/80 border-b border-[#EED9C4]/40 px-3 sm:px-4 py-3 sm:py-4">
-    <div class="max-w-7xl mx-auto flex items-center gap-6">
-      <RouterLink to="/" class="flex items-center gap-3 shrink-0">
-        <img src="/images/logo_sem_fundo.png" class="w-10 h-10 sm:w-14 sm:h-14 object-contain" />
-        <div class="flex flex-col leading-tight">
-          <span class="text-sm sm:text-xl font-serif font-black text-[#362212]">
-            Maravilhas da <span class="text-[#A0522D]"> Roça </span>
-          </span>
-          <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#A0522D]/70 font-bold">
-            Sabor Ancestral
-          </span>
-        </div>
-      </RouterLink>
+  <header class="sticky top-0 z-50 backdrop-blur-2xl bg-[#FDFBF7]/80 border-b border-[#EED9C4]/40 px-4 py-3 md:py-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-6">
+      
+      <div class="flex items-center justify-between md:justify-start gap-3 w-full md:w-auto">
+        
+        <RouterLink to="/" class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <img src="/images/logo_sem_fundo.png" class="w-10 h-10 sm:w-14 sm:h-14 object-contain" />
+          <div class="flex flex-col leading-tight">
+            <span class="text-base sm:text-xl font-serif font-black text-[#362212]">
+              Maravilhas da <span class="text-[#A0522D]"> Roça </span>
+            </span>
+            <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#A0522D]/70 font-bold">
+              Sabor Ancestral
+            </span>
+          </div>
+        </RouterLink>
 
-      <div class="hidden md:flex flex-1 max-w-md">
-        <div class="relative w-full">
+        <div class="flex items-center gap-2 md:hidden">
+          <RouterLink to="/carrinho" class="relative block">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4]">
+              🛒
+            </div>
+            <span class="absolute -top-1 -right-1 bg-[#A0522D] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+              {{ cartCount }}
+            </span>
+          </RouterLink>
+
+          <div class="relative">
+            <button @click="isUserOpen = !isUserOpen" class="w-9 h-9 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4]">
+              👤
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flex items-center gap-4 md:gap-6 flex-1 justify-end w-full md:w-auto">
+        
+        <div class="w-full md:max-w-xs relative">
           <input
             v-model="shop.searchQuery"
             type="text"
             placeholder="Buscar produtos..."
-            class="w-full bg-[#FAF6EE] border border-[#EED9C4] rounded-2xl px-5 py-2.5 pl-10 text-sm"
+            class="w-full bg-[#FAF6EE] border border-[#EED9C4]/70 rounded-2xl px-4 py-2 pl-9 text-xs focus:outline-none focus:border-[#A0522D] transition-colors"
           />
-          <span class="absolute left-3 top-2.5 text-gray-400"> 🔍 </span>
+          <span class="absolute left-3 top-2.5 text-xs opacity-70"> 🔍 </span>
         </div>
-      </div>
 
-      <div class="flex items-center gap-5 ml-auto">
-        <nav class="hidden lg:flex gap-6 text-sm font-bold text-[#7A5C43]">
-          <RouterLink to="/"> Início </RouterLink>
-          <RouterLink to="/catalogo"> Catálogo </RouterLink>
-          <RouterLink to="/sobre"> Sobre </RouterLink>
+        <nav class="hidden lg:flex items-center gap-5 text-sm font-bold text-[#7A5C43] shrink-0">
+          <RouterLink to="/" class="hover:text-[#362212] transition-colors"> Início </RouterLink>
+          <RouterLink to="/catalogo" class="hover:text-[#362212] transition-colors"> Catálogo </RouterLink>
+          <RouterLink to="/pedidos" class="hover:text-[#362212] transition-colors"> Meus Pedidos </RouterLink>
+          <RouterLink to="/sobre" class="hover:text-[#362212] transition-colors"> Sobre </RouterLink>
         </nav>
 
-        <RouterLink to="/favoritos" class="relative">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4]">
-            ❤️
-          </div>
-          <span class="absolute -top-2 -right-2 bg-[#A0522D] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
-            {{ favoritesCount }}
-          </span>
-        </RouterLink>
+        <div class="hidden md:flex items-center gap-3 shrink-0">
+          <RouterLink to="/favoritos" title="Meus Favoritos" class="relative block group">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4] group-hover:border-[#A0522D]/40 transition-all duration-300">
+              ❤️
+            </div>
+            <span class="absolute -top-1 -right-1 bg-[#A0522D] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+              {{ favoritesCount }}
+            </span>
+          </RouterLink>
 
-        <RouterLink to="/carrinho" class="relative">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4]">
-            🛒
-          </div>
-          <span class="absolute -top-2 -right-2 bg-[#A0522D] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
-            {{ cartCount }}
-          </span>
-        </RouterLink>
+          <RouterLink to="/carrinho" title="Meu Carrinho" class="relative block group">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4] group-hover:border-[#A0522D]/40 transition-all duration-300">
+              🛒
+            </div>
+            <span class="absolute -top-1 -right-1 bg-[#A0522D] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
+              {{ cartCount }}
+            </span>
+          </RouterLink>
 
-        <div class="relative">
-          <button @click="isUserOpen = !isUserOpen" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4]">
+          <button @click="isUserOpen = !isUserOpen" title="Minha Conta" class="w-10 h-10 rounded-full flex items-center justify-center bg-[#FAF6EE] border border-[#EED9C4] hover:border-[#A0522D]/40 transition-all duration-300">
             👤
           </button>
-
-          <div v-if="isUserOpen" class="absolute right-0 mt-2 w-52 bg-white border border-[#EED9C4] rounded-xl shadow-lg">
-            <div class="px-4 py-3 border-b">
-              <p class="font-bold">Logado como:</p>
-              <p class="truncate">{{ userEmail || "Usuário" }}</p>
-            </div>
-            <button @click="logout" class="w-full text-left px-4 py-2 text-red-600 font-bold">
-              Sair
-            </button>
-          </div>
         </div>
+
+        <div v-if="isUserOpen" class="absolute right-4 mt-2 w-52 bg-white border border-[#EED9C4] rounded-xl shadow-xl z-50 py-1" :style="isUserOpen ? 'top: 100%' : ''">
+          <div class="px-4 py-3 border-b border-[#EED9C4]/30">
+            <p class="text-xs text-[#7A5C43] font-medium">Logado como:</p>
+            <p class="text-sm font-bold truncate text-[#362212]">{{ userEmail || "Usuário" }}</p>
+          </div>
+
+          <div class="block lg:hidden border-b border-[#EED9C4]/20 pb-1">
+            <RouterLink to="/" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
+              🏠 Início
+            </RouterLink>
+            <RouterLink to="/catalogo" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
+              📖 Catálogo
+            </RouterLink>
+            <RouterLink to="/favoritos" @click="isUserOpen = false" class="flex items-center justify-between px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
+              <span class="flex items-center gap-2">❤️ Meus Favoritos</span>
+              <span class="bg-[#A0522D]/10 text-[#A0522D] text-[10px] font-bold px-2 py-0.5 rounded-full">
+                {{ favoritesCount }}
+              </span>
+            </RouterLink>
+            <RouterLink to="/pedidos" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
+              📦 Meus Pedidos
+                </RouterLink>
+            <RouterLink to="/sobre" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
+              ℹ️ Sobre Nós
+            </RouterLink>
+          </div>
+
+          <button @click="logout" class="w-full text-left px-4 py-2.5 text-sm text-red-600 font-bold hover:bg-red-50 transition-colors">
+            Sair
+          </button>
+        </div>
+
       </div>
     </div>
   </header>
