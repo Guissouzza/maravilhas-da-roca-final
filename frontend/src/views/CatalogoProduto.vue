@@ -10,8 +10,8 @@ interface Product {
   description: string;
   price: number;
   image: string;
-  category?: string; 
-  procategoria?: string; 
+  category?: string;
+  procategoria?: string;
   ProCategoria?: string;
 }
 
@@ -21,7 +21,9 @@ const loading = ref(true);
 
 const categories = computed(() => {
   const unique = new Set(
-    products.value.map((p) => p.category || p.procategoria || p.ProCategoria).filter(Boolean)
+    products.value
+      .map((p) => p.category || p.procategoria || p.ProCategoria)
+      .filter(Boolean),
   );
   return ["Todas", ...Array.from(unique)];
 });
@@ -87,7 +89,9 @@ onMounted(async () => {
   <div
     class="min-h-screen bg-gradient-to-br from-[#FAF6EE] via-[#FDFBF7] to-[#F3EAD9] text-[#4A3728] antialiased selection:bg-[#EED9C4]"
   >
-    <section class="max-w-6xl mx-auto px-4 pt-12 sm:pt-16 pb-8 sm:pb-12 text-center">
+    <section
+      class="max-w-6xl mx-auto px-4 pt-12 sm:pt-16 pb-8 sm:pb-12 text-center"
+    >
       <div
         class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#EED9C4]/50 border border-[#D9B48F]/40 text-[10px] sm:text-xs font-black uppercase tracking-widest text-[#A0522D] mb-4 sm:mb-6 shadow-sm"
       >
@@ -97,10 +101,10 @@ onMounted(async () => {
       <h1
         class="text-3xl sm:text-6xl md:text-7xl font-serif font-black tracking-tight text-[#362212] max-w-5xl mx-auto leading-[1.15] sm:leading-[1.08]"
       >
-        O puro sabor do campo, <br class="hidden sm:inline" />
-        <span class="underline decoration-[#A0522D]/30 decoration-wavy"
-          >direto na sua mesa</span
-        >
+        <span class="underline decoration-[#A0522D]/30 decoration-wavy">
+          O puro sabor do campo, <br class="hidden sm:inline" />
+          direto na sua mesa
+        </span>
       </h1>
 
       <p
@@ -152,7 +156,9 @@ onMounted(async () => {
           :key="product.id"
           class="relative group bg-white rounded-2xl sm:rounded-[2.2rem] border border-[#EED9C4]/20 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
         >
-          <div class="absolute top-2 sm:top-4 right-2 sm:right-4 flex gap-1 sm:gap-2 z-20">
+          <div
+            class="absolute top-2 sm:top-4 right-2 sm:right-4 flex gap-1 sm:gap-2 z-20"
+          >
             <button
               @click="toggleFavorite(product.id)"
               :disabled="isProcessing(product.id)"
@@ -212,15 +218,22 @@ onMounted(async () => {
           </div>
 
           <div class="p-3 sm:p-5">
-            <h2 class="font-serif font-black text-[#362212] text-xs sm:text-lg truncate">
+            <h2
+              class="font-serif font-black text-[#362212] text-xs sm:text-lg truncate"
+            >
               {{ product.name }}
             </h2>
-            <p class="text-[11px] sm:text-sm text-[#7A5C43] mt-1 line-clamp-2 h-7 sm:h-10 font-light leading-tight">
+            <p
+              class="text-[11px] sm:text-sm text-[#7A5C43] mt-1 line-clamp-2 h-7 sm:h-10 font-light leading-tight"
+            >
               {{ product.description }}
             </p>
-            
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-2 sm:mt-4 gap-1 sm:gap-0">
-              <span class="text-xs sm:text-lg font-black text-[#362212] whitespace-nowrap"
+
+            <div
+              class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-2 sm:mt-4 gap-1 sm:gap-0"
+            >
+              <span
+                class="text-xs sm:text-lg font-black text-[#362212] whitespace-nowrap"
                 >R$ {{ Number(product.price || 0).toFixed(2) }}</span
               >
               <button
