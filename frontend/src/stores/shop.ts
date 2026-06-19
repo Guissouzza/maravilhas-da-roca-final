@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { getCart } from "../services/cartService";
+import { getProducts } from "../services/productService"; // <-- Importação do novo serviço
 import {
   getFavorites,
   addToFavorites,
@@ -11,13 +12,26 @@ interface Favorite {
   ProCodigo: number;
 }
 
+interface Product {
+  id: number | string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category?: string;
+  procategoria?: string;
+  ProCategoria?: string;
+}
+
 export const useShopStore = defineStore("shop", {
   state: () => ({
+    products: [] as Product[], // Store agora gerencia a lista global de produtos
     cartCount: 0,
     favorites: [] as Favorite[],
     searchQuery: "",
     isLoadingCart: false,
     isLoadingFavorites: false,
+    isLoadingProducts: false, // Loading específico para a requisição de produtos
     selectedCategory: "Todas",
     togglingFavorites: [] as number[],
   }),
@@ -27,6 +41,25 @@ export const useShopStore = defineStore("shop", {
   },
 
   actions: {
+    async loadProducts() {
+      // Evita requisições duplicadas se os produtos já existirem ou se houver uma chamada em andamento
+      if (this.products.length > 0) return;
+      if (this.isLoadingProducts) return;
+      
+      this.isLoadingProducts = true;
+
+      try {
+        const response = await getProducts();
+        // Segue o padrão do Axios (.data) igual aos seus outros serviços
+        this.products = response?.data || response || [];
+      } catch (error) {
+        console.error("Erro ao carregar produtos:", error);
+        this.products = [];
+      } finally {
+        this.isLoadingProducts = false;
+      }
+    },
+
     addCart(amount = 1) {
       this.cartCount += amount;
     },
@@ -36,6 +69,7 @@ export const useShopStore = defineStore("shop", {
     },
 
     clearStore() {
+      this.products = [];
       this.cartCount = 0;
       this.favorites = [];
       this.searchQuery = "";
@@ -94,7 +128,7 @@ export const useShopStore = defineStore("shop", {
       } catch (error) {
         console.error("Erro ao alternar favorito:", error);
 
-        // rollback seguro (CORRIGIDO)
+        // rollback seguro
         this.favorites = this.favorites.filter(
           (f) => Number(f.ProCodigo) !== id,
         );
@@ -130,7 +164,7 @@ export const useShopStore = defineStore("shop", {
         const response = await getFavorites();
         const rawList = response?.data || response || [];
 
-        // Normaliza as propriedades vindas do back-end para o padrão camelCase/PascalCase esperado
+        // Normaliza as propriedades vindas do back-end
         this.favorites = rawList.map((item: any) => ({
           FavCodigo: Number(item.FavCodigo || item.favCodigo || item.id),
           ProCodigo: Number(item.ProCodigo || item.proCodigo || item.productId),

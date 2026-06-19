@@ -1,35 +1,24 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import { onMounted, computed } from "vue";
 import Footer from "../components/footer.vue";
-import { useShopStore } from "../stores/shop";
+import { useShopStore, type Product } from "../stores/shop";
 import { addToCart } from "../services/cartService";
 
-interface Product {
-  id: number | string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  category?: string;
-  procategoria?: string;
-  ProCategoria?: string;
-}
-
 const shop = useShopStore();
-const products = ref<Product[]>([]);
-const loading = ref(true);
 
+// As categorias mapeiam a lista de produtos centralizada na Store
 const categories = computed(() => {
   const unique = new Set(
-    products.value
+    shop.products
       .map((p) => p.category || p.procategoria || p.ProCategoria)
       .filter(Boolean),
   );
   return ["Todas", ...Array.from(unique)];
 });
 
+// O filtro lê a lista de produtos direto da Store
 const filteredProducts = computed(() => {
-  let list = products.value;
+  let list = shop.products;
 
   if (shop.selectedCategory !== "Todas") {
     list = list.filter((p) => {
@@ -72,16 +61,8 @@ const favoriteIds = computed(() =>
   shop.favorites.map((f) => Number(f.ProCodigo)),
 );
 
-onMounted(async () => {
-  try {
-    const res = await fetch("http://localhost:3000/products");
-    if (!res.ok) throw new Error("Falha na resposta do servidor");
-    products.value = await res.json();
-  } catch (error) {
-    console.error("Erro ao carregar produtos:", error);
-  } finally {
-    loading.value = false;
-  }
+onMounted(() => {
+  shop.loadProducts();
 });
 </script>
 
@@ -139,7 +120,7 @@ onMounted(async () => {
 
     <main class="max-w-7xl mx-auto px-2 sm:px-4 pb-20">
       <div
-        v-if="loading"
+        v-if="shop.isLoadingProducts"
         class="flex flex-col justify-center items-center py-40 space-y-4"
       >
         <div
