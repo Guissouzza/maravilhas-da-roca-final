@@ -1,7 +1,29 @@
-import db from '../db'; // ⚠️ Lembre-se de verificar se o caminho para a base de dados está correto
+import db from '../db';
 
 export const createOrderService = async (userId: number, tipo: string, total: number, itens: any[], nome: string, telefone: string) => {
-  // 1. Cria o Pedido principal
+  
+  // 1. PRIMEIRO: Valida se todos os itens possuem estoque disponível
+  for (const item of itens) {
+    const produtoId = item.id || item.produto_id || item.ProCodigo;
+    const qtdPedida = item.quantidade || item.quantity;
+
+    const [rows]: any = await db.execute(
+      `SELECT ProNome, ProEstoque FROM Produto WHERE ProCodigo = ?`, 
+      [produtoId]
+    );
+
+    if (rows.length === 0) {
+      throw new Error(`Produto não encontrado.`);
+    }
+
+    const produto = rows[0];
+    if (produto.ProEstoque < qtdPedida) {
+      // Se o estoque for menor do que o cara quer comprar, joga um erro pro front pegar
+      throw new Error(`O produto "${produto.ProNome}" acabou de esgotar ou não possui estoque suficiente.`);
+    }
+  }
+
+  // 2. Cria o Pedido principal (Se passou na validação acima)
   const [pedidoResult]: any = await db.execute(
     `INSERT INTO Pedidos (usuario_id, tipo, status, total, nome_cliente, telefone_cliente) VALUES (?, ?, ?, ?, ?, ?)`,
     [userId, tipo, 'pendente', total, nome, telefone]
@@ -9,15 +31,26 @@ export const createOrderService = async (userId: number, tipo: string, total: nu
   
   const pedidoId = pedidoResult.insertId;
 
-  // 2. Insere os itens do pedido (ItensPedido)
+  // 3. Insere os itens e ATUALIZA O ESTOQUE no banco
   for (const item of itens) {
+    const produtoId = item.id || item.produto_id || item.ProCodigo;
+    const qtdPedida = item.quantidade || item.quantity;
+    const precoUnitario = item.preco || item.ProPreco;
+
+    // Insere o item do pedido
     await db.execute(
       `INSERT INTO ItensPedido (pedido_id, produto_id, quantidade, preco_unitario) VALUES (?, ?, ?, ?)`,
-      [pedidoId, item.id || item.produto_id || item.ProCodigo, item.quantidade, item.preco]
+      [pedidoId, produtoId, qtdPedida, precoUnitario]
+    );
+
+    // 🔥 BAIXA NO ESTOQUE: Subtrai a quantidade que o cliente comprou
+    await db.execute(
+      `UPDATE Produto SET ProEstoque = ProEstoque - ? WHERE ProCodigo = ?`,
+      [qtdPedida, produtoId]
     );
   }
 
-  // 3. Limpar o carrinho do utilizador após a compra
+  // 4. Limpa o carrinho do usuário após fechar o pedido
   const [carrinho]: any = await db.execute(`SELECT CarCodigo FROM Carrinho WHERE UsuCodigo = ?`, [userId]);
   if (carrinho.length > 0) {
     await db.execute(`DELETE FROM CarrinhoItem WHERE CarCodigo = ?`, [carrinho[0].CarCodigo]);

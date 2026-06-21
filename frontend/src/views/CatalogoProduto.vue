@@ -34,6 +34,14 @@ const filteredProducts = computed(() => {
 });
 
 const addProductToCart = async (product: Product) => {
+  const p = product as any;
+  const estoqueVindo = p.ProEstoque !== undefined ? p.ProEstoque : (p.stock !== undefined ? p.stock : p.estoque);
+
+  if (estoqueVindo !== undefined && estoqueVindo <= 0) {
+    alert(`Desculpe! O produto "${product.name}" está temporariamente esgotado. 🌾`);
+    return;
+  }
+
   try {
     await addToCart(Number(product.id), 1);
     shop.addCart(1);
@@ -168,6 +176,7 @@ onMounted(() => {
 
             <button
               @click="addProductToCart(product)"
+              :class="{ 'opacity-40 cursor-not-allowed': (product.ProEstoque !== undefined && product.ProEstoque <= 0) }"
               class="w-7 h-7 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-white/95 border border-[#EED9C4] hover:border-[#A0522D] transition shadow-sm"
             >
               <svg

@@ -22,6 +22,20 @@ const product = computed(() => {
 // Lógica de adicionar ao carrinho (igual à do catálogo)
 const addProductToCart = async () => {
   if (!product.value) return;
+
+  // 📝 Imprime no console do navegador para checar as propriedades reais do objeto
+  console.log("Dados do Produto clicado:", product.value);
+
+  // Busca de forma flexível por qualquer variação do campo estoque vinda do banco
+  const p = product.value as any;
+  const estoqueVindo = p.ProEstoque !== undefined ? p.ProEstoque : (p.stock !== undefined ? p.stock : p.estoque);
+
+  // Se o campo de estoque realmente veio definido do banco de dados E for menor ou igual a zero, barramos.
+  if (estoqueVindo !== undefined && estoqueVindo <= 0) {
+    alert(`Lamento! O produto "${product.value.name}" está sem estoque no momento. 🌾`);
+    return;
+  }
+
   try {
     await addToCart(Number(product.value?.id), 1);
     shop.addCart(1);
@@ -105,9 +119,11 @@ onMounted(() => {
           <div class="flex flex-col sm:flex-row gap-4 pt-6">
             <button 
               @click="addProductToCart"
-              class="flex-1 bg-[#362212] text-[#FAF6EE] py-4 rounded-full font-bold uppercase tracking-[0.2em] hover:bg-[#A0522D] transition-all duration-300 shadow-xl active:scale-95"
+              :disabled="product.ProEstoque !== undefined && product.ProEstoque <= 0"
+              :class="(product.ProEstoque !== undefined && product.ProEstoque <= 0) ? 'bg-gray-400 cursor-not-allowed opacity-60' : 'bg-[#362212] hover:bg-[#A0522D]'"
+              class="flex-1 text-[#FAF6EE] py-4 rounded-full font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-xl active:scale-95"
             >
-              Adicionar à Cesta
+              {{ (product.ProEstoque !== undefined && product.ProEstoque <= 0) ? 'Esgotado no Momento' : 'Adicionar à Cesta' }}
             </button>
 
             <button 
