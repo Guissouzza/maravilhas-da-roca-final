@@ -21,10 +21,16 @@ const entrar = async () => {
     });
 
     const token = response.data.token;
+    const role = response.data.role || response.data.user?.role || "cliente";
 
     localStorage.setItem("token", token);
+    localStorage.setItem("user_role", role);
 
-    router.push("/");
+    if (role === "admin") {
+      router.push("/admin/pedidos");
+    } else {
+      router.push("/");
+    }
   } catch (err: any) {
     error.value = err?.response?.data?.message || "Erro ao fazer login";
   } finally {
@@ -35,60 +41,40 @@ const entrar = async () => {
 
 <template>
   <div class="min-h-screen grid lg:grid-cols-2 bg-[#F6EFE6]">
-    <!-- LADO ESQUERDO -->
     <div class="relative hidden lg:block overflow-hidden">
       <img
         src="https://images.unsplash.com/photo-1542838132-92c53300491e"
         class="absolute inset-0 w-full h-full object-cover scale-105"
       />
-
       <div class="absolute inset-0 bg-black/30"></div>
-      <div
-        class="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-transparent"
-      ></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-transparent"></div>
 
       <div class="relative h-full flex items-center px-16">
-        <div
-          class="max-w-md text-white bg-black/20 backdrop-blur-md p-8 rounded-2xl border border-white/10"
-        >
-          <span
-            class="text-xs tracking-[0.35em] uppercase text-[#E7CFA7] font-bold"
-          >
+        <div class="max-w-md text-white bg-black/20 backdrop-blur-md p-8 rounded-2xl border border-white/10">
+          <span class="text-xs tracking-[0.35em] uppercase text-[#E7CFA7] font-bold">
             Maravilhas da Roça
           </span>
-
-          <h1
-            class="mt-6 text-6xl font-black font-serif leading-[1.05] text-[#FFF6E9]"
-          >
-            O sabor que nasce<br />
-            da terra viva
+          <h1 class="mt-6 text-6xl font-black font-serif leading-[1.05] text-[#FFF6E9]">
+            O sabor que nasce<br />da terra viva
           </h1>
-
           <p class="mt-6 text-white/90 text-lg leading-relaxed">
-            Produtos artesanais feitos com cuidado, tradição e ingredientes
-            naturais direto da origem.
+            Produtos artesanais feitos com cuidado, tradição e ingredientes naturais direto da origem.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- LADO DIREITO -->
     <div class="flex items-center justify-center px-8">
       <div class="w-full max-w-md">
-        <div
-          class="bg-white/80 backdrop-blur-xl border border-[#EED9C4]/50 shadow-2xl rounded-[2.5rem] p-10"
-        >
+        <div class="bg-white/80 backdrop-blur-xl border border-[#EED9C4]/50 shadow-2xl rounded-[2.5rem] p-10">
           <div class="text-center mb-10">
             <div class="text-4xl mb-3">🌾</div>
-
             <h2 class="text-3xl font-black font-serif text-[#2E1F16]">
               Bem-vindo de volta
             </h2>
-
             <p class="text-sm text-[#6B4B36] mt-2">
               Entre para acessar sua experiência da roça
             </p>
-
             <p v-if="error" class="mt-4 text-red-600 text-sm">
               {{ error }}
             </p>
@@ -101,7 +87,6 @@ const entrar = async () => {
               placeholder="Email"
               class="w-full px-5 py-4 rounded-2xl bg-[#F7F1E8] border border-[#EED9C4] outline-none focus:ring-2 focus:ring-[#C49A55]/60 transition"
             />
-
             <input
               v-model="senha"
               type="password"

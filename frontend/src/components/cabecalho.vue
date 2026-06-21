@@ -8,30 +8,37 @@ const shop = useShopStore();
 
 const isUserOpen = ref(false);
 const userEmail = ref<string | null>(null);
+const isLoggedIn = ref(false); // 👈 Nova flag para controlar se há alguém logado
 
 const cartCount = computed(() => shop.cartCount);
 const favoritesCount = computed(() => shop.favoritesCount);
 
 const loadUser = () => {
   const token = localStorage.getItem("token");
-  if (!token) return;
+  if (!token) {
+    isLoggedIn.value = false;
+    userEmail.value = null;
+    return;
+  }
 
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
-    userEmail.value = payload.email;
+    // Aceita tanto .email do cliente quanto .email ou .login que venha do admin
+    userEmail.value = payload.email || payload.login || "Administrador";
+    isLoggedIn.value = true; // 👈 Confirmado que está logado
   } catch {
     userEmail.value = null;
+    isLoggedIn.value = false;
   }
 };
 
 const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("user_role"); // 👈 Garante que limpa o papel do usuário também
 
-  // garante limpeza total do estado global
   shop.clearStore();
-
-  // evita UI bug de dropdown aberto
   isUserOpen.value = false;
+  isLoggedIn.value = false;
 
   router.push("/login");
 };
@@ -39,7 +46,7 @@ const logout = () => {
 onMounted(async () => {
   loadUser();
 
-  if (!userEmail.value) return;
+  if (!isLoggedIn.value) return;
 
   try {
     await Promise.all([
@@ -104,7 +111,6 @@ onMounted(async () => {
         <nav class="hidden lg:flex items-center gap-5 text-sm font-bold text-[#7A5C43] shrink-0">
           <RouterLink to="/" class="hover:text-[#362212] transition-colors"> Início </RouterLink>
           <RouterLink to="/catalogo" class="hover:text-[#362212] transition-colors"> Catálogo </RouterLink>
-          <!-- Link corrigido abaixo: de /pedidos para /meus-pedidos -->
           <RouterLink to="/meus-pedidos" class="hover:text-[#362212] transition-colors"> Meus Pedidos </RouterLink>
           <RouterLink to="/sobre" class="hover:text-[#362212] transition-colors"> Sobre </RouterLink>
         </nav>
@@ -134,35 +140,36 @@ onMounted(async () => {
         </div>
 
         <div v-if="isUserOpen" class="absolute right-4 mt-2 w-52 bg-white border border-[#EED9C4] rounded-xl shadow-xl z-50 py-1" :style="isUserOpen ? 'top: 100%' : ''">
-          <div class="px-4 py-3 border-b border-[#EED9C4]/30">
-            <p class="text-xs text-[#7A5C43] font-medium">Logado como:</p>
-            <p class="text-sm font-bold truncate text-[#362212]">{{ userEmail || "Usuário" }}</p>
+          
+          <div v-if="isLoggedIn">
+            <div class="px-4 py-3 border-b border-[#EED9C4]/30">
+              <p class="text-xs text-[#7A5C43] font-medium">Logado como:</p>
+              <p class="text-sm font-bold truncate text-[#362212]">{{ userEmail }}</p>
+            </div>
+
+            <div class="block lg:hidden border-b border-[#EED9C4]/20 pb-1">
+              <RouterLink to="/" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">🏠 Início</RouterLink>
+              <RouterLink to="/catalogo" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">📖 Catálogo</RouterLink>
+              <RouterLink to="/favoritos" @click="isUserOpen = false" class="flex items-center justify-between px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
+                <span class="flex items-center gap-2">❤️ Meus Favoritos</span>
+                <span class="bg-[#A0522D]/10 text-[#A0522D] text-[10px] font-bold px-2 py-0.5 rounded-full">{{ favoritesCount }}</span>
+              </RouterLink>
+              <RouterLink to="/meus-pedidos" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">📦 Meus Pedidos</RouterLink>
+              <RouterLink to="/sobre" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">ℹ️ Sobre Nós</RouterLink>
+            </div>
+
+            <button @click="logout" class="w-full text-left px-4 py-2.5 text-sm text-red-600 font-bold hover:bg-red-50 transition-colors">
+              Sair 👋
+            </button>
           </div>
 
-          <div class="block lg:hidden border-b border-[#EED9C4]/20 pb-1">
-            <RouterLink to="/" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
-              🏠 Início
-            </RouterLink>
-            <RouterLink to="/catalogo" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
-              📖 Catálogo
-            </RouterLink>
-            <RouterLink to="/favoritos" @click="isUserOpen = false" class="flex items-center justify-between px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
-              <span class="flex items-center gap-2">❤️ Meus Favoritos</span>
-              <span class="bg-[#A0522D]/10 text-[#A0522D] text-[10px] font-bold px-2 py-0.5 rounded-full">
-                {{ favoritesCount }}
-              </span>
-            </RouterLink>
-            <RouterLink to="/meus-pedidos" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
-              📦 Meus Pedidos
-                </RouterLink>
-            <RouterLink to="/sobre" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
-              ℹ️ Sobre Nós
+          <div v-else class="py-2 px-2">
+            <p class="text-xs text-center text-[#7A5C43] mb-2 font-medium">Você não está logado</p>
+            <RouterLink to="/login" @click="isUserOpen = false" class="block text-center w-full bg-[#362212] text-white text-xs py-2 rounded-lg font-bold hover:bg-[#A0522D] transition-colors">
+              Entrar na Conta 🌾
             </RouterLink>
           </div>
 
-          <button @click="logout" class="w-full text-left px-4 py-2.5 text-sm text-red-600 font-bold hover:bg-red-50 transition-colors">
-            Sair
-          </button>
         </div>
 
       </div>
