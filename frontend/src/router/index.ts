@@ -11,6 +11,9 @@ import SobreNos from '../views/SobreNos.vue'
 import Login from '../views/Login.vue'
 import Cadastro from '../views/CadastroUsuario.vue'
 import Estoque from '../views/Estoque.vue'
+import Carrinho from '../views/Carrinho.vue'
+import Checkout from '../views/Checkout.vue';
+import MeusPedidos from '../views/MeusPedidos.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -20,6 +23,26 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage,
+    },
+
+    {
+      path: '/checkout',
+      name: 'Checkout',
+      component: Checkout,
+      meta: 
+      { 
+        requiresAuth: true 
+      }
+    },
+
+    {
+      path: '/meus-pedidos',
+      name: 'MeusPedidos',
+      component: MeusPedidos,
+      meta: 
+      { 
+        requiresAuth: true 
+      } 
     },
 
     {
@@ -47,10 +70,9 @@ const router = createRouter({
       },
     },
 
-    {
-      path: '/carrinho',
-      name: 'carrinho',
-      component: CartItem,
+    { path: '/carrinho', 
+      name: 'carrinho', 
+      component: Carrinho 
     },
 
     {
@@ -108,15 +130,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
-
   const publicPages = ['/login', '/cadastro']
   const isPublic = publicPages.includes(to.path)
-
   if (!isPublic && !token) {
     next('/login')
     return
   }
-
   next()
 })
 

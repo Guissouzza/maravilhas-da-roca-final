@@ -104,7 +104,8 @@ onMounted(async () => {
         <nav class="hidden lg:flex items-center gap-5 text-sm font-bold text-[#7A5C43] shrink-0">
           <RouterLink to="/" class="hover:text-[#362212] transition-colors"> Início </RouterLink>
           <RouterLink to="/catalogo" class="hover:text-[#362212] transition-colors"> Catálogo </RouterLink>
-          <RouterLink to="/pedidos" class="hover:text-[#362212] transition-colors"> Meus Pedidos </RouterLink>
+          <!-- Link corrigido abaixo: de /pedidos para /meus-pedidos -->
+          <RouterLink to="/meus-pedidos" class="hover:text-[#362212] transition-colors"> Meus Pedidos </RouterLink>
           <RouterLink to="/sobre" class="hover:text-[#362212] transition-colors"> Sobre </RouterLink>
         </nav>
 
@@ -151,7 +152,7 @@ onMounted(async () => {
                 {{ favoritesCount }}
               </span>
             </RouterLink>
-            <RouterLink to="/pedidos" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
+            <RouterLink to="/meus-pedidos" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">
               📦 Meus Pedidos
                 </RouterLink>
             <RouterLink to="/sobre" @click="isUserOpen = false" class="flex items-center gap-2 px-4 py-2 text-sm text-[#7A5C43] hover:bg-[#FAF6EE] hover:text-[#362212] transition-colors font-medium">

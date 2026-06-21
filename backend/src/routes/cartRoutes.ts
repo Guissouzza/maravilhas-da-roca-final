@@ -19,10 +19,10 @@ cartRoutes.post('/add', addToCart)
 // 📦 pegar carrinho do usuário logado
 cartRoutes.get('/', getCart)
 
-// 🔁 atualizar quantidade
-cartRoutes.put('/item', updateCartItem)
+// 🔁 atualizar quantidade (⚠️ MUDOU DE '/item' PARA '/update')
+cartRoutes.put('/update', updateCartItem)
 
-// ❌ remover item
-cartRoutes.delete('/item', removeItemFromCart)
+// ❌ remover item (⚠️ MUDOU DE '/item' PARA '/remove/:id')
+cartRoutes.delete('/remove/:id', removeItemFromCart)
 
 export default cartRoutes

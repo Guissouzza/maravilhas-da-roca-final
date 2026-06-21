@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getCart } from "../services/cartService";
+import { getCart, updateCartItem, removeItemFromCart } from "../services/cartService";
 import { getProducts } from "../services/productService"; // <-- Importação do novo serviço
 import {
   getFavorites,
@@ -26,6 +26,7 @@ interface Product {
 export const useShopStore = defineStore("shop", {
   state: () => ({
     products: [] as Product[], // Store agora gerencia a lista global de produtos
+    cartItems: [] as any[],
     cartCount: 0,
     favorites: [] as Favorite[],
     searchQuery: "",
@@ -143,16 +144,44 @@ export const useShopStore = defineStore("shop", {
 
       try {
         const response = await getCart();
-        this.cartCount = (response?.data?.items || []).reduce(
-          (total: number, item: any) =>
-            total + Number(item.Quantidade || item.quantidade || 0),
-          0,
-        );
+        const items = response?.data?.items || response?.items || response?.data || [];
+
+        // Mapeia os dados garantindo que os nomes das colunas batam com o CartItem.vue
+        this.cartItems = items.map((i: any) => ({
+          id: i.ProCodigo || i.id || i.product_id,
+          nome: i.ProNome || i.name || "Produto",
+          preco: Number(i.ProPreco || i.price || 0),
+          quantidade: Number(i.Quantidade || i.quantity || 0),
+          imagem: i.ProImagem || i.image
+        }));
+
+        // 🔥 ATUALIZA O CONTADOR DO CABEÇALHO:
+        this.cartCount = this.cartItems.reduce((total, item) => total + item.quantidade, 0);
+        
       } catch (error) {
         console.error("Erro ao carregar carrinho:", error);
-        this.cartCount = 0;
       } finally {
         this.isLoadingCart = false;
+      }
+    },
+
+    // ➕ AÇÃO PARA MUDAR QUANTIDADE (+ e -)
+    async updateQuantity(productId: number, quantity: number) {
+      try {
+        await updateCartItem(productId, quantity);
+        await this.loadCart(); // Recarrega para atualizar contador e lista
+      } catch (error) {
+        console.error("Erro ao atualizar quantidade:", error);
+      }
+    },
+
+    // ➕ AÇÃO PARA EXCLUIR DO CARRINHO
+    async removeProduct(productId: number) {
+      try {
+        await removeItemFromCart(productId);
+        await this.loadCart(); // Recarrega para atualizar contador e lista
+      } catch (error) {
+        console.error("Erro ao remover produto:", error);
       }
     },
 

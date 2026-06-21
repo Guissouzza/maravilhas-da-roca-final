@@ -8,6 +8,7 @@ import productRoutes from './src/routes/productRoutes';
 import userRoutes from './src/routes/userRoutes';
 import favoritosRoutes from './src/routes/favoritosRoutes';
 import cartRoutes from './src/routes/cartRoutes'
+import orderRoutes from './src/routes/orderRoutes';
 
 // 🔐 ADICIONADO (AUTH)
 import authRoutes from './src/routes/authRoutes'
@@ -27,6 +28,7 @@ app.use('/usuarios', userRoutes)
 // 🔐 PROTEGIDO
 app.use(authMiddleware)
 
+app.use('/pedidos', orderRoutes);
 app.use('/cart', cartRoutes)
 app.use('/favoritos', favoritosRoutes)
 

@@ -61,16 +61,19 @@ export const updateCartItem = async (req: Request, res: Response) => {
 // ❌ remover item
 export const removeItemFromCart = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id
-    const { product_id } = req.body
+    const userId = req.user.id;
+    
+    // 🔥 MUDANÇA AQUI: Pega o ID da URL (params) em vez do body
+    const product_id = req.params.id; 
 
-    const result = await removeItemService(userId, product_id)
+    // O restante continua igualzinho!
+    const result = await removeItemService(userId, product_id);
 
-    return res.status(200).json(result)
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({
       message: 'Erro ao remover item do carrinho',
       error
-    })
+    });
   }
 }

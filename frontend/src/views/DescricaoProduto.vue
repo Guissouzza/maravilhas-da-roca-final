@@ -21,7 +21,7 @@ const product = computed(() => {
 
 // Lógica de adicionar ao carrinho (igual à do catálogo)
 const addProductToCart = async () => {
-  if (!product.computed) return;
+  if (!product.value) return;
   try {
     await addToCart(Number(product.value?.id), 1);
     shop.addCart(1);
