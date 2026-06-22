@@ -63,11 +63,11 @@ export const removeItemFromCart = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
     
-    // 🔥 MUDANÇA AQUI: Pega o ID da URL (params) em vez do body
-    const product_id = req.params.id; 
+    // 🔥 CORREÇÃO: Garante que o ID da URL seja tratado como texto e depois convertido com segurança para número
+    const product_id = Number(req.params.id as string); 
 
-    // O restante continua igualzinho!
-    const result = await removeItemService(userId, product_id);
+    // Agora o TypeScript sabe que 'product_id' é 100% um 'number'
+    const result = await removeItemService(Number(userId), product_id);
 
     return res.status(200).json(result);
   } catch (error) {
