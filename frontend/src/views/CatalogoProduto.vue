@@ -197,13 +197,12 @@ onMounted(() => {
           </div>
 
           <div class="aspect-[4/3] bg-[#FAF6EE] overflow-hidden">
-            <img
-              :src="
-                product.image
-                  ? `/images/${product.image}`
-                  : '/images/default.png'
-              "
-              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+            <img 
+              :src="product.image && (product.image.startsWith('http://') || product.image.startsWith('https://')) 
+                ? product.image 
+                : `http://localhost:3000/uploads/${product.image || 'default.png'}`" 
+              alt="Imagem do produto"
+              class="w-full h-full object-cover"
             />
           </div>
 

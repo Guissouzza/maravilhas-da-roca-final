@@ -159,7 +159,7 @@ onMounted(async () => {
             </div>
 
             <button @click="logout" class="w-full text-left px-4 py-2.5 text-sm text-red-600 font-bold hover:bg-red-50 transition-colors">
-              Sair 👋
+              Sair
             </button>
           </div>
 

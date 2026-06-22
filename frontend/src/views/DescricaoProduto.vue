@@ -83,9 +83,11 @@ onMounted(() => {
         <div class="relative group">
           <div class="aspect-square rounded-[2.5rem] overflow-hidden border border-[#EED9C4]/40 shadow-2xl bg-white">
             <img 
-              :src="product.image ? `/images/${product.image}` : '/images/default.png'" 
-              :alt="product.name"
-              class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+              :src="product.image && (product.image.startsWith('http://') || product.image.startsWith('https://')) 
+                ? product.image 
+                : `http://localhost:3000/uploads/${product.image || 'default.png'}`" 
+              alt="Imagem do produto"
+              class="w-full h-full object-cover"
             />
           </div>
           

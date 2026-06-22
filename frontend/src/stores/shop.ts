@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
+import api from "../services/api";
 import { getCart, updateCartItem, removeItemFromCart } from "../services/cartService";
-import { getProducts } from "../services/productService"; // <-- Importação do novo serviço
+import { getProducts } from "../services/productService"; 
 import {
   getFavorites,
   addToFavorites,
@@ -21,18 +22,34 @@ interface Product {
   category?: string;
   procategoria?: string;
   ProCategoria?: string;
+  stock?: number;
+}
+
+// 📦 Interface para guiar a estrutura visual dos pedidos
+interface Order {
+  id: number;
+  usuario_id: number;
+  tipo: string;
+  status: string;
+  total: number;
+  nome_cliente: string;
+  telefone_cliente: string;
+  data_criacao: string;
 }
 
 export const useShopStore = defineStore("shop", {
   state: () => ({
-    products: [] as Product[], // Store agora gerencia a lista global de produtos
+    products: [] as Product[], 
     cartItems: [] as any[],
     cartCount: 0,
     favorites: [] as Favorite[],
+    userOrders: [] as Order[], // 📦 Armazena os pedidos do cliente logado
+    adminOrders: [] as Order[], // 👑 Armazena todos os pedidos para a visão do Admin
     searchQuery: "",
     isLoadingCart: false,
     isLoadingFavorites: false,
-    isLoadingProducts: false, // Loading específico para a requisição de produtos
+    isLoadingProducts: false, 
+    isLoadingOrders: false, // Controla o esqueleto/carregamento das listas de pedidos
     selectedCategory: "Todas",
     togglingFavorites: [] as number[],
   }),
@@ -43,16 +60,25 @@ export const useShopStore = defineStore("shop", {
 
   actions: {
     async loadProducts() {
-      // Evita requisições duplicadas se os produtos já existirem ou se houver uma chamada em andamento
-      if (this.products.length > 0) return;
       if (this.isLoadingProducts) return;
-      
       this.isLoadingProducts = true;
 
       try {
         const response = await getProducts();
-        // Segue o padrão do Axios (.data) igual aos seus outros serviços
-        this.products = response?.data || response || [];
+        const rawProducts = response?.data || response || [];
+        
+        this.products = rawProducts.map((p: any) => ({
+          id: p.id !== undefined ? p.id : p.ProCodigo,
+          name: p.name || p.ProNome || "Produto sem nome",
+          description: p.description || p.ProDesc || "",
+          price: Number(p.price !== undefined ? p.price : (p.ProPreco || 0)),
+          image: p.image || p.ProImagem || "default.png",
+          category: p.category || p.procategoria || p.ProCategoria || "Artesanais",
+          ProCategoria: p.category || p.ProCategoria || "Artesanais",
+          stock: p.stock !== undefined ? Number(p.stock) : Number(p.ProEstoque || 0),
+          ProEstoque: p.stock !== undefined ? Number(p.stock) : Number(p.ProEstoque || 0)
+        }));
+
       } catch (error) {
         console.error("Erro ao carregar produtos:", error);
         this.products = [];
@@ -73,6 +99,8 @@ export const useShopStore = defineStore("shop", {
       this.products = [];
       this.cartCount = 0;
       this.favorites = [];
+      this.userOrders = [];
+      this.adminOrders = [];
       this.searchQuery = "";
       this.selectedCategory = "Todas";
       this.togglingFavorites = [];
@@ -89,31 +117,21 @@ export const useShopStore = defineStore("shop", {
           (f) => Number(f.ProCodigo) === id,
         );
 
-        // =========================
-        // REMOVE
-        // =========================
         if (index !== -1) {
           const removed = this.favorites[index];
           this.favorites.splice(index, 1);
-
           const favId = Number(removed.FavCodigo);
-
           await removeFromFavorites(favId);
           return;
         }
 
-        // =========================
-        // ADD (optimistic)
-        // =========================
         const temp: Favorite = {
           FavCodigo: Date.now(),
           ProCodigo: id,
         };
 
         this.favorites.push(temp);
-
         const response = await addToFavorites(id);
-
         const raw = response?.data || response;
         const realId = Number(raw?.FavCodigo || raw?.favCodigo || raw?.id);
 
@@ -121,15 +139,10 @@ export const useShopStore = defineStore("shop", {
           const item = this.favorites.find(
             (f) => Number(f.ProCodigo) === id && f.FavCodigo === temp.FavCodigo,
           );
-
-          if (item) {
-            item.FavCodigo = realId;
-          }
+          if (item) item.FavCodigo = realId;
         }
       } catch (error) {
         console.error("Erro ao alternar favorito:", error);
-
-        // rollback seguro
         this.favorites = this.favorites.filter(
           (f) => Number(f.ProCodigo) !== id,
         );
@@ -146,16 +159,14 @@ export const useShopStore = defineStore("shop", {
         const response = await getCart();
         const items = response?.data?.items || response?.items || response?.data || [];
 
-        // Mapeia os dados garantindo que os nomes das colunas batam com o CartItem.vue
         this.cartItems = items.map((i: any) => ({
-          id: i.ProCodigo || i.id || i.product_id,
-          nome: i.ProNome || i.name || "Produto",
-          preco: Number(i.ProPreco || i.price || 0),
-          quantidade: Number(i.Quantidade || i.quantity || 0),
-          imagem: i.ProImagem || i.image
+          id: i.id || i.ProCodigo || i.product_id,
+          nome: i.name || i.ProNome || "Produto",
+          preco: Number(i.price !== undefined ? i.price : (i.ProPreco || i.preco || 0)),
+          quantidade: Number(i.quantity !== undefined ? i.quantity : (i.Quantidade || i.quantidade || 0)),
+          imagem: i.image || i.ProImagem || i.imagem || "default.png"
         }));
 
-        // 🔥 ATUALIZA O CONTADOR DO CABEÇALHO:
         this.cartCount = this.cartItems.reduce((total, item) => total + item.quantidade, 0);
         
       } catch (error) {
@@ -165,23 +176,30 @@ export const useShopStore = defineStore("shop", {
       }
     },
 
-    // ➕ AÇÃO PARA MUDAR QUANTIDADE (+ e -)
     async updateQuantity(productId: number, quantity: number) {
+      const item = this.cartItems.find(i => Number(i.id) === Number(productId));
+      if (item) {
+        item.quantidade = quantity;
+        this.cartCount = this.cartItems.reduce((total, i) => total + i.quantidade, 0);
+      }
+
       try {
         await updateCartItem(productId, quantity);
-        await this.loadCart(); // Recarrega para atualizar contador e lista
       } catch (error) {
-        console.error("Erro ao atualizar quantidade:", error);
+        console.error("Erro ao atualizar quantidade no servidor, revertendo...", error);
+        await this.loadCart(); 
       }
     },
 
-    // ➕ AÇÃO PARA EXCLUIR DO CARRINHO
     async removeProduct(productId: number) {
+      this.cartItems = this.cartItems.filter(i => Number(i.id) !== Number(productId));
+      this.cartCount = this.cartItems.reduce((total, i) => total + i.quantidade, 0);
+
       try {
         await removeItemFromCart(productId);
-        await this.loadCart(); // Recarrega para atualizar contador e lista
       } catch (error) {
-        console.error("Erro ao remover produto:", error);
+        console.error("Erro ao remover produto no servidor, revertendo...", error);
+        await this.loadCart(); 
       }
     },
 
@@ -193,7 +211,6 @@ export const useShopStore = defineStore("shop", {
         const response = await getFavorites();
         const rawList = response?.data || response || [];
 
-        // Normaliza as propriedades vindas do back-end
         this.favorites = rawList.map((item: any) => ({
           FavCodigo: Number(item.FavCodigo || item.favCodigo || item.id),
           ProCodigo: Number(item.ProCodigo || item.proCodigo || item.productId),
@@ -205,5 +222,60 @@ export const useShopStore = defineStore("shop", {
         this.isLoadingFavorites = false;
       }
     },
+
+   // =========================================================
+    // 📦 GESTÃO DE PEDIDOS (INTEGRAÇÃO COM AIVEN)
+    // =========================================================
+
+    // 1️⃣ CARREGAR PEDIDOS DO CLIENTE LOGADO
+    async loadUserOrders() {
+      this.isLoadingOrders = true;
+      try {
+        // 🛡️ CORREÇÃO: Usando 'api' e batendo na rota '/pedidos' que está no index.ts do backend
+        const response = await api.get('/pedidos');
+        this.userOrders = response.data || [];
+        return this.userOrders;
+      } catch (error) {
+        console.error("Erro ao carregar os teus pedidos:", error);
+        return [];
+      } finally {
+        this.isLoadingOrders = false;
+      }
+    },
+
+    // 2️⃣ KING/ADMIN: CARREGAR TODOS OS PEDIDOS DA LOJA
+    async loadAllOrdersAdmin() {
+      this.isLoadingOrders = true;
+      try {
+        // 🛡️ CORREÇÃO: Usando 'api' e batendo na rota '/pedidos/admin' (ou a rota admin configurada no orderRoutes)
+        const response = await api.get('/pedidos/admin');
+        this.adminOrders = response.data || [];
+        return this.adminOrders;
+      } catch (error) {
+        console.error("Erro ao carregar todos os pedidos (Admin):", error);
+        return [];
+      } finally {
+        this.isLoadingOrders = false;
+      }
+    },
+
+    // 3️⃣ KING/ADMIN: ATUALIZAR O STATUS DE UM PEDIDO DE FORMA OTIMISTA 🚀
+    async updateOrderStatus(pedidoId: number, novoStatus: string) {
+      const order = this.adminOrders.find(o => o.id === pedidoId);
+      if (order) order.status = novoStatus;
+
+      try {
+        // 🛡️ CORREÇÃO: Usando 'api' e batendo na rota '/pedidos/admin/:id/status'
+        const response = await api.put(`/pedidos/admin/${pedidoId}/status`, {
+          status: novoStatus
+        });
+        
+        return response.data;
+      } catch (error) {
+        console.error("Erro ao atualizar estado do pedido no servidor, revertendo...", error);
+        await this.loadAllOrdersAdmin(); // Desfaz se houver queda ou erro
+        throw error;
+      }
+    }
   },
 });

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import { useShopStore } from "../stores/shop";
+import { useShopStore } from "../../stores/shop"; // Ajustado o caminho relativo comum para subpastas admin
+import api from "../../services/api"; // Injeta a nossa instância inteligente do Axios
 
 // Mantém o padrão de tipos estritos do seu projeto
 interface InventoryItem {
@@ -17,14 +18,13 @@ const shop = useShopStore();
 const products = ref<InventoryItem[]>([]);
 const loading = ref(true);
 
-// Reutiliza o campo shop.searchQuery global para filtrar o estoque se o produtor quiser digitar no Header
-// E também adiciona um filtro local por categoria
+// Filtro local por categoria
 const selectedCategory = ref("Todos");
 
 const filteredInventory = computed(() => {
   let list = products.value;
 
-  // Filtro por busca de texto (mesma lógica tratada com trim)
+  // Filtro por busca de texto global vindo do Header
   const query = shop.searchQuery.trim().toLowerCase();
   if (query) {
     list = list.filter((p) => p.name.toLowerCase().includes(query));
@@ -45,25 +45,57 @@ const totalStockValue = computed(() => {
   return products.value.reduce((total, p) => total + (Number(p.price) * Number(p.stock)), 0);
 });
 
-// Mock/Fetch respeitando a mesma rota que você usou na Home
+// Função para atualizar o estoque na hora (+ ou -) direto no Banco/Tela
+const alterarEstoque = async (item: InventoryItem, quantidadeAlterar: number) => {
+  const novoEstoque = item.stock + quantidadeAlterar;
+  
+  if (novoEstoque < 0) return; // Impede estoque negativo
+
+  // 1. Atualiza visualmente na hora para feedback instantâneo
+  const estoqueAntigo = item.stock;
+  item.stock = novoEstoque;
+
+  try {
+    // 2. CORRIGIDO: Agora chama a rota real existente no backend (/products/:id)
+    // Como a rota espera o formato Multipart/FormData para produtos, ou lê o JSON do update se estiver usando req.body puro:
+    await api.put(`/products/${item.id}`, {
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      category: item.category,
+      image: item.image,
+      stock: novoEstoque // 👈 Enviando o estoque atualizado
+    });
+    
+    console.log(`Estoque de "${item.name}" atualizado para ${novoEstoque} com sucesso.`);
+  } catch (error) {
+    console.error("Erro ao salvar o estoque no banco, revertendo alteração local...", error);
+    item.stock = estoqueAntigo; // Se o banco falhar por algum motivo, ele desfaz na tela
+    alert("Não foi possível salvar a alteração de estoque no servidor.");
+  }
+};
+
+// Carregar os dados usando a nossa instância inteligente do Axios
 onMounted(async () => {
   try {
-    const res = await fetch("http://localhost:3000/products");
-    if (!res.ok) throw new Error("Falha na resposta do servidor");
-    const data = await res.json();
+    // Busca da rota correta em inglês
+    const res = await api.get("/products");
+    const data = res.data;
     
-    // Mapeia garantindo tipos e inserindo um stock fictício caso a API não envie
+    // CORRIGIDO: Modificado de 'produtos.value' para 'products.value'
     products.value = data.map((item: any) => ({
       id: Number(item.id),
       name: item.name,
       description: item.description || "",
       price: Number(item.price || 0),
       image: item.image || "",
-      stock: item.stock !== undefined ? Number(item.stock) : Math.floor(Math.random() * 25), // Fallback seguro
+      stock: item.stock !== undefined ? Number(item.stock) : 0, 
       category: item.category || "Artesanais"
     }));
   } catch (error) {
-    console.error("Erro ao carregar estoque:", error);
+    console.error("Erro real ao conectar com o banco de dados:", error);
+    alert("Não foi possível carregar os produtos do banco de dados.");
+    products.value = []; // CORRIGIDO: de 'produtos.value' para 'products.value'
   } finally {
     loading.value = false;
   }
@@ -76,9 +108,6 @@ onMounted(async () => {
     <section class="max-w-7xl mx-auto px-4 pt-10 pb-6">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-[#EED9C4]/60 pb-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EED9C4]/50 border border-[#D9B48F]/40 text-[11px] font-black uppercase tracking-widest text-[#A0522D] mb-3">
-            ⚙️ Painel de Controle de Lotes
-          </div>
           <h1 class="text-3xl font-serif font-black text-[#362212]">
             Gestão do Estoque Central
           </h1>
@@ -94,7 +123,7 @@ onMounted(async () => {
             @click="selectedCategory = cat"
             :class="[
               selectedCategory === cat 
-                ? 'bg-[#A0522D] text-white' 
+                ? 'bg-[#362212] text-white' 
                 : 'bg-white text-[#4A3728] border border-[#EED9C4] hover:bg-[#FAF6EE]'
             ]"
             class="px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap"
@@ -128,7 +157,7 @@ onMounted(async () => {
           <div class="w-12 h-12 rounded-xl bg-[#FAF6EE] border border-[#EED9C4] flex items-center justify-center text-xl">💰</div>
           <div>
             <p class="text-xs font-bold uppercase tracking-wider text-[#7A5C43]/70">Valor Total em Cesta</p>
-            <p class="text-2xl font-black text-[#362212]">R$ {{ totalStockValue.toFixed(2) }}</p>
+            <p class="text-2xl font-black text-[#362212]">R$ {{ totalStockValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) }}</p>
           </div>
         </div>
 
@@ -148,7 +177,7 @@ onMounted(async () => {
                 <th class="p-5">Produto</th>
                 <th class="p-5">Categoria</th>
                 <th class="p-5">Preço Unitário</th>
-                <th class="p-5">Quantidade</th>
+                <th class="p-5 text-center">Controle de Quantidade</th>
                 <th class="p-5">Status</th>
               </tr>
             </thead>
@@ -156,13 +185,13 @@ onMounted(async () => {
               <tr v-for="item in filteredInventory" :key="item.id" class="hover:bg-[#FAF6EE]/40 transition">
                 
                 <td class="p-5 flex items-center gap-4">
-                  <div class="w-12 h-12 rounded-xl bg-[#FAF6EE] border border-[#EED9C4]/40 overflow-hidden shrink-0">
+                  <div class="w-12 h-12 rounded-xl bg-[#FAF6EE] border border-[#EED9C4]/40 overflow-hidden shrink-0 flex items-center justify-center">
                     <img 
-                      :src="produto.image && (produto.image.startsWith('http://') || produto.image.startsWith('https://')) 
-                        ? produto.image 
-                        : `http://localhost:3000/uploads/${produto.image || 'default.png'}`" 
+                      :src="item.image && (item.image.startsWith('http://') || item.image.startsWith('https://')) 
+                        ? item.image 
+                        : `http://localhost:3000/uploads/${item.image || 'default.png'}`" 
                       alt="Imagem do produto"
-                      class="w-full h-full object-cover"
+                      class="w-10 h-10 object-cover rounded"
                     />
                   </div>
                   <div>
@@ -179,18 +208,37 @@ onMounted(async () => {
                   R$ {{ item.price.toFixed(2) }}
                 </td>
 
-                <td class="p-5 font-black text-base" :class="item.stock <= 5 ? 'text-red-600' : 'text-[#362212]'">
-                  {{ item.stock }} <span class="text-xs font-normal text-[#7A5C43]">un.</span>
+                <td class="p-5">
+                  <div class="flex items-center justify-center gap-3 bg-[#FAF6EE] border border-[#EED9C4]/50 p-1.5 rounded-xl max-w-[140px] mx-auto shadow-sm">
+                    <button 
+                      @click="alterarEstoque(item, -1)" 
+                      :disabled="item.stock <= 0"
+                      class="w-7 h-7 flex items-center justify-center rounded-lg bg-white border border-[#EED9C4] hover:bg-red-50 text-red-600 font-bold text-sm transition disabled:opacity-30 disabled:hover:bg-white"
+                    >
+                      -
+                    </button>
+                    
+                    <span class="font-black text-sm min-w-[28px] text-center" :class="item.stock <= 5 ? 'text-red-600' : 'text-[#362212]'">
+                      {{ item.stock }}
+                    </span>
+                    
+                    <button 
+                      @click="alterarEstoque(item, 1)" 
+                      class="w-7 h-7 flex items-center justify-center rounded-lg bg-white border border-[#EED9C4] hover:bg-green-50 text-green-600 font-bold text-sm transition"
+                    >
+                      +
+                    </button>
+                  </div>
                 </td>
 
                 <td class="p-5">
-                  <span v-if="item.stock === 0" class="inline-block px-2.5 py-1 rounded-full text-[10px] font-black bg-red-100 text-red-700 uppercase">
+                  <span v-if="item.stock === 0" class="inline-block px-2.5 py-1 rounded-full text-[10px] font-black bg-red-100 text-red-700 uppercase tracking-wider border border-red-200">
                     Esgotado
                   </span>
-                  <span v-else-if="item.stock <= 5" class="inline-block px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 uppercase">
+                  <span v-else-if="item.stock <= 5" class="inline-block px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 uppercase tracking-wider border border-amber-200">
                     Repor Urgente
                   </span>
-                  <span v-else class="inline-block px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 uppercase">
+                  <span v-else class="inline-block px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 uppercase tracking-wider border border-emerald-200">
                     Estável
                   </span>
                 </td>

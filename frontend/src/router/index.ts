@@ -16,10 +16,9 @@ import Checkout from '../views/Checkout.vue'
 import MeusPedidos from '../views/MeusPedidos.vue'
 
 // Importações do Admin
-import AdminProdutos from '../views/admin/AdminProdutos.vue'
-import AdminEstoque from '../views/admin/AdminEstoque.vue'
-import AdminPedidos from '../views/admin/AdminPedidos.vue'
-import AdminVendas from '../views/admin/AdminVendas.vue'
+import AdminProdutos from '../views/admin/Produtos.vue'
+import AdminEstoque from '../views/admin/Estoque.vue'
+import AdminPedidos from '../views/admin/Pedidos.vue'
 
 const routes = [
   {
@@ -126,13 +125,6 @@ const routes = [
     path: '/admin/pedidos',
     name: 'admin-pedidos',
     component: AdminPedidos,
-    meta: { requiresAdmin: true }
-  },
-
-  {
-    path: '/admin/vendas',
-    name: 'admin-vendas',
-    component: AdminVendas,
     meta: { requiresAdmin: true }
   },
 ]

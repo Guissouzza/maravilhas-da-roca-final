@@ -29,7 +29,13 @@ function disminuir() {
   <div class="bg-white p-6 rounded-2xl border border-gray-100 flex gap-6 relative shadow-sm w-full max-w-4xl mb-4">
     <!-- IMAGEM -->
     <div class="w-36 h-36 bg-gray-100 border-2 border-[#C5A880] rounded-xl flex items-center justify-center shrink-0">
-      <img :src="item.imagem ? `/images/${item.imagem}` : '/images/default.png'" class="w-full h-full object-cover rounded-lg" />
+      <img 
+        :src="item.imagem && (item.imagem.startsWith('http://') || item.imagem.startsWith('https://')) 
+          ? item.imagem 
+          : `http://localhost:3000/uploads/${item.imagem || 'default.png'}`" 
+        alt="Imagem do produto"
+        class="w-full h-full object-cover"
+      />
     </div>
 
     <!-- INFO -->

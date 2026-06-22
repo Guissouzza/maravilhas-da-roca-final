@@ -186,7 +186,13 @@ const finalizarCompra = async () => {
             <div v-for="item in shop.cartItems" :key="item.id" class="flex justify-between items-center bg-[#4A3728] p-3 rounded-xl">
               <div class="flex items-center gap-3">
                 <div class="w-12 h-12 bg-white/10 rounded-lg overflow-hidden shrink-0">
-                  <img :src="item.imagem ? `/images/${item.imagem}` : '/images/default.png'" class="w-full h-full object-cover">
+                  <img 
+                    :src="item.imagem && (item.imagem.startsWith('http://') || item.imagem.startsWith('https://')) 
+                      ? item.imagem 
+                      : `http://localhost:3000/uploads/${item.imagem || 'default.png'}`" 
+                    alt="Imagem do produto"
+                    class="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <p class="font-bold text-sm line-clamp-1">{{ item.nome }}</p>

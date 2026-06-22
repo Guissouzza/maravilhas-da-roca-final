@@ -14,7 +14,8 @@ export const getAllProducts = async (
       description: prod.ProDesc,
       price: Number(prod.ProPreco),
       image: prod.ProImagem,
-      category: prod.ProCategoria
+      category: prod.ProCategoria,
+      stock: Number(prod.ProEstoque || 0) // 🛑 CORRIGIDO: Agora o estoque é repassado para o frontend!
     }))
 
     return res.json(formatted)
@@ -41,7 +42,8 @@ export const getProductById = async (
       description: prod.ProDesc,
       price: Number(prod.ProPreco),
       image: prod.ProImagem,
-      category: prod.ProCategoria
+      category: prod.ProCategoria,
+      stock: Number(prod.ProEstoque || 0) // 🛑 CORRIGIDO: Adicionado aqui também!
     })
   } catch (error) {
     return res.status(500).json({ error: 'Erro interno' })
@@ -53,42 +55,41 @@ export const createProduct = async (
   res: Response
 ): Promise<Response> => {
   try {
-    // Adicionado 'category' vindo do corpo da requisição
-    const { name, description, price, image, category = '' } = req.body
+    const { name, description, price, category = '', stock = 0 } = req.body;
+    const image = req.file ? req.file.filename : (req.body.image || 'default.png');
     
-    // Agora enviamos todos os 5 argumentos que o seu service espera
-    const id = await productService.create(name, description, price, image, category)
+    const id = await productService.create(name, description, Number(price), image, category, Number(stock));
 
     return res.status(201).json({
       message: 'Produto criado com sucesso!',
       id
-    })
-  } catch (error) {
-    return res.status(500).json({ error: 'Erro ao criar produto' })
+    });
+  } catch (error: any) {
+    console.error('--- ERRO DETALHADO DO BANCO ---', error);
+    return res.status(500).json({ error: 'Erro ao criar produto', detalhe: error.message });
   }
-}
+};
 
 export const updateProduct = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
   try {
-    const id = Number(req.params.id)
-    // Adicionado 'category' vindo do corpo da requisição
-    const { name, description, price, image, category = '' } = req.body
+    const id = Number(req.params.id);
+    const { name, description, price, category = '', stock = 0 } = req.body;
+    const image = req.file ? req.file.filename : req.body.image;
 
-    // Agora enviamos todos os 6 argumentos que o seu service espera
-    const affected = await productService.update(id, name, description, price, image, category)
+    const affected = await productService.update(id, name, description, Number(price), image, category, Number(stock));
 
     if (affected === 0) {
-      return res.status(404).json({ error: 'Produto não encontrado' })
+      return res.status(404).json({ error: 'Produto não encontrado' });
     }
 
-    return res.json({ message: 'Produto atualizado com sucesso' })
+    return res.json({ message: 'Produto updated com sucesso' });
   } catch (error) {
-    return res.status(500).json({ error: 'Erro ao atualizar produto' })
+    return res.status(500).json({ error: 'Erro ao atualizar produto' });
   }
-}
+};
 
 export const deleteProduct = async (
   req: Request,
