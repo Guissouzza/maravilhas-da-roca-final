@@ -35,10 +35,17 @@ const filteredProducts = computed(() => {
 
 const addProductToCart = async (product: Product) => {
   const p = product as any;
-  const estoqueVindo = p.ProEstoque !== undefined ? p.ProEstoque : (p.stock !== undefined ? p.stock : p.estoque);
+  const estoqueVindo =
+    p.ProEstoque !== undefined
+      ? p.ProEstoque
+      : p.stock !== undefined
+        ? p.stock
+        : p.estoque;
 
   if (estoqueVindo !== undefined && estoqueVindo <= 0) {
-    alert(`Desculpe! O produto "${product.name}" está temporariamente esgotado. 🌾`);
+    alert(
+      `Desculpe! O produto "${product.name}" está temporariamente esgotado. 🌾`,
+    );
     return;
   }
 
@@ -104,9 +111,11 @@ onMounted(() => {
       </p>
     </section>
 
-    <section class="max-w-4xl mx-auto px-4 mb-12 sm:mb-16 select-none">
+    <section
+      class="w-full max-w-7xl mx-auto px-2 sm:px-4 mb-8 sm:mb-12 select-none"
+    >
       <div
-        class="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 overflow-x-auto py-2 scrollbar-none snap-x"
+        class="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 sm:gap-3 overflow-visible sm:overflow-x-auto py-2 scrollbar-none"
       >
         <button
           v-for="category in categories"
@@ -176,7 +185,10 @@ onMounted(() => {
 
             <button
               @click="addProductToCart(product)"
-              :class="{ 'opacity-40 cursor-not-allowed': (product.ProEstoque !== undefined && product.ProEstoque <= 0) }"
+              :class="{
+                'opacity-40 cursor-not-allowed':
+                  product.ProEstoque !== undefined && product.ProEstoque <= 0,
+              }"
               class="w-7 h-7 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-white/95 border border-[#EED9C4] hover:border-[#A0522D] transition shadow-sm"
             >
               <svg
@@ -197,10 +209,14 @@ onMounted(() => {
           </div>
 
           <div class="aspect-[4/3] bg-[#FAF6EE] overflow-hidden">
-            <img 
-              :src="product.image && (product.image.startsWith('http://') || product.image.startsWith('https://')) 
-                ? product.image 
-                : `http://localhost:3000/uploads/${product.image || 'default.png'}`" 
+            <img
+              :src="
+                product.image &&
+                (product.image.startsWith('http://') ||
+                  product.image.startsWith('https://'))
+                  ? product.image
+                  : `http://localhost:3000/uploads/${product.image || 'default.png'}`
+              "
               alt="Imagem do produto"
               class="w-full h-full object-cover"
             />
